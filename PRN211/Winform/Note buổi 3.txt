@@ -1,0 +1,16 @@
+I. Button là gì?
+- Là một nút bấm, cở bản cũng khá giống label
+II. Các thuộc tính với button.
+- FlatStyle: Style cho button, nó có riêng phần FlatAppearance để setting.
+	+ BorderSize: Kích thước border
+	+ MouseDown...: Ấn vào button màu gì
+	+ MouseOver...: Rê chuột ngang qua button màu gì.
+- Tạo 1 event cho button bằng code:
+	+ btn.Click+=btn_Click;
+	=>Event này tên là btn_Click, viết code cho event
+=> void btn_Click(object sender, EventArgs e){
+//sender là người gửi event chính là thằng button nên ta có thể ép kiểu sender về button
+Button btn = sender as Button;
+MessageBox.Show(btn.Text);
+}
+

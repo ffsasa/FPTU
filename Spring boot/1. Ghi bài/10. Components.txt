@@ -1,0 +1,79 @@
+I. Beans là gì?
+- Beans là các đối tượng được tạo ra và quản lý bới Spring
+- Được cấu hình bởi Annotation hoặc java code
+- Trước class ta đặt Annotation: @Components -> Thằng Spring sẽ quét toàn bộ class trong package đó xem thằng nào là @Components thì nó sẽ hiểu đó là 1 Beans.
+- 1 Beans là 1 đối tượng sẽ được injection khi được yêu cầu injection vào 1 cái phụ thuộc.
+
+II. Component
+1. Làm sao Spring biết đó là 1 Component
+- Spring sẽ quét tất cả các class đã được đánh dấu Annotation: @Component. 
+- Các class này sẽ được đánh dấu và đăng ký thành các Beans trong Spring.
+
+-----------------------------------------------------
+
+III. Annotation: @SpringBootApplication (ở class để run project)
+
+- Nó sẽ định nghĩa đây chính là 1 chương trình Spring Boot. Là 1 Spring Boot App.
+- Nếu không sử dụng @SpringBootApplication thì cần 3 Annotation khác: @EnableAutoConfiguration, @ComponentScan, @Configuration.
+
+1. @EnableAutoConfiguration
+- Nó sẽ quét các classpath để tìm các dependency và cấu hình tự động để Spring Boot App có thể phù hợp với dependency đó.
+
+2. @ComponentScan
+- Nó sẽ quét tất cả các class trong cùng package chứa Annotation này hoặc @SpringBootApplication. Để tìm xem những class nào được đánh dấu là Component và đặt nó là các Beans để quản lý.
+
+3. @Configuration
+- Class được đánh dấu bằng @Configuration trong Spring thường chứa các cấu hình liên quan đến việc tạo và quản lý các bean. Mục tiêu chính của @Configuration là cung cấp một cách để định nghĩa các bean và các cấu hình liên quan để Spring Container có thể quản lý chúng.
+
+-----------------------------------------------------
+
+IV. Thứ tự quét các thành phần trong Spring
+- @ComponentScan sẽ quét các class nằm trong cùng package với SpringBootApplication.
+- Sau đó nó sẽ quét các package con nằm bên trong package chứa SpringBootApplication.
+- Nó sẽ không quét bên ngoài package chứa SpringBootApplication. Trừ khi cúng ta cấu hình cho nó đi quét.
+
+- Cấu hình để @ComponentScan quét các package bên ngoài, trong @SpringBootApplication ta thêm thông tin các package đó: 
+
+	@SpringBootApplication (
+		scanBasePackages = {"Package1", {Package2},...}
+	) 
+	=> Package1 phải là đường link đầy đủ từ thư mục gốc java đến Package chúng ta cần quét.
+
+---------------------------------------------------------
+
+V. Một vài Annotation cấu hình cho @Component
+1. @Qualifire
+- Ta đã từng giả xử có nhiều class implement 1 interface, và sau đó gọi API. Lúc này chúng ta có nhiều constructor, và Spring sẽ k biết phải gọi constructor nào.
+- Ví dụ: MessageInterface có Zalo và Email, thì sẽ có 2 constructor để injection Zalo và Email. Nhưng đến khi gọi API /send-message thì nó k biết nên dùng constructor nào?
+=> Sử dụng @Qualifier.
+- Ví dụ: public MyService(@Qualifier("myDependencyA") MyDependency myDependency) {
+		this.myDependency = myDependency;
+	}
+
+2. @Primary
+- Giống với @Qualifier, nó được sử dụng trong trường hợp ta @Autowired 1 interface và cần xác định rõ @Component nào sẽ được injection.
+- Ta đặt @Primary bên dưới @Component thì khi injection nếu ta không xác định rõ @Component nào được injection nó sẽ tự động chọn thằng có @Primary
+
+3. @Lazy - Lazy Initialization - Khởi tạo lười biếng
+a. Khái niệm:
+- Khởi tạo từ từ, khi nào sử dụng tới mới sử dụng đối tượng này.
+- Giống với @Component thì @Lazy cũng là 1 loại Bean, được sử dụng để Injection vào 1 @Autowired.
+- Nhưng @Component là 1 Bean sẽ được tạo ngay khi run dự án. Nếu có quá nhiều @Component -> Dự án chạy sẽ bị chậm.
+- @Lazy là Bean được tạo ra khi: 	
+	+ Nó cần để tiêm vào phụ thuộc
+	+ 1 yêu cầu cụ thể
+
+b. Cách dùng
+- Cách 1: Thêm @Lazy vào từng class. Bên dưới @Component => Class nào được thêm thì sẽ được coi là 1 Bean Lazy
+
+- Cách 2: Cấu hình cho toàn bộ dự án ở application.properties: spring.main.lazy-initialization=true. => Tất cả các Bean đều Lazy.
+
+c. Lợi ích
+- Tiết kiệm tài nguyên hệ thống
+- Tăng tốc độ khởi động ứng dụng
+- Hỗ trợ quản lý trạng thái
+- Hỗ trợ tải chậm dữ liệu
+- Tích hợp tốt các quyền kiểm soát truy cập
+
+d. Khuyết điểm
+- Vì chỉ khi gọi đến mới tạo đối tượng Lazy, nên chỉ khi gọi đến mới biết nó bị lỗi hay không. Gây ra việc chậm chễ trong phát hiện lỗi.

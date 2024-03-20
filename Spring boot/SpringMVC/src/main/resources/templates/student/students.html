@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h3>Danh sách sinh viên</h3>
+    <hr/>
+    <a th:href="@{/students/create}" class="btn btn-success btn-sm mb-4">Thêm mới</a>
+    <table class="table table-bordered table-striped">
+        <thead class="table-info">
+        <tr>
+            <td>
+                ID
+            </td>
+            <td>
+                Họ đệm
+            </td>
+            <td>
+                Tên
+            </td>
+            <td>
+                Email
+            </td>
+            <td>
+                Xử lý
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.id}"></td>
+            <td th:text="${student.lastName}"></td>
+            <td th:text="${student.firstName}"></td>
+            <td th:text="${student.email}"></td>
+            <td>
+                <a th:href="@{/students/update(id=${student.id})}" class="btn btn-info btn-sm">Chỉnh sửa</a>
+
+                <a th:href="@{/students/delete(id=${student.id})}" class="btn btn-danger btn-sm"
+                onclick="return confirm('Bạn có chắc chắn xóa sinh viên này không?')"
+                >Xóa</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+</html>

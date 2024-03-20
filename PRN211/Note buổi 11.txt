@@ -1,0 +1,84 @@
+I. Data type
+- Là tên chung cho rất nhiều object phức tạp{...} ngoài kia, mà đồng dạng, cùng format.
+
+public class Person
+{
+    private string _id;
+    private string _name;
+    private int _yob;
+	....
+}
+
+- Tạo ra dữ liệu(Value) -> Biến đi cùng 1 danh từ riêng(Variable)
+Person an = new Person(...){...};
+
+II. DATA TYPE DỮ LIỆU PHỨC TẠP - LÀ QUÁ TRỜI CÁC LOẠI HÀM
+- Hàm có: Tên hàm, có trả về giá trị không, có đầu vào không,code bên trong hàm,...
+
+void SayHello(){...}
+void NhanEm(){...}
+void TellHer(){...}
+-------------------------
+delegate void X() 
+-> X là tên gọi chung của 1 nhóm hàm đồng dạng về bề ngoài: Không đầu vào, không trả ra.
+- Ngầm trong thể hiện code, X là 1 class, 1 nhóm phức tạp.Giống như 1 class bình thường: Person, Dog, Cat,...
+
+- Ví dụ khi code, tạo một Object là hàm để định nghĩa kiểu Data Type mới.
+public class X [void X()] Delegate             |    public class Person
+{                                              |	{
+    _fName//Tên hàm cần lưu                    |	     Id, Name, Yob,...
+                                               |
+    public X(tên-hàm-muốn-lưu)                 |             public Person(id, name, yob)
+	{                                      |		{
+	    -fName = tên-hàm-muốn-lưu;         |		    Id = id,...
+	}  //Get, Set,...                      |		}
+}                                              |	}
+
+public void Invoke() //Hàm có sẵn khi tạo Delegate X
+{
+    _fName() //tên hàm được lưu trữ vào sẽ được run = cách thêm dấu () để run.
+}
+
+
+=> TUY NHIÊN ĐỐI VỚI DELEGATE TA KHÔNG CẦN VIẾT GIỐNG STYLE CỦA CLASS TRUYỀN THỐNG NHƯ TRÊN.
+-> Chỉ cần 1 dòng: delegate void X(); vì chỉ cần mỗi tên hàm.
+
+III. Xài như thế nào?
+*KHAI BÁO BIẾN > THUỘC DATA TYPE > GÁN VALUE = NEW(...){...}
+X   f = new X(Tên-hàm-cụ-thể-nào-đó);
+    f = new X(SayHello);
+
+- Kể từ nay về sau, cái hàm cụ thể nào đó ví dụ hàm SayHello được gọi là F
+ f(); = SayHello(); = f.Invoke();
+- Hàm SayHello phải được viết trước theo đúng format của X.
+
+IV. DELEGATE CLASS CÓ KHẢ NĂNG LƯU NHIỀU HÀM CÙNG 1 LÚC NEW - MULTICAST DELEGATES
+
+public class X [void X()] Delegate             
+{                                              
+    _fName//Tên hàm cần lưu 
+    List<> Danh sách các tên hàm cùng style                   
+    [] Mảng các tên hàm cùng style
+
+    //TÚY LÚC MÌNH GÁN TÊN HÀM VÀO BIẾN F DELEGATE THÌ SẼ XÀI HÀM ĐƠN, HAY ĐA HÀM CÙNG MỘT LÚC    
+    
+    public X(tên-hàm-muốn-lưu)                 
+	{                                      
+	    -fName = tên-hàm-muốn-lưu;         
+	}  //Get, Set,...                      
+}                                              
+
+public void Invoke() //Hàm có sẵn khi tạo Delegate X
+{
+    _fName() //tên hàm được lưu trữ vào sẽ được run = cách thêm dấu () để run.
+    List<> các hàm được gọi = cách thêm () trên từng tên hàm để run.
+
+	HÀM DẤU += ĐỂ GHÉP THÊM CÁC HÀM VÀO DANH SÁCH ĐẠI DIỆN -> Override các Operator.
+}
+
+================================================
+Bài tập nâng cao:
+- KuKia có 1 hành động riêng là: TakeMessage(message của ai thì đưa vào đây)
+- KuKia vẫn có hành động MeetSweetHeart() => run() 2 message kia
+
+	

@@ -1,0 +1,24 @@
+I. Path Variables là gì?
+- Path variables trong Spring là một cách để trích xuất thông tin từ URL và sử dụng nó như một tham số trong phương thức xử lý một Rest Controller.
+- Thông tin này được chưa trong các đoạn đường dẫn cụ thể được định nghĩa trong @RequestMapping hoặc @GetMapping, @PostMapping,...
+- Ví dụ:
+@GetMapping("/{id}")
+public ResponseEntity<Student>getStudentById(@PathVariable int id)
+
+II. Exception Handler
+1. Khái niệm
+- Annotation: @ExceptionHandler
+- Được sử dụng để xử lý các ngoại lệ trong một RestController hoặc một Controller
+- Khi một ngoại lệ xảy ra trong phương thức xử lý yêu cầu cầu của một RestController, Spring sẽ tìm kiếm phương thức được chú tích bằng @ExceptionHandler để xử lý ngoại lệ đó.
+
+2. Cách sử dụng
+- Tạo riêng 1 class extend RunTimeException -> Đây là đối tượng lỗi, được chúng ta cấu hình. Mỗi khi có lỗi nó sẽ ném ra Exception này chứa nội dung lỗi. (SinhVienException)
+- Những method được đánh dấu là @ExceptionHandler sẽ bắt lấy nữa Exception này. Sau đó lấy thông tin của Exception để in ra màn hình. 
+- Sau khi lấy được thông tin nó sẽ lưu thông tin này vào 1 đối tượng "Thông tin của lỗi" do chúng ta tạo ra. (ErrorResponse<status, message, time>)
+
+III. Xử lý ngoại lệ chung
+- 1 dự án có thể lên đến 100 controller nếu phải vô từng controller và viết @ExceptionHandler để bắt exception là điều không thể. Nên chúng ta sử dụng @ControllerAdvice nhưng một bộ lọc trước khi trả response về cho người dùng.
+- Annotation: @ControllerAdvice - global exception handler cho phép các bạn xử lý các ngoại lệ chung từ các điểm cuộc gọi controller khác nhau.
+- Các bước giống như làm với @ExceptionHandler đặt trong controller chỉ khác ở chỗ nó không đặt trong Controller nữa mà đặt trong Class chung.
+- Đối với @ExceptionHandler được đặt trong 1 controller cụ thể, nếu controller đó ném ra ngoại lệ khớp thì nó sẽ bắt lại và xử lý, còn với @ControllerAdvice đánh dấu 1 class riêng và bất cứ ngoại lệ ở controller nào được ném ra mà khớp nó sẽ bắt luôn.
+	

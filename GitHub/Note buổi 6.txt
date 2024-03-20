@@ -1,0 +1,84 @@
+Thực hành với git/step by step
+1.Tạo 1 project ở local lưu ở 1 folder nào đó
+- Project Name ko nên đặt tên có khoản trắng, kí tự đặt biệt
+
+2.Tạo 1 kho chứa code trên server github/gitlab/bitbucket
+- Tên kho phải giống 100% với tên thư mục chứa code/với project ở local kể cả hoa thường  
+- Kho chứa code tiếng anh gọi là:repository
+- Kho này còn được gọi tên khác là remote,remote repo
+
+- Máy mình có chứa project cùng tên và chuẩn bị đồng bộ. Vậy máy mình khi này được gọi là local repo
+- Kho trên sever trống 100% để dễ dàng đồng bộ đầu tiên
+
+3.Gõ các câu lệnh sau 
+
+3.1 Câu lệnh chỉ gõ duy nhất một lần với một máy,chỉ gõ lại nếu đổi username/pass của github, hoặc cài lại win,hoặc mượn máy bạn để chơi git
+
+-khai báo thông tin kết nối tới server ở xa
+
+git config --global user.name<url github của bạn>
+git config --global user.email<thay email của bạn>
+
+pass sẽ bị hỏi sau khi đưa code lên lần đầu tiên và sẽ remember luôn
+
+3.2.CÂU LỆNH CHỈ GÕ 1 LỀN VỚI 1 PROJECT. 
+- Nghĩa là cứ new 1 project thì phải gõ lệnh này.
+- Khi gõ lện này, phải đứng đúng folder project.
+- Đứng ở đâu thì upload code ở đó.
+- Hãy đứng đúng ở project sẽ đồng bộ để gõ lệnh 1 lần duy nhất cho 1 project
+- Nó sẽ biên thư mục project thành kho-repo ở local, nó dùng để theo dõi, theo vết những sự thay đổi trong dự án của bạn, những lần sửa code, những gì đã sửa
+
+git init
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Chuẩn bị riêng với source code
+Java
+.jave là thằng quan trọng - source - cần cất trữ
+\dist\
+\build\ ko đem đi cất vì tốn dung lượng thuê bao của github
+
+.cs là thằng quan trọng - source - cần cất trữ
+\bin\
+\obj\ ở nhà,ko lên server vì tốn dung lượng
+
+Vậy trong mỗi thư mụ project luôn có những tập tin ko cần thiết phải đồng bộ lên server.Vậy hãy nói với github rằng
+đứa nào ở lại local!!!!
+Khái niệm này gọi lại git ignore - người hãy quên em đi
+Là 1 tập tin ghi bên trong những ai trong folder ko được lên server
+Tên là: .gitignore
+
+Định dạng của file này thế nào??? chúng ta miễn phí làm cái file này, file này được tạo ra tùy tool IDE mình dùng
+
+Gitignore.io
+
+3.3.Nhóm câu lệnh cũng chỉ gõ 1 lần cho lần đầu tiên đồng bộ code lên server
+Gõ nó sau lện git init
+
+git add *                            git add . đưa tất các folder các source nếu có lên server dĩ nhiên loại ra 
+                                     những thằng trong .gitignore đồng thời chọn đưa những taaoj tin . ở đầu tên
+                                     dùng lện này để đảy .gitignore lên server mai mốt ae lấy code về,mặc nhiên
+có .gitignore luôn,ae up code ko úp rác lên
+add * add. ngoại trừ ko đưa thằng tập tin có dấu.ở đàu tiên
+Thường xài ADD *,trừ lần đầu tiên cần đưa gitignore lên
+git add.
+git commit -m "lí do đồng bộ code là gì thì gõ ở đây"
+              //thực tập:gõ lí do tử tế,tóm tắt sự thay đổi code ở ""
+              //vi phạm bị check var
+
+git branch -M main
+git remote add origin https:
+
+tạo cầu với server từ xa,và gọi server là origin
+
+git push -u origin main
+Đồng bộ local main lên origin từ xa
+
+bị hỏi pasword,popup,nhập pass vào,thấy code đi lên
+
+3.4 bộ 3 câu lệnh huyền thoại mỗi khi sửa code và đồng bộ 
+Xài mỗi ngày
+
+git add *
+git commit -"<> lí do sửa code"
+git push
