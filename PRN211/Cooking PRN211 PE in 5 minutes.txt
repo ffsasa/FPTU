@@ -47,69 +47,66 @@ V. INSTALL EF CORE CLI (COMMAND LINE TOOL)
 > dotnet tool uninstall dotnet-ef -g
  
 
->>>>>>>>>>>>>>>>>>>>> NHỮNG BƯỚC BẮT ĐẦU LÀM KHI ĐI THI <<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-VI. TẢI THƯ VIỆN CẦN CÓ DECLARE/DOWNLOAD/IMPORT EF CORE LIBRARY (DEPENDENCY, PACKAGE) FROM INTERNET (NUGET SERVER)  (~JAVA: MAVEN REPO SERVER) ~XXX MB
-* 4 PACKAGES
-Phải vô Browse
+
+
+
+>>>>>>>>>>>>>>>> Bắt đầu <<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+VI. Tải 4 thư viện để kết nối db
 > Microsoft.EntityFrameworkCore
 > Microsoft.EntityFrameworkCore.Design
 > Microsoft.EntityFrameworkCore.Tools
 > Microsoft.EntityFrameworkCore.SqlServer
 
-* NHỚ CHẠY LỆNH BUILD!!!!!!!!!!!!!!
-* WIFI is required!!!
-
 1. Right click in the Repositories project | Manage NuGet Packages
-2. In Browse tab | Type "entity" 
-3. Choose 4 packages | Click Install | See Green marker
+2. In Browse tab  
+3. Choose 4 packages | Click Install 
 4. Check the result: Repository | Dependency | Packages
+5. Sau khi tải 4 thư viện phải build solution
 
-5. NOTIFY THE VISUAL STUDIO TO KNOW ABOUT THE EXISTANCE OF EF CORE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-- Báo cho Visual Studio cho nó biết mình có sử dụng thư viện -> Bằng cách build
-   VS Menu | Choose Build | Choose Build Solution to refresh/update the existance of EF Core library 
-!!!!!!!!!!!!!!!!!!!!!
->>>>>***** MUST BUILD THE SOLUTION FIRST BEFORE MOVING TO STEP 7 <<<<<*****
 
-VII. LẤY DB VÀO TỰ TẠO ENTITY GERERATE THE ENTITY CLASSES FROM DATABASE (THE DB CREATED BEFORE BY USING THE .SQL SCRIPT ATTACHED WITH EXAM PAPER)
-     Tạo ra các entity class từ database đã tạo trước đó (tạo database dùng file .sql trong đề thi)
-
-- CẦN TẢI DB VÀO SQLSERVER TRƯỚC RỒI MỚI LÀM BƯỚC 1
-
-* db scaffold
-* USING POWER SHELL TO RUN THE COMMAND (WITHIN REPOSITORIES PROJECT)
-* Modify the "Connection String" to match with SQL Server in your machine
-* Option with the command: Entities folder to store Entity class
+VII.Tạo ra các entity class từ database đã tạo trước đó (tạo database dùng file .sql trong đề thi)
 
 1. In Repositories project | Right click | Open in Terminal | To see the Power Shell cmd tool
 
-2. Copy & paste the db scaffold command from Test Paper
-   Lấy chuỗi lệnh generate Entity class từ đề thi 
+2.Lấy chuỗi lệnh generate Entity class từ đề thi 
 
-3. Modify the Connection String to match with your machine
+3. Sử dụng lệnh dưới trong terminal để vừa kết nối vừa tạo ra luôn đối tượng Entity. SỬA LẠI TÊN DB VÀ USERNAME PASSWORD
+
+> CHÚ Ý PHẢI TẢI DB TRƯỚC
+
+> SỬA LẠI TÊN DB VÀ USERNAME PASSWORD
 
 > dotnet ef dbcontext scaffold "Server=(local);Database= BookManagementDb;UID=sa;PWD=sa123456;TrustServerCertificate=True" "Microsoft.EntityFrameworkCore.SqlServer" --output-dir "Entities" --context-dir ".\"
 
+4. Hit Enter to see the result
+
+5. Check the result in Repositories project
+- 3 CLASS CORRESPONDING WITH 3 TABLES
+- DbContext class stands for the DATABASE SERVER!!!
 
 
-VIII. NO HARD-CODED CONNECTION STRING!!!
-CÀI LẠI DATABASE BẰNG JSON
 
-0. ADD THE JSON DEPENDENCY (LIKE ADD EF CORE LIB) INTO REPOSITORIES PROJECT
-TẢI 2 THƯ VIỆN BÊN DƯỚI
+VIII. NO HARD-CODED CONNECTION STRING!!! Chỉnh sửa lần cuối để giấu đường dẫn kết nối db
+PHẦN NÀY KHÔNG LẤY LỆNH Ở ĐÂY MÀ LẤY LỆNH TRONG ĐỀ SỬA LẠI TÊN DB VÀ USERNAME PASSWORD
+
+0. Tải trước 2 thư viện sau:
 > Microsoft.Extensions.Configuration
 > Microsoft.Extensions.Configuration.Json
 
 1. Create a separate configuration file named: "appsettings.json" in GUI PROJECT
-TẠO FILE JSON TRONG GUI PROJECT
 * Right click on GUI PROJECT | Add New Item | Search json
 | Choose JavaScript JSON | Type file name: appsettings.json
 
-*>>>>>>> Click in the .json file | Properties | Copy to Output Directory | Choose "Copy if newer" <<<<<<<<
+* Click in the .json file | Properties | Copy to Output Directory | Choose "Copy if newer"
+Ở ĐÂY PHẢI CHỌN COPY IF NEWER GIỐNG COPY LOCAL ĐỐI VỚI PROJECT ĐƯỢC DEPENDEDNCY 
 
-2. Update the content of .json file based on Test Paper instruction, modify the connection string to macth to your machine
-SỬA NỘI DUNG JSON ĐỂ PHÙ HỢP VỚI DB TRONG MÁY TRONG DBCONTEXT
-(Copy nội dung file cấu hình từ đề thi, và modify cho phù hợp máy mình)
+2.Copy nội dung file cấu hình từ đề thi, và modify cho phù hợp máy mình
+
+> PHẦN NÀY NÊN LẤY TRONG ĐỀ THI
 
 {
   "ConnectionStrings": {
@@ -117,10 +114,9 @@ SỬA NỘI DUNG JSON ĐỂ PHÙ HỢP VỚI DB TRONG MÁY TRONG DBCONTEXT
   }
 }
 
-3. Update DbContext file to read the Connection String from the .json file
-   by copying code from the Test Paper 
-SỬA PHẦN HARD CODE ĐỂ ĐỌC ĐƯỢC FILE JSON
-(Chỉnh sửa file DbContext để đọc đc info từ file cấu hình. Copy code từ đề thi)
+3. Chỉnh sửa file DbContext để đọc đc info từ file cấu hình. Copy code từ đề thi)
+
+> PHẦN NÀY NÊN LẤY TRONG ĐỀ THI
  
 * private string? GetConnectionString()
         {
@@ -135,11 +131,11 @@ SỬA PHẦN HARD CODE ĐỂ ĐỌC ĐƯỢC FILE JSON
 
 
 
-5. BECAREFULL REGARDING TO THE MISPELLING WITHIN THE reading .json file method!!!
+5. Cẩn thận về lỗi chính tả trong phương pháp đọc tệp .json!!!
 
-IX. CODE FOR THE REPOSITORIES - THE BASIC METHODS TO WORK DIRECTLY WITH DATABASE
+IX. CODE CHO KHO - CÁC PHƯƠNG PHÁP CƠ BẢN ĐỂ LÀM VIỆC TRỰC TIẾP VỚI CƠ SỞ DỮ LIỆU
 
-1. CREATE 3 different Repository classes corresponding with 3 tables in DB
+=>>>>>>>>> GIỜ THÌ BẬT BÙA CỦA THẦY LÊN VÀ LÀM VIỆC
 
 
 

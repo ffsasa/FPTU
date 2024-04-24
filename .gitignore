@@ -426,6 +426,8 @@ FodyWeavers.xsd
 # Bỏ qua các tệp video lớn trong thư mục cụ thể
 SWT301/SWT301-Sample-Final-PE/Giải PE + Video/SWT301/FORM MỚI/*.mkv
 
+SWP391/
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
