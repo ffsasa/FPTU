@@ -1,0 +1,204 @@
+I. Sơ đồ thự hiện của Spring Security:
+
+- Cleint -> Authentication Filter <=> Authentication Manager <=> Aithentication provider <=> UserDetails Service
+                    |
+                    v
+             Security Context
+
+B1: Ban đầu yêu cầu người dùng sẽ chạm vào lớp đầu tiên Authentication Filter (Bộ lọc xác thực) mà chúng ta sẽ cấu hình.
+
+B2: Sau đó nó sẽ đi qua trình quản lý xác thực Authentication Manager. Và Authentication Manager cần sử dụng Authentication Provider để làm việc.
+
+B3: Sẽ có 1 Authentication Provider mặc định và chúng ta sẽ cấu hình để sử dụng nó chứ không thực sự tạo ra 1 Authentication Provider vì chúng thực sự rất phức tạp.
+
+B4: Lúc này Authentication Provider sẽ sử dụng UserDetails Service để kéo thông tin người dùng từ cơ sở dữ liệu. Nói cách khác thì Authentication Manager đang cố sử dụng UserDetails Service thông qua Authenticationn Provider mặc định.
+
+B5: Nếu người dùng thực sự tồi tại, thì từ UserDetails Service chúng ta sẽ quay lại tình quản lý xác thực Authentication Manager. Và ở đây nó sẽ thực sự xác thực người dùng.
+
+B6: Lưu trữ thông tin xác thực này bên trong Security Context. Đó là lý do vì sao chúng ta có thể không cần đăng nhập lại. Vì những thông tin xác thực đã được lưu trữ lại bên trong Security Context.
+
+=============================================
+
+II. SecurityFilterChain
+- Đây là nơi bao gồm 1 chuỗi các bộ lọc, các yêu cầu HTTP sẽ phải thông qua các bộ lọc này mới làm việc tiếp được.
+
+- Code: 
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http	
+			.csrf().disable()
+			.authorizeRequests()
+			.anyRequest().authentiscated()
+			.and()
+			.httpBasic();
+		
+		return http.build();
+   }
+}
+
+- Nếu không thực hiện cấu hình csrf thì nó sẽ xảy ra 1 loạt lỗi rất khó chịu, vì vậy chúng ta 1 cách đơn giản để cấu hình là: csrf().disable()
+- CSRF là 1 loại tấn công mạng xảy ra khi người dùng thực hiện đăng nhập vào 1 web A, sau đó truy cập vào 1 web B khác của kẻ tấn công. Lúc này web B sẽ liên tục gửi các HTTP Request về web A nhằm thay đổi thông tin,... từ đó làm hại người dùng. => csrf().disable() sẽ cản việc này, dù không phải là hoàn toàn.
+
+=============================================
+
+III. UserDetails Service
+- UserDetails Service là một hợp đồng cho phép chúng tôi kéo thông tin người dùng khỏi cơ sở dữ liệu. Giống như nó sẽ kéo 1 đối tượng người dùng ra khỏi cơ sở dữ liệu và trả lại họ ở dạng chi tiết người dùng.
+
+- Nó chỉ đại diện cho lớp User trong Spring (Lớp chứa password, username)
+
+- Người lập trình ra Spring Boot không có người dùng cụ thể nào, họ phải tạo ra 1 người dùng chung, và nó được gọi là InMemoryUserDetailsManager. Đây là 1 người dùng được tạo tự động, và nó rất basic
+
+- Ví dụ code:
+	.antMatchers
+		.antMatchers(HTTPMethod.Get, "api/pokemon/**").permitAll()
+		.antMatchers(HTTPMethod.Post).authenticated()
+
+===============================================
+
+IV. User&Role và Authentication&Authorization
+x
+===============================================
+
+V. Các bước thực hiện
+
+B1: Cần 1 đối tượng User có username, password. Nó phải kế thừa UserDetail
+
+B2: Config UserDetailService gồm loadUserByUsername, và rolesToAuthorities. Nhưng với cách của Cường làm trong SWP thì nó viết tắt, thay vì viết vào 1 class mới 2 phương thức trên, nó đặt UserDetailService là 1 Bean và mỗi khi khởi tạo sẽ tự động trả về UserDetail đang hoạt động. Trong thử mục Security
+
+@Bean
+    public UserDetailsService userDetailsService(){
+        return username -> accountRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+HOẶC
+
+@Service
+public class CustomUserDetailsService  implements UserDetailsService {
+
+    private UserRepository userRepository;
+
+    @Autowired
+    public CustomUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserEntity user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+        return new User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+    }
+
+    private Collection<GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+    }
+}
+==========
+
+
+B3: Tạo Repository của User vì Service cần Repository của JPA để lấy thông tin. Ở đây filter sẽ thay vì lấy UserName, Password rồi đi so sánh, thì filter sẽ tìm xem có người dùng nào trùng Username không, sau đó mới so sánh Password => Cần tạo method findByUsername, existsByUsername trong Repository User. Và findByName trong Repository Role.
+
+==========
+
+B4: Đã còn fig xong UserDetail cần đưa nó vào Security của chúng ta. Đầu tiên cần tạo Bean AuthenticationManager trả về 1 AuthenticationManager được lấy ra từ AuthenticationConfiguration. Đây là tiền đề tạo AuthenticationProvider trong thử mục Security
+
+B5: Tạo method PasswordEncoder để mã hóa mật khẩu, và cái này cũng cần cung cấp khi tạo AuthenticationProvider trong thử mục Security
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    private CustomUserDetailsService userDetailsService;
+    @Autowired
+    public SecurityConfig(CustomUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}
+
+
+**  Chú ý: Spring Security cung cấp một DaoAuthenticationProvider mặc định nếu bạn đã cấu hình UserDetailsService và PasswordEncoder. Do đó, nếu bạn của bạn đã cấu hình đúng UserDetailsService và PasswordEncoder, Spring Security sẽ tự động sử dụng chúng. 
+	=> Không cần viết thêm Authentication Provider
+
+HOẶC 
+
+Thêm phần dưới vào SecurityConfig
+@Bean
+    public AuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
+==========
+
+B6: Tạo phương thức Register, Login trong thư mục controller
+
+@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
+
+    private AuthenticationManager authenticationManager;
+    private UserRepository userRepository;
+    private RoleRepository roleRepository;
+    private PasswordEncoder passwordEncoder;
+    private JWTGenerator jwtGenerator;
+
+    @Autowired
+    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
+                          RoleRepository roleRepository, PasswordEncoder passwordEncoder, JWTGenerator jwtGenerator) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtGenerator = jwtGenerator;
+    }
+
+    @PostMapping("login")
+    public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDto loginDto){
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                loginDto.getUsername(),
+                loginDto.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = jwtGenerator.generateToken(authentication);
+        return new ResponseEntity<>(new AuthResponseDTO(token), HttpStatus.OK);
+    }
+
+    @PostMapping("register")
+    public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
+        if (userRepository.existsByUsername(registerDto.getUsername())) {
+            return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
+        }
+
+        UserEntity user = new UserEntity();
+        user.setUsername(registerDto.getUsername());
+        user.setPassword(passwordEncoder.encode((registerDto.getPassword())));
+
+        Role roles = roleRepository.findByName("USER").get();
+        user.setRoles(Collections.singletonList(roles));
+
+        userRepository.save(user);
+
+        return new ResponseEntity<>("User registered success!", HttpStatus.OK);
+    }
+}
+
+
+B7: Xem tiếp bài 22.JWT 

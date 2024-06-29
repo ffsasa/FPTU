@@ -1,0 +1,239 @@
+SƠ ĐỒ JWT
+
+FilterChain -> Intercept Token -> Login Controller -> Generate JWT -> Return With Login
+
+- Sau khi đi qua filter bộ lọc thì nó sẽ, được Intercept Token chặn lại ở đây là 1 câu lệnh if else và dù kết quả là gì nó cũng sẽ đưa kết quả đến Login Controller
+- Ở Login Controller nó sẽ kiểm tra xem người dùng có thực sự đăng nhập hay không. Nếu có nó sẽ tạo ra 1 mã JWT và sau đó return về thông tin đặng nhập của người dùng.
+
+B1: Viết phần Exception cho bộ lọc. Bộ lọc khi chặn người dùng chưa đăng nhập phải trả về cho người dùng 1 thứ gì đó chứ k thể là 1 trang trắng được. 
+
+@Component
+public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
+    }
+}
+
+===========
+
+B2: Thêm cấu hình trả về ngoại lệ vào Filter chúng ta đã viết ở SecurityConfig
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    private CustomUserDetailsService userDetailsService;
+    @Autowired
+    public SecurityConfig(CustomUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+        this.authEntryPoint = authEntryPoint;
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf().disable()
+                .exceptionHandling()    *
+                .authenticationEntryPoint(authEntryPoint)    *
+                .and()    *
+                .sessionManagement()    *
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)    *
+                .and()    *
+                .authorizeRequests()
+                .antMatchers("/api/auth/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic();
+
+        return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}
+
+================
+
+B3: Viết JWTGenerator là nơi cấu hình tạo ra mã JWT của chúng ta. Và ở đây ngoài những dependency chúng ta đã dùng như lombok, JPA, Security, Web,... chúng ta phải thêm vào jwt.
+
+Thêm dependency:
+		<dependency>
+		    <groupId>io.jsonwebtoken</groupId>
+		    <artifactId>jjwt</artifactId>
+		    <version>0.11.5</version>
+		</dependency>
+
+
+Sau đó bắt đầu viết:
+@Component
+public class JWTGenerator {
+	//private static final KeyPair keyPair = Keys.keyPairFor(SignatureAlgorithm.RS256);
+	private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+	
+	public String generateToken(Authentication authentication) {
+		String username = authentication.getName();
+		Date currentDate = new Date();
+		Date expireDate = new Date(currentDate.getTime() + SecurityConstants.JWT_EXPIRATION);
+		
+		String token = Jwts.builder()
+				.setSubject(username)
+				.setIssuedAt( new Date())
+				.setExpiration(expireDate)
+				.signWith(SignatureAlgorithm.HS512, SecurityConstants.JWT_SECRET)
+				.compact();
+		System.out.println("New token :");
+		System.out.println(token);
+		return token;
+	}
+}
+
+- Bên trên chúng ta có thể thấy chúng ta cần cung cấp JWT_EXPIRATION và JWT_SECRET chính vì thế chúng ta sẽ giấu chúng trong 1 class riêng tên là SecurityConstants
+
+public class SecurityConstants {
+    public static final long JWT_EXPIRATION = 70000;
+    public static final String JWT_SECRET = 70000;
+}
+
+==============
+
+B4: Sau khi đã tạo ra được mã JWT thì chúng ta cần sử dụng được chúng. Chủ yếu chúng ta sử dụng chúng để đọc ra Username và kiểm tra tính hợp lệ của Token. Ta viết thêm 2 method getUsernameFromJWT và validateToken vào JWTGenerator
+
+public String getUsernameFromJWT(String token){
+		Claims claims = Jwts.parserBuilder()
+				.setSigningKey(SecurityConstants.JWT_SECRET)
+				.build()
+				.parseClaimsJws(token)
+				.getBody();
+		return claims.getSubject();
+	}
+	
+	public boolean validateToken(String token) {
+		try {
+			Jwts.parserBuilder()
+			.setSigningKey(key)
+			.build()
+			.parseClaimsJws(token);
+			return true;
+		} catch (Exception ex) {
+			throw new AuthenticationCredentialsNotFoundException("JWT was exprired or incorrect",ex.fillInStackTrace());
+		}
+	}
+
+==============
+
+B5: Sử dụng JWTGenerator và bắt đầu làm JWIFilter, đây là nơi chúng ta sẽ triển khai bộ lọc một lần cho mỗi yêu cầu HTTP. Đây là bộ lọc nội bộ, nó sẽ kiểm tra xem có Token nào trong mỗi header của yêu cầu hay không. Trong class này chúng ta kế thừa OncePerRequestFilter và override method doFilterInternal.
+
+public class JWTAuthenticationFilter extends OncePerRequestFilter {
+
+    @Autowired
+    private JWTGenerator tokenGenerator;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
+        String token = getJWTFromRequest(request);
+        if(StringUtils.hasText(token) && tokenGenerator.validateToken(token)) {
+            String username = tokenGenerator.getUsernameFromJWT(token);
+
+            UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null,
+                    userDetails.getAuthorities());
+            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        }
+        filterChain.doFilter(request, response);
+    }
+
+	//Hàm lấy ra Token
+    private String getJWTFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7, bearerToken.length());
+        }
+        return null;
+    }
+}
+
+- Ở hàm lấy ra Token chúng ta có thể thấy Token sẽ được lấy ra ở phần Header của mỗi Request và nếu Header Request đó không chứa Token thì sẽ bị doFilterInternal chặn.
+- Header của Request có dạng sau:
+
+GET /some-endpoint HTTP/1.1
+Host: example.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+Content-Type: application/json
+
+- Hàm getJWTFromRequest sẽ thấy ra phần Header của Request, sau đó lấy thông tin của mục Authorization. Kiểm tra xem chuỗi bearerToken có chữ hay không và có chữ Bearer hay không. Bỏ qua 7 kí tự đầu là "Bearer " và lấy phần token phía sau để trả về.
+
+- Ở hàm doFilterInternal nó sẽ lấy token từ hàm getJWTFromRequest vừa viết. Kiểm tra token có Text nào không và validate nó có hợp lệ không bằng hàm validateToken được viết ở JWTGenerator. Tiếp theo đọc thông tin người dùng từ hàm getUsernameFromJWT được viết ở JWTGenerator. Sau khi có được thông tin người dụng cụ thể là Username thì loadUserByUsername được viết ở CustomUserDetailsService chúng ta sẽ có được userDetail cụ thể là 1 thực thể User. Cuối cùng tạo đối tượng xác thực authenticationToken, và đặt nó vào ngữ cảnh bảo mật hiện tại. Và tiếp tục chuỗi bộ lọc.
+
+=================
+
+B5: Thêm FWTfilter vào Filter chung của SecurityConfig
+ @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(authEntryPoint)
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/api/auth/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic();
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+    }
+
+@Bean
+    public  JWTAuthenticationFilter jwtAuthenticationFilter() {
+        return new JWTAuthenticationFilter();
+    }
+
+================
+
+B6: Viết AuthResponseDTO
+package com.pokemonreview.api.dto;
+
+import lombok.Data;
+
+@Data
+public class AuthResponseDTO {
+    private String accessToken;
+    private String tokenType = "Bearer ";
+
+    public AuthResponseDTO(String accessToken) {
+        this.accessToken = accessToken;
+    }
+}
+
+===============
+
+B7: Viết lại login của controller sử dụng thêm JWT
+
+@PostMapping("login")
+    public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDto loginDto){
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                loginDto.getUsername(),
+                loginDto.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = jwtGenerator.generateToken(authentication);
+        return new ResponseEntity<>(new AuthResponseDTO(token), HttpStatus.OK);
+    } 
