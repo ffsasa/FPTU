@@ -1,6 +1,6 @@
 I. Sơ đồ thự hiện của Spring Security:
 
-- Cleint -> Authentication Filter <=> Authentication Manager <=> Aithentication provider <=> UserDetails Service
+- Cleint -> Authentication Filter <=> Authentication Manager <=> Aithentication Provider <=> UserDetails Service
                     |
                     v
              Security Context

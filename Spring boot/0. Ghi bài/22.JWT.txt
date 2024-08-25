@@ -5,7 +5,7 @@ FilterChain -> Intercept Token -> Login Controller -> Generate JWT -> Return Wit
 - Sau khi đi qua filter bộ lọc thì nó sẽ, được Intercept Token chặn lại ở đây là 1 câu lệnh if else và dù kết quả là gì nó cũng sẽ đưa kết quả đến Login Controller
 - Ở Login Controller nó sẽ kiểm tra xem người dùng có thực sự đăng nhập hay không. Nếu có nó sẽ tạo ra 1 mã JWT và sau đó return về thông tin đặng nhập của người dùng.
 
-B1: Viết phần Exception cho bộ lọc. Bộ lọc khi chặn người dùng chưa đăng nhập phải trả về cho người dùng 1 thứ gì đó chứ k thể là 1 trang trắng được. 
+B1: Viết phần Exception cho bộ lọc. Bộ lọc khi chặn người dùng chưa đăng nhập phải trả về cho người dùng 1 thứ gì đó chứ k thể là 1 trang trắng được. Trong thư học Security
 
 @Component
 public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
@@ -237,3 +237,44 @@ B7: Viết lại login của controller sử dụng thêm JWT
         String token = jwtGenerator.generateToken(authentication);
         return new ResponseEntity<>(new AuthResponseDTO(token), HttpStatus.OK);
     } 
+
+
+
+
+==============================
+
+TÓM TẮT LẠI CÁCH HOẠT ĐỘNG CỦA JWT
+- Yêu cầu HTTP ban đầu: Người dùng gửi yêu cầu đăng nhập (chưa có mã JWT vì chưa xác thực).
+
+- FilterChain (Bộ lọc chuỗi): Bộ lọc kiểm tra xem yêu cầu có chứa mã JWT hay không. Nếu không, yêu cầu sẽ được chuyển tiếp đến bước tiếp theo.
+
+- Intercept Token (Chặn token): Ở bước này, hệ thống kiểm tra và nhận ra rằng không có mã JWT trong yêu cầu. Thông tin này sẽ được chuyển đến Login Controller.
+
+- Login Controller (Bộ điều khiển đăng nhập): Hệ thống nhận thông tin đăng nhập từ yêu cầu, bao gồm tài khoản và mật khẩu do người dùng nhập. Hệ thống kiểm tra thông tin này bằng cách so sánh với dữ liệu trong cơ sở dữ liệu.
+
+- Xác thực thành công: Nếu tài khoản và mật khẩu đúng, hệ thống xác nhận người dùng đã đăng nhập thành công.
+
+- Generate JWT (Tạo JWT): Hệ thống tạo một mã JWT chứa thông tin xác thực của người dùng.
+
+- Trả về thông tin đăng nhập: Mã JWT được gắn vào header của phản hồi HTTP và trả về cho người dùng.
+Người dùng sẽ sử dụng mã JWT này trong các yêu cầu tiếp theo để được xác thực.
+
+
+
+CÒN ĐỒI VỚI CÁC YÊU CẦU HTTP SAU KHI ĐÃ ĐĂNG NHẬP THÌ SẼ ĐƯỢC SỬ LÝ NHƯ SAU
+- Yêu cầu HTTP với JWT: Người dùng gửi yêu cầu HTTP đến máy chủ, bao gồm mã JWT trong header của yêu cầu (thường là trong header Authorization dưới dạng Bearer <token>).
+
+- FilterChain (Bộ lọc chuỗi): Bộ lọc kiểm tra xem yêu cầu có chứa mã JWT hay không. Nếu có, nó sẽ chuyển mã JWT đến bước tiếp theo để kiểm tra tính hợp lệ.
+
+- Intercept Token (Chặn token): Hệ thống sẽ giải mã và kiểm tra tính hợp lệ của mã JWT. Các bước cụ thể bao gồm:
+Giải mã JWT: Mã JWT sẽ được giải mã để lấy thông tin người dùng và các thông tin khác.
+Kiểm tra tính hợp lệ: Hệ thống sẽ kiểm tra các thông tin trong JWT như thời gian hết hạn, tính hợp lệ của chữ ký, và các quyền hạn của người dùng.
+
+- Xác thực: Nếu mã JWT hợp lệ, hệ thống sẽ xác nhận rằng người dùng đã được xác thực và cho phép yêu cầu tiếp tục.
+Nếu mã JWT không hợp lệ (hết hạn, bị giả mạo, v.v.), hệ thống sẽ trả về lỗi 401 Unauthorized hoặc 403 Forbidden và yêu cầu người dùng đăng nhập lại.
+
+- Xử lý yêu cầu: Nếu mã JWT hợp lệ, yêu cầu của người dùng sẽ được xử lý bởi các bộ điều khiển (controller) và dịch vụ (service) của ứng dụng. Các bộ điều khiển sẽ thực hiện các chức năng cụ thể dựa trên yêu cầu của người dùng, như truy xuất dữ liệu, cập nhật thông tin, v.v.
+
+- Trả về phản hồi: Sau khi xử lý yêu cầu, hệ thống sẽ tạo ra phản hồi và trả về cho người dùng. Phản hồi này có thể bao gồm dữ liệu được yêu cầu, xác nhận thành công của một hành động, hoặc thông báo lỗi nếu có vấn đề xảy ra trong quá trình xử lý.
+
+=> Còn nếu yêu cầu http này không yêu cầu xác thực thì dùng FilterChain sẽ không kiểm tra mã JWT và nó được chuyển tới controller và service thích hợp luôn
