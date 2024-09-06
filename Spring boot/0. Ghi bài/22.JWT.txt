@@ -23,110 +23,112 @@ B2: Thêm cấu hình trả về ngoại lệ vào Filter chúng ta đã viết 
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private CustomUserDetailsService userDetailsService;
+    private JwtAuthEntryPoint jwtAuthEntryPoint;
+
+    private CustomUserDetailsService customUserDetailsService;
+
     @Autowired
-    public SecurityConfig(CustomUserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-        this.authEntryPoint = authEntryPoint;
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService, JwtAuthEntryPoint jwtAuthEntryPoint) {
+        this.customUserDetailsService = customUserDetailsService;
+        this.jwtAuthEntryPoint = jwtAuthEntryPoint;
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .exceptionHandling()    *
-                .authenticationEntryPoint(authEntryPoint)    *
-                .and()    *
-                .sessionManagement()    *
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)    *
-                .and()    *
-                .authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic();
+                .csrf(csrf -> csrf.disable())
+                .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(jwtAuthEntryPoint)
+                )
+                .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
 
-    @Bean
-    public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-}
 
 ================
 
 B3: Viết JWTGenerator là nơi cấu hình tạo ra mã JWT của chúng ta. Và ở đây ngoài những dependency chúng ta đã dùng như lombok, JPA, Security, Web,... chúng ta phải thêm vào jwt.
 
 Thêm dependency:
-		<dependency>
-		    <groupId>io.jsonwebtoken</groupId>
-		    <artifactId>jjwt</artifactId>
-		    <version>0.11.5</version>
-		</dependency>
+    <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-api</artifactId>
+        <version>0.11.5</version>
+    </dependency>
+    <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-impl</artifactId>
+        <version>0.11.5</version>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-jackson</artifactId> <!-- hoặc jjwt-gson nếu sử dụng Gson -->
+        <version>0.11.5</version>
+        <scope>runtime</scope>
+    </dependency>
 
 
 Sau đó bắt đầu viết:
 @Component
 public class JWTGenerator {
-	//private static final KeyPair keyPair = Keys.keyPairFor(SignatureAlgorithm.RS256);
-	private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-	
-	public String generateToken(Authentication authentication) {
-		String username = authentication.getName();
-		Date currentDate = new Date();
-		Date expireDate = new Date(currentDate.getTime() + SecurityConstants.JWT_EXPIRATION);
-		
-		String token = Jwts.builder()
-				.setSubject(username)
-				.setIssuedAt( new Date())
-				.setExpiration(expireDate)
-				.signWith(SignatureAlgorithm.HS512, SecurityConstants.JWT_SECRET)
-				.compact();
-		System.out.println("New token :");
-		System.out.println(token);
-		return token;
-	}
+
+    private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+
+    public String generateToken(Authentication authentication) {
+        String username = authentication.getName();
+        Date currentDate = new Date();
+        Date expireDate = new Date(currentDate.getTime() + SecurityConstants.JWT_EXPIRATION);
+
+        String token = Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(expireDate)
+                .signWith(key, SignatureAlgorithm.HS512)
+                .compact();
+        System.out.println("New token :");
+        System.out.println(token);
+        return token;
+    }
 }
 
-- Bên trên chúng ta có thể thấy chúng ta cần cung cấp JWT_EXPIRATION và JWT_SECRET chính vì thế chúng ta sẽ giấu chúng trong 1 class riêng tên là SecurityConstants
+- Bên trên chúng ta có thể thấy chúng ta cần cung cấp JWT_EXPIRATION và chính vì thế chúng ta sẽ giấu chúng trong 1 class riêng tên là SecurityConstants
 
 public class SecurityConstants {
     public static final long JWT_EXPIRATION = 70000;
-    public static final String JWT_SECRET = 70000;
 }
 
 ==============
 
 B4: Sau khi đã tạo ra được mã JWT thì chúng ta cần sử dụng được chúng. Chủ yếu chúng ta sử dụng chúng để đọc ra Username và kiểm tra tính hợp lệ của Token. Ta viết thêm 2 method getUsernameFromJWT và validateToken vào JWTGenerator
 
-public String getUsernameFromJWT(String token){
-		Claims claims = Jwts.parserBuilder()
-				.setSigningKey(SecurityConstants.JWT_SECRET)
-				.build()
-				.parseClaimsJws(token)
-				.getBody();
-		return claims.getSubject();
-	}
-	
-	public boolean validateToken(String token) {
-		try {
-			Jwts.parserBuilder()
-			.setSigningKey(key)
-			.build()
-			.parseClaimsJws(token);
-			return true;
-		} catch (Exception ex) {
-			throw new AuthenticationCredentialsNotFoundException("JWT was exprired or incorrect",ex.fillInStackTrace());
-		}
-	}
+    public String getUsernameFromJWT(String token) {
+
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getSubject();
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (Exception ex) {
+            throw new AuthenticationCredentialsNotFoundException("JWT was exprired or incorrect",ex.fillInStackTrace());
+        }
+    }
 
 ==============
 
@@ -161,7 +163,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     private String getJWTFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7, bearerToken.length());
+            return bearerToken.substring(7);
         }
         return null;
     }
@@ -182,22 +184,22 @@ Content-Type: application/json
 =================
 
 B5: Thêm FWTfilter vào Filter chung của SecurityConfig
- @Bean
+@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(authEntryPoint)
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic();
+                .csrf(csrf -> csrf.disable())
+                .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(jwtAuthEntryPoint)
+                )
+                .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .httpBasic(Customizer.withDefaults());
+
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 
@@ -226,6 +228,9 @@ public class AuthResponseDTO {
 ===============
 
 B7: Viết lại login của controller sử dụng thêm JWT
+
+    private JWTGenerator jwtGenerator;
+
 
 @PostMapping("login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDto loginDto){
@@ -278,3 +283,4 @@ Nếu mã JWT không hợp lệ (hết hạn, bị giả mạo, v.v.), hệ th�
 - Trả về phản hồi: Sau khi xử lý yêu cầu, hệ thống sẽ tạo ra phản hồi và trả về cho người dùng. Phản hồi này có thể bao gồm dữ liệu được yêu cầu, xác nhận thành công của một hành động, hoặc thông báo lỗi nếu có vấn đề xảy ra trong quá trình xử lý.
 
 => Còn nếu yêu cầu http này không yêu cầu xác thực thì dùng FilterChain sẽ không kiểm tra mã JWT và nó được chuyển tới controller và service thích hợp luôn
+
