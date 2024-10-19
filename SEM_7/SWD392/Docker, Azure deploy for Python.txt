@@ -1,0 +1,4 @@
+https://www.youtube.com/watch?v=MrRme-QWOhs
+https://www.youtube.com/watch?v=lLHeWgPADiw&t=67s
+
+Xem lên các câu lệnh build, tạo requirement.txt, docker file trên chatgpt và github

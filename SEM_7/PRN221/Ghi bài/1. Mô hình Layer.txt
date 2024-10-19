@@ -1,0 +1,119 @@
+I. Mô mình
+1. Sơ đồ các Layer
+
+    GUI, Web, Mobile,...
+        |   ^
+        |   l
+        V   l
+       IService  <---- CService
+                        |   ^
+                        |   l
+                        V   l
+                     IRepository <---- CRepository
+                                          |   ^
+                                          |   l
+                                          V   l
+                                           DAO
+                                          |   ^
+                                          |   l
+                                          V   l
+                                         Database
+|   
+|   : Mũi tên chủ động gọi tới
+V   
+
+^
+l   : Mũi tên trả dữ liệu về
+l
+
+
+- GUI (Giao diện người dùng): Cung cấp giao diện cho người dùng để tương tác với hệ thống. GUI nhận đầu vào từ người dùng, hiển thị dữ liệu, và gửi các yêu cầu đến lớp Service.
+
+- Service: Xử lý các logic nghiệp vụ và quy tắc. Lớp này nhận yêu cầu từ GUI, thực hiện các nghiệp vụ cần thiết, và gọi các phương thức của lớp Repository để lấy hoặc lưu dữ liệu.
+
+- Repository: Cung cấp các phương thức để truy cập và thao tác dữ liệu trong cơ sở dữ liệu. Repository hoạt động như một lớp trung gian giữa Service và DAO, đóng vai trò như một bộ đệm để quản lý các truy vấn và thao tác dữ liệu. 
+
+- DAO (Data Access Object): Thực hiện các thao tác trực tiếp trên cơ sở dữ liệu. DAO chịu trách nhiệm cụ thể trong việc thực hiện các truy vấn SQL hoặc các thao tác dữ liệu cụ thể như thêm, xóa, sửa, hoặc lấy dữ liệu.
+
+- Data: Chứa các lớp mô hình dữ liệu (entity) và các đối tượng đại diện cho dữ liệu trong cơ sở dữ liệu.
+
+2. Vì sao cần Interface?
+- Trong một dự án lớn, mỗi nhóm thường có các leader để định nghĩa các yêu cầu kỹ thuật và thiết kế. Các leader này sẽ xác định các phương thức, bao gồm tên phương thức, đầu vào, đầu ra, và các yêu cầu cụ thể theo yêu cầu nghiệp vụ. Các nhà phát triển (dev) sau đó sẽ dựa vào các định nghĩa này để thực hiện mã nguồn sao cho đúng với các yêu cầu đã được xác định.
+
+II. Phân biệt Repository và DAO là gì?
+Để rõ hơn nãy hình code trong Repository và code trong DAO:
+
+public class UserDAO
+{
+    private readonly DbContext _context;
+
+    public UserDAO(DbContext context)
+    {
+        _context = context;
+    }
+
+    public User GetUserById(int id)
+    {
+        return _context.Users.Find(id);
+    }
+
+    public void AddUser(User user)
+    {
+        _context.Users.Add(user);
+        _context.SaveChanges();
+    }
+
+    public void UpdateUser(User user)
+    {
+        _context.Users.Update(user);
+        _context.SaveChanges();
+    }
+
+    public void DeleteUser(int id)
+    {
+        var user = _context.Users.Find(id);
+        if (user != null)
+        {
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+        }
+    }
+}
+
+
+Và 
+
+public class UserRepository
+{
+    private readonly UserDAO _userDAO;
+
+    public UserRepository(UserDAO userDAO)
+    {
+        _userDAO = userDAO;
+    }
+
+    public User GetUserById(int id)
+    {
+        return _userDAO.GetUserById(id);
+    }
+
+    public void CreateUser(User user)
+    {
+        // Có thể có thêm logic nghiệp vụ trước khi gọi DAO
+        _userDAO.AddUser(user);
+    }
+
+    public void UpdateUser(User user)
+    {
+        // Có thể có thêm logic nghiệp vụ trước khi gọi DAO
+        _userDAO.UpdateUser(user);
+    }
+
+    public void DeleteUser(int id)
+    {
+        // Có thể có thêm logic nghiệp vụ trước khi gọi DAO
+        _userDAO.DeleteUser(id);
+    }
+}
+
+- DAO là nơi cầm cái DBContext tức là cái để connect trực tiếp tới Database để làm việc với database các CRUD, còn Repository giống lớp trung gian để cover lại DAO cho dễ sử dụng ở Service
