@@ -2427,11 +2427,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Repository\\Candidate_Repository.csproj",
+      "projectUniqueName": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Repository\\Candidate_Repository.csproj",
       "projectName": "Candidate_Repository",
-      "projectPath": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Repository\\Candidate_Repository.csproj",
+      "projectPath": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Repository\\Candidate_Repository.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Repository\\obj\\",
+      "outputPath": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Repository\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2449,8 +2449,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\Candidate_DAO.csproj": {
-              "projectPath": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\Candidate_DAO.csproj"
+            "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\Candidate_DAO.csproj": {
+              "projectPath": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\Candidate_DAO.csproj"
             }
           }
         }

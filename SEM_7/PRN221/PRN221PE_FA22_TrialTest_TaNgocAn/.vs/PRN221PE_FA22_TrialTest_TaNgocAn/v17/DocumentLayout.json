@@ -1,120 +1,128 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\",
+  "WorkspaceRootPath": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\create.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\create.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\loginpage\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\loginpage\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\edit.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\edit.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\loginpage\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\loginpage\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F42352A-1B66-4F4B-9376-C8C3CB0D2170}|Candidate_DAO\\Candidate_DAO.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_dao\\candidateprofiledao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8F42352A-1B66-4F4B-9376-C8C3CB0D2170}|Candidate_DAO\\Candidate_DAO.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_dao\\candidateprofiledao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8F42352A-1B66-4F4B-9376-C8C3CB0D2170}|Candidate_DAO\\Candidate_DAO.csproj|solutionrelative:candidate_dao\\candidateprofiledao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8F42352A-1B66-4F4B-9376-C8C3CB0D2170}|Candidate_DAO\\Candidate_DAO.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_dao\\candidatemanagementcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{27D34962-C3B1-4FD3-B0FE-A0A524E38040}|Candidate_Repository\\Candidate_Repository.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_repository\\candidateprofilerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{27D34962-C3B1-4FD3-B0FE-A0A524E38040}|Candidate_Repository\\Candidate_Repository.csproj|solutionrelative:candidate_repository\\candidateprofilerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\edit.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\edit.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7006F927-DC02-4BFE-A25F-51535B948BE8}|Candidate_Service\\Candidate_Service.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_service\\candidateprofileservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7006F927-DC02-4BFE-A25F-51535B948BE8}|Candidate_Service\\Candidate_Service.csproj|solutionrelative:candidate_service\\candidateprofileservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8F42352A-1B66-4F4B-9376-C8C3CB0D2170}|Candidate_DAO\\Candidate_DAO.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_dao\\jobpostdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8F42352A-1B66-4F4B-9376-C8C3CB0D2170}|Candidate_DAO\\Candidate_DAO.csproj|solutionrelative:candidate_dao\\jobpostdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8F42352A-1B66-4F4B-9376-C8C3CB0D2170}|Candidate_DAO\\Candidate_DAO.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_dao\\hraccountdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8F42352A-1B66-4F4B-9376-C8C3CB0D2170}|Candidate_DAO\\Candidate_DAO.csproj|solutionrelative:candidate_dao\\hraccountdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8F42352A-1B66-4F4B-9376-C8C3CB0D2170}|Candidate_DAO\\Candidate_DAO.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_dao\\candidatemanagementcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8F42352A-1B66-4F4B-9376-C8C3CB0D2170}|Candidate_DAO\\Candidate_DAO.csproj|solutionrelative:candidate_dao\\candidatemanagementcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41F9E5E6-F056-47A5-B278-63D448C5D35D}|Candidate_BusinessObjects\\Candidate_BusinessObjects.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_businessobjects\\jobposting.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41F9E5E6-F056-47A5-B278-63D448C5D35D}|Candidate_BusinessObjects\\Candidate_BusinessObjects.csproj|solutionrelative:candidate_businessobjects\\jobposting.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41F9E5E6-F056-47A5-B278-63D448C5D35D}|Candidate_BusinessObjects\\Candidate_BusinessObjects.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_businessobjects\\hraccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41F9E5E6-F056-47A5-B278-63D448C5D35D}|Candidate_BusinessObjects\\Candidate_BusinessObjects.csproj|solutionrelative:candidate_businessobjects\\hraccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41F9E5E6-F056-47A5-B278-63D448C5D35D}|Candidate_BusinessObjects\\Candidate_BusinessObjects.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_businessobjects\\candidateprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41F9E5E6-F056-47A5-B278-63D448C5D35D}|Candidate_BusinessObjects\\Candidate_BusinessObjects.csproj|solutionrelative:candidate_businessobjects\\candidateprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\create.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\create.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Admin\\AppData\\Local\\SourceServer\\479102c7810bd8a92845e7ed5e800ad2def36007d7bcda86ab44616a05d33f0f\\src\\Mvc\\Mvc.ViewFeatures\\src\\ExpressionMetadataProvider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\delete.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\delete.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{27D34962-C3B1-4FD3-B0FE-A0A524E38040}|Candidate_Repository\\Candidate_Repository.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_repository\\candidateprofilerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{27D34962-C3B1-4FD3-B0FE-A0A524E38040}|Candidate_Repository\\Candidate_Repository.csproj|solutionrelative:candidate_repository\\candidateprofilerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7006F927-DC02-4BFE-A25F-51535B948BE8}|Candidate_Service\\Candidate_Service.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_service\\candidateprofileservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7006F927-DC02-4BFE-A25F-51535B948BE8}|Candidate_Service\\Candidate_Service.csproj|solutionrelative:candidate_service\\candidateprofileservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41F9E5E6-F056-47A5-B278-63D448C5D35D}|Candidate_BusinessObjects\\Candidate_BusinessObjects.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_businessobjects\\candidateprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{41F9E5E6-F056-47A5-B278-63D448C5D35D}|Candidate_BusinessObjects\\Candidate_BusinessObjects.csproj|solutionrelative:candidate_businessobjects\\candidateprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41F9E5E6-F056-47A5-B278-63D448C5D35D}|Candidate_BusinessObjects\\Candidate_BusinessObjects.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_businessobjects\\jobposting.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{41F9E5E6-F056-47A5-B278-63D448C5D35D}|Candidate_BusinessObjects\\Candidate_BusinessObjects.csproj|solutionrelative:candidate_businessobjects\\jobposting.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7006F927-DC02-4BFE-A25F-51535B948BE8}|Candidate_Service\\Candidate_Service.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_service\\jobpostingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7006F927-DC02-4BFE-A25F-51535B948BE8}|Candidate_Service\\Candidate_Service.csproj|solutionrelative:candidate_service\\jobpostingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7006F927-DC02-4BFE-A25F-51535B948BE8}|Candidate_Service\\Candidate_Service.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_service\\hraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7006F927-DC02-4BFE-A25F-51535B948BE8}|Candidate_Service\\Candidate_Service.csproj|solutionrelative:candidate_service\\hraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\notpermission.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\notpermission.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Admin\\AppData\\Local\\SourceServer\\7ff8bcc5b272f53ec9d41b65137bd4aedb1e76e4cd1e16e7ac0bc5afdcbbde80\\src\\Shared\\ActivatorUtilities\\ActivatorUtilities.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\notpermission.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\notpermission.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8F42352A-1B66-4F4B-9376-C8C3CB0D2170}|Candidate_DAO\\Candidate_DAO.csproj|d:\\study\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_dao\\jobpostdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8F42352A-1B66-4F4B-9376-C8C3CB0D2170}|Candidate_DAO\\Candidate_DAO.csproj|solutionrelative:candidate_dao\\jobpostdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\loginpage\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\loginpage\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\loginpage\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\loginpage\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\delete.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\delete.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\candidateprofilepage\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\candidateprofilepage\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7006F927-DC02-4BFE-A25F-51535B948BE8}|Candidate_Service\\Candidate_Service.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_service\\jobpostingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7006F927-DC02-4BFE-A25F-51535B948BE8}|Candidate_Service\\Candidate_Service.csproj|solutionrelative:candidate_service\\jobpostingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7006F927-DC02-4BFE-A25F-51535B948BE8}|Candidate_Service\\Candidate_Service.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\candidate_service\\hraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7006F927-DC02-4BFE-A25F-51535B948BE8}|Candidate_Service\\Candidate_Service.csproj|solutionrelative:candidate_service\\hraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\notpermission.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\notpermission.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|d:\\study\\fptu\\sem_7\\prn221\\prn221pe_fa22_trialtest_tangocan\\cadidatemanagewebsite\\pages\\notpermission.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7D5FB58-51E1-4343-B469-EC2E6F0DCDA0}|CadidateManageWebsite\\CadidateManageWebsite.csproj|solutionrelative:cadidatemanagewebsite\\pages\\notpermission.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -124,7 +132,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 410,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -132,110 +140,227 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Index.cshtml.cs",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\LoginPage\\Index.cshtml.cs",
-              "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\LoginPage\\Index.cshtml.cs",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\LoginPage\\Index.cshtml.cs",
-              "RelativeToolTip": "CadidateManageWebsite\\Pages\\LoginPage\\Index.cshtml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-04T03:16:26.952Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\LoginPage\\Index.cshtml",
-              "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\LoginPage\\Index.cshtml",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\LoginPage\\Index.cshtml",
-              "RelativeToolTip": "CadidateManageWebsite\\Pages\\LoginPage\\Index.cshtml",
-              "ViewState": "AgIAAIIAAAAAAAAAAAAAAJEAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-04T03:15:38.506Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Edit.cshtml.cs",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Edit.cshtml.cs",
-              "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Edit.cshtml.cs",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Edit.cshtml.cs",
-              "RelativeToolTip": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Edit.cshtml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-11T06:23:02.845Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Edit.cshtml",
-              "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Edit.cshtml",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Edit.cshtml",
-              "RelativeToolTip": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Edit.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAABiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-11T06:22:20.604Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Create.cshtml.cs",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Create.cshtml.cs",
-              "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Create.cshtml.cs",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Create.cshtml.cs",
-              "RelativeToolTip": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Create.cshtml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-11T06:23:29.014Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Index.cshtml",
-              "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Index.cshtml",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Index.cshtml",
-              "RelativeToolTip": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-11T06:19:50.642Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
               "Title": "CandidateProfileDAO.cs",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\CandidateProfileDAO.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\CandidateProfileDAO.cs",
               "RelativeDocumentMoniker": "Candidate_DAO\\CandidateProfileDAO.cs",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\CandidateProfileDAO.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\CandidateProfileDAO.cs",
               "RelativeToolTip": "Candidate_DAO\\CandidateProfileDAO.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAYwFsAAABHAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-04T03:07:29.278Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "CandidateManagementContext.cs",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\CandidateManagementContext.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\CandidateManagementContext.cs",
               "RelativeDocumentMoniker": "Candidate_DAO\\CandidateManagementContext.cs",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\CandidateManagementContext.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\CandidateManagementContext.cs",
               "RelativeToolTip": "Candidate_DAO\\CandidateManagementContext.cs",
-              "ViewState": "AgIAAFUAAAAAAAAAAAAuwBoAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAuwCIAAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-04T03:07:16.102Z"
             },
             {
               "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "JobPosting.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_BusinessObjects\\JobPosting.cs",
+              "RelativeDocumentMoniker": "Candidate_BusinessObjects\\JobPosting.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_BusinessObjects\\JobPosting.cs",
+              "RelativeToolTip": "Candidate_BusinessObjects\\JobPosting.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-01T04:33:38.364Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "HRAccountDAO.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\HRAccountDAO.cs",
+              "RelativeDocumentMoniker": "Candidate_DAO\\HRAccountDAO.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\HRAccountDAO.cs",
+              "RelativeToolTip": "Candidate_DAO\\HRAccountDAO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-19T09:03:21.563Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "JobPostDAO.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\JobPostDAO.cs",
+              "RelativeDocumentMoniker": "Candidate_DAO\\JobPostDAO.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\JobPostDAO.cs",
+              "RelativeToolTip": "Candidate_DAO\\JobPostDAO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-01T04:33:34.825Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CandidateProfileRepository.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Repository\\CandidateProfileRepository.cs",
+              "RelativeDocumentMoniker": "Candidate_Repository\\CandidateProfileRepository.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Repository\\CandidateProfileRepository.cs",
+              "RelativeToolTip": "Candidate_Repository\\CandidateProfileRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-11T03:24:56.316Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CandidateProfileService.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Service\\CandidateProfileService.cs",
+              "RelativeDocumentMoniker": "Candidate_Service\\CandidateProfileService.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Service\\CandidateProfileService.cs",
+              "RelativeToolTip": "Candidate_Service\\CandidateProfileService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-04T03:12:57.535Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Edit.cshtml.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Edit.cshtml.cs",
+              "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Edit.cshtml.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Edit.cshtml.cs",
+              "RelativeToolTip": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Edit.cshtml.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAWwEcAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-11T06:23:02.845Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 8,
+              "Title": "Hraccount.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_BusinessObjects\\Hraccount.cs",
+              "RelativeDocumentMoniker": "Candidate_BusinessObjects\\Hraccount.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_BusinessObjects\\Hraccount.cs",
+              "RelativeToolTip": "Candidate_BusinessObjects\\Hraccount.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T15:09:24.116Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "CandidateProfile.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_BusinessObjects\\CandidateProfile.cs",
+              "RelativeDocumentMoniker": "Candidate_BusinessObjects\\CandidateProfile.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_BusinessObjects\\CandidateProfile.cs",
+              "RelativeToolTip": "Candidate_BusinessObjects\\CandidateProfile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T15:09:16.713Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Create.cshtml.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Create.cshtml.cs",
+              "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Create.cshtml.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Create.cshtml.cs",
+              "RelativeToolTip": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Create.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-11T06:23:29.014Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Program.cs",
+              "RelativeDocumentMoniker": "CadidateManageWebsite\\Program.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Program.cs",
+              "RelativeToolTip": "CadidateManageWebsite\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-04T03:56:10.709Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Index.cshtml.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Index.cshtml.cs",
+              "RelativeToolTip": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Index.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-11T06:19:54.856Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Create.cshtml",
+              "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Create.cshtml",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Create.cshtml",
+              "RelativeToolTip": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Create.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAC8AAABcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-11T06:22:33.637Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Index.cshtml",
+              "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Index.cshtml",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Index.cshtml",
+              "RelativeToolTip": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Index.cshtml",
+              "ViewState": "AgIAAIAAAAAAAAAAAAAUwJQAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-11T06:19:50.642Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Edit.cshtml",
+              "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Edit.cshtml",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Edit.cshtml",
+              "RelativeToolTip": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAABiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-11T06:22:20.604Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\LoginPage\\Index.cshtml",
+              "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\LoginPage\\Index.cshtml",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\LoginPage\\Index.cshtml",
+              "RelativeToolTip": "CadidateManageWebsite\\Pages\\LoginPage\\Index.cshtml",
+              "ViewState": "AgIAAIIAAAAAAAAAAAAAAJEAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-04T03:15:38.506Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\LoginPage\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\LoginPage\\Index.cshtml.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\LoginPage\\Index.cshtml.cs",
+              "RelativeToolTip": "CadidateManageWebsite\\Pages\\LoginPage\\Index.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-04T03:16:26.952Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "ExpressionMetadataProvider.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\AppData\\Local\\SourceServer\\479102c7810bd8a92845e7ed5e800ad2def36007d7bcda86ab44616a05d33f0f\\src\\Mvc\\Mvc.ViewFeatures\\src\\ExpressionMetadataProvider.cs",
               "ToolTip": "C:\\Users\\Admin\\AppData\\Local\\SourceServer\\479102c7810bd8a92845e7ed5e800ad2def36007d7bcda86ab44616a05d33f0f\\src\\Mvc\\Mvc.ViewFeatures\\src\\ExpressionMetadataProvider.cs",
@@ -245,23 +370,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Index.cshtml.cs",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Index.cshtml.cs",
-              "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Index.cshtml.cs",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Index.cshtml.cs",
-              "RelativeToolTip": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Index.cshtml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-11T06:19:54.856Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 20,
               "Title": "Delete.cshtml.cs",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Delete.cshtml.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Delete.cshtml.cs",
               "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Delete.cshtml.cs",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Delete.cshtml.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Delete.cshtml.cs",
               "RelativeToolTip": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Delete.cshtml.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAYwDsAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -269,11 +382,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 21,
               "Title": "Details.cshtml.cs",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Details.cshtml.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Details.cshtml.cs",
               "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Details.cshtml.cs",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Details.cshtml.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Details.cshtml.cs",
               "RelativeToolTip": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Details.cshtml.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAACEAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -281,23 +394,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "CandidateProfileRepository.cs",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Repository\\CandidateProfileRepository.cs",
-              "RelativeDocumentMoniker": "Candidate_Repository\\CandidateProfileRepository.cs",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Repository\\CandidateProfileRepository.cs",
-              "RelativeToolTip": "Candidate_Repository\\CandidateProfileRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAACEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-11T03:24:56.316Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 22,
               "Title": "Delete.cshtml",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Delete.cshtml",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Delete.cshtml",
               "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Delete.cshtml",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Delete.cshtml",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Delete.cshtml",
               "RelativeToolTip": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Delete.cshtml",
               "ViewState": "AgIAABIAAAAAAAAAAAAAADcAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -305,35 +406,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "CandidateProfileService.cs",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Service\\CandidateProfileService.cs",
-              "RelativeDocumentMoniker": "Candidate_Service\\CandidateProfileService.cs",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Service\\CandidateProfileService.cs",
-              "RelativeToolTip": "Candidate_Service\\CandidateProfileService.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAswCgAAABFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-04T03:12:57.535Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Create.cshtml",
-              "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Create.cshtml",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Create.cshtml",
-              "RelativeToolTip": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Create.cshtml",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-11T06:22:33.637Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 23,
               "Title": "Details.cshtml",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Details.cshtml",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Details.cshtml",
               "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Details.cshtml",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Details.cshtml",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\CandidateProfilePage\\Details.cshtml",
               "RelativeToolTip": "CadidateManageWebsite\\Pages\\CandidateProfilePage\\Details.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -341,11 +418,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 24,
               "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\appsettings.json",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\appsettings.json",
               "RelativeDocumentMoniker": "CadidateManageWebsite\\appsettings.json",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\appsettings.json",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\appsettings.json",
               "RelativeToolTip": "CadidateManageWebsite\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
@@ -353,35 +430,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "CandidateProfile.cs",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_BusinessObjects\\CandidateProfile.cs",
-              "RelativeDocumentMoniker": "Candidate_BusinessObjects\\CandidateProfile.cs",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_BusinessObjects\\CandidateProfile.cs",
-              "RelativeToolTip": "Candidate_BusinessObjects\\CandidateProfile.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-11T03:14:56.507Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "JobPosting.cs",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_BusinessObjects\\JobPosting.cs",
-              "RelativeDocumentMoniker": "Candidate_BusinessObjects\\JobPosting.cs",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_BusinessObjects\\JobPosting.cs",
-              "RelativeToolTip": "Candidate_BusinessObjects\\JobPosting.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-01T04:33:38.364Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 25,
               "Title": "JobPostingService.cs",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Service\\JobPostingService.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Service\\JobPostingService.cs",
               "RelativeDocumentMoniker": "Candidate_Service\\JobPostingService.cs",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Service\\JobPostingService.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Service\\JobPostingService.cs",
               "RelativeToolTip": "Candidate_Service\\JobPostingService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -389,11 +442,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 26,
               "Title": "HRAccountService.cs",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Service\\HRAccountService.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Service\\HRAccountService.cs",
               "RelativeDocumentMoniker": "Candidate_Service\\HRAccountService.cs",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Service\\HRAccountService.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_Service\\HRAccountService.cs",
               "RelativeToolTip": "Candidate_Service\\HRAccountService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -401,11 +454,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 27,
               "Title": "Privacy.cshtml",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\Privacy.cshtml",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\Privacy.cshtml",
               "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\Privacy.cshtml",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\Privacy.cshtml",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\Privacy.cshtml",
               "RelativeToolTip": "CadidateManageWebsite\\Pages\\Privacy.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -413,11 +466,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 28,
               "Title": "NotPermission.cshtml",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\NotPermission.cshtml",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\NotPermission.cshtml",
               "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\NotPermission.cshtml",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\NotPermission.cshtml",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\NotPermission.cshtml",
               "RelativeToolTip": "CadidateManageWebsite\\Pages\\NotPermission.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -425,11 +478,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 29,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\Index.cshtml",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\Index.cshtml",
               "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\Index.cshtml",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\Index.cshtml",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\Index.cshtml",
               "RelativeToolTip": "CadidateManageWebsite\\Pages\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -437,19 +490,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Program.cs",
-              "RelativeDocumentMoniker": "CadidateManageWebsite\\Program.cs",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Program.cs",
-              "RelativeToolTip": "CadidateManageWebsite\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-04T03:56:10.709Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 15,
               "Title": "ActivatorUtilities.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\AppData\\Local\\SourceServer\\7ff8bcc5b272f53ec9d41b65137bd4aedb1e76e4cd1e16e7ac0bc5afdcbbde80\\src\\Shared\\ActivatorUtilities\\ActivatorUtilities.cs",
               "ToolTip": "C:\\Users\\Admin\\AppData\\Local\\SourceServer\\7ff8bcc5b272f53ec9d41b65137bd4aedb1e76e4cd1e16e7ac0bc5afdcbbde80\\src\\Shared\\ActivatorUtilities\\ActivatorUtilities.cs",
@@ -459,27 +500,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 30,
               "Title": "NotPermission.cshtml.cs",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\NotPermission.cshtml.cs",
+              "DocumentMoniker": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\NotPermission.cshtml.cs",
               "RelativeDocumentMoniker": "CadidateManageWebsite\\Pages\\NotPermission.cshtml.cs",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\NotPermission.cshtml.cs",
+              "ToolTip": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\Pages\\NotPermission.cshtml.cs",
               "RelativeToolTip": "CadidateManageWebsite\\Pages\\NotPermission.cshtml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-04T04:09:55.352Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "JobPostDAO.cs",
-              "DocumentMoniker": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\JobPostDAO.cs",
-              "RelativeDocumentMoniker": "Candidate_DAO\\JobPostDAO.cs",
-              "ToolTip": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_DAO\\JobPostDAO.cs",
-              "RelativeToolTip": "Candidate_DAO\\JobPostDAO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-01T04:33:34.825Z"
             }
           ]
         }

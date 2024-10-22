@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7PBHzMtqCUI=",
+  "dgSpecHash": "YXAgzSURHic=",
   "success": true,
-  "projectFilePath": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_BusinessObjects\\Candidate_BusinessObjects.csproj",
+  "projectFilePath": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_BusinessObjects\\Candidate_BusinessObjects.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

@@ -23,7 +23,7 @@ namespace CadidateManageWebsite.Pages.CandidateProfilePage
 
         public IActionResult OnGet()
         {
-        ViewData["PostingId"] = new SelectList(jobPostingService.GetJobPostings(), "PostingId", "PostingId");
+        ViewData["PostingId"] = new SelectList(jobPostingService.GetJobPostings(), "PostingId", "JobPostingTitle");
             return Page();
         }
 

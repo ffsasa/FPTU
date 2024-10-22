@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1fclEqSIUVE=",
+  "dgSpecHash": "aAFZ0QwDSqA=",
   "success": true,
-  "projectFilePath": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\CadidateManageWebsite.csproj",
+  "projectFilePath": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\CadidateManageWebsite\\CadidateManageWebsite.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

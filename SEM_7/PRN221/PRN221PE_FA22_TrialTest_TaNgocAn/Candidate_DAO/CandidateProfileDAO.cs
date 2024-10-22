@@ -1,4 +1,5 @@
 ﻿using Candidate_BusinessObjects;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,13 +32,20 @@ namespace Candidate_DAO
 
         public List<CandidateProfile> GetCandidateProfiles()
         {
-            return context.CandidateProfiles.ToList();
+            return context.CandidateProfiles.Include(x => x.Posting).ToList();
         }
 
         public CandidateProfile GetCandidate(string id)
         {
-            return context.CandidateProfiles.SingleOrDefault(m => m.CandidateId.Equals(id));
+            var entity = context.CandidateProfiles.SingleOrDefault(m => m.CandidateId.Equals(id));
+            if (entity != null)
+            {
+                context.Entry(entity).State = EntityState.Detached;
+            }
+            return entity;
         }
+
+        
 
         public bool AddCandidateProfile(CandidateProfile candidateProfileNew)
         {
@@ -86,13 +94,7 @@ namespace Candidate_DAO
             {
                 if (candidate != null)
                 {
-                    candidate.Birthday = candidateProfile.Birthday;
-                    candidate.Fullname = candidateProfile.Fullname;
-                    candidate.ProfileShortDescription = candidateProfile.ProfileShortDescription;
-                    candidate.ProfileUrl = candidateProfile.ProfileUrl;
-                    candidate.PostingId = candidateProfile.PostingId;
-
-                    context.Entry<CandidateProfile>(candidate).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    context.Entry<CandidateProfile>(candidateProfile).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     context.SaveChanges();
                     result = true;
                 }

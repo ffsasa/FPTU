@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "38DeioGGQgo=",
+  "dgSpecHash": "JiNXUk4MWsI=",
   "success": true,
-  "projectFilePath": "D:\\Study\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_WPF_GUI\\Candidate_WPF_GUI.csproj",
+  "projectFilePath": "D:\\Study\\FPTU\\SEM_7\\PRN221\\PRN221PE_FA22_TrialTest_TaNgocAn\\Candidate_WPF_GUI\\Candidate_WPF_GUI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\mahapps.metro.iconpacks.core\\5.0.0\\mahapps.metro.iconpacks.core.5.0.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\mahapps.metro.iconpacks.material\\5.0.0\\mahapps.metro.iconpacks.material.5.0.0.nupkg.sha512",
