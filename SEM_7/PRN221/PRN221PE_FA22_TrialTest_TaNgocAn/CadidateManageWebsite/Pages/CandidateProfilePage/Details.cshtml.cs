@@ -16,7 +16,7 @@ namespace CadidateManageWebsite.Pages.CandidateProfilePage
 
         public DetailsModel(ICandidateProfileService candidate)
         {
-            candidateProfileService = candidate;
+            this.candidateProfileService = candidate;
         }
 
       public CandidateProfile CandidateProfile { get; set; } = default!; 

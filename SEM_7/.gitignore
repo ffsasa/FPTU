@@ -432,4 +432,12 @@ SWP391/
 hs_err_pid*
 replay_pid*
 
+wwwroot/*.log
+wwwroot/*.tmp
+
+/publish/
+obj/Release/netcoreapp*/publish/
+
+**/secrets.json
+
 # End of https://www.toptal.com/developers/gitignore/api/java,csharp

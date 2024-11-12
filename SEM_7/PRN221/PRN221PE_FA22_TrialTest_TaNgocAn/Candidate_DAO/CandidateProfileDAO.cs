@@ -37,7 +37,8 @@ namespace Candidate_DAO
 
         public CandidateProfile GetCandidate(string id)
         {
-            var entity = context.CandidateProfiles.SingleOrDefault(m => m.CandidateId.Equals(id));
+            var entity = context.CandidateProfiles.FirstOrDefault(m => m.CandidateId.Equals(id));
+
             if (entity != null)
             {
                 context.Entry(entity).State = EntityState.Detached;

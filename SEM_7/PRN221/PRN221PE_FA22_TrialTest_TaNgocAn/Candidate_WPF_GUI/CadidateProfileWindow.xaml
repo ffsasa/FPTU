@@ -50,7 +50,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button Style="{StaticResource menuButton}">
+                            <Button Style="{StaticResource menuButton}" Click="Button_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="CalendarClock" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Job posting"/>

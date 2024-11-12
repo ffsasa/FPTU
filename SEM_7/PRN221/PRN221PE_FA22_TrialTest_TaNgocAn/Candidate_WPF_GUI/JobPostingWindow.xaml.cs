@@ -159,5 +159,12 @@ namespace Candidate_WPF_GUI
                 this.DragMove();
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CadidateProfileWindow cadidateProfileWindow = new CadidateProfileWindow();
+            cadidateProfileWindow.Show();
+            this.Close();
+        }
     }
 }
