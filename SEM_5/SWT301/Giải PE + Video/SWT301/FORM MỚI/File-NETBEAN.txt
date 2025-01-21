@@ -1,0 +1,92 @@
+
+package com.mycompany.staa;
+
+import java.util.ArrayList;
+
+public class Calculation{
+    
+    // đây là 1 cái hàm truyền vào 2 mảng int, và nó làm gì t k biết
+    public ArrayList<Integer> vicDiff(int[] ar1, int[] ar2){
+    
+        // khai bảo 1 arraylist các số output
+        // theo nguyên tắc java thì tên của biến phải là chữ THƯỜNG
+        // bắt 
+        
+        // dòng này là dòng để lưu out put
+        ArrayList<Integer> output = null;
+    
+    // dòng này đang là tạo mới cái mảng array, vô lý
+    //int[] ar1 = {};
+
+    
+    // found này chưa được khởi tạo
+    
+    // khởi tọa 1 biến boolean để tìm cách
+    boolean found;
+
+    // nếu ar1 và ar2 khác null => xử lý tiếp code, còn không thì next
+    if (ar1 != null & ar2 != null){
+       
+        // khởi tạo giá trị ban đầu cho output
+        output = new ArrayList<Integer>();
+        
+        // duyệt tất cả thằng em trong màng ar1
+        for (int item : ar1){
+            // muốn ddeemes thì phải khởi tạo giá trị trước
+            
+            // khởi tạo biến i, và gắn giá trị cho found = false
+            int i = 0;
+            found = false;
+            
+            
+            // không ai viêt found == false, found == true
+            // !found, found
+            
+            // khi làm việc với vòng lặp thì không
+            // ai ghi <= length, < length
+            
+            
+            //!found dòng này ám chỉ đoạn code chỉ được
+            // thực thi khi found == false
+            // nếu i là 1 phần tử trong mảng ar2 thì chạy vòng lặp
+            
+            // với mỗi i thì chỉ có duy nhất 1 thằng item được add vào khi chạy vòng lặp
+            
+            // nếu ar2 mà có length = 0 thì nó sẽ bắt exception
+            while (i < ar2.length && !found){
+                    
+                // mảng này add vào những phần tử item
+                // mà có item = ar2[i]
+                if (item == ar2[i]){
+                        // chuyển found thành true
+                        
+                        // nếu found được sêt => true thì vòng lặp này không được chạy đứa
+                       // found = true => vòng while dừng chạy
+                        
+                        found = true;
+                       // mục đích biến i là biến để đếm
+                      
+                       // tặng i lên 1
+                       i++;
+                }
+            }
+            
+            // in ra found
+            System.out.println(found);
+            
+            
+            // add vào bên mang
+             if (found){
+            output.add(item);
+        }
+        }
+       
+    }
+    return output;
+}
+}
+
+// hàm này sẽ add các phần từ trong thằng ar1 miễn nó thỏa mãn điều kiện
+// phần tử đó có trong ar2 => add vào cái list
+
+th1 là gọi ra hàm vicDiff truyền vào 2 null 

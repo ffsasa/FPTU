@@ -1,0 +1,18 @@
+I. Maven là gì?
+1. Khái niệm
+- Maven là một công cụ quản lý dự án, project, dependencies, testing, deployment dự án.
+
+2. Lợi ích
+- Quản lý dependencies dễ dàng: Đưa vào 1 vài thông tin của thư viện trong file pom là có thể sử dụng thư viện rồi. KHông cần tìm thư viện ở trên gg rồi copy vào dự án. => CHỉ cần tên và version của thư viện.
+
+- Tự động hóa quá trình build: Chỉ lần lựa chọn đầu ra bằng cách định nghĩa chúng trong pom, các thao tác như biến dịch, đóng gói, tạo các phiển bản đầu ra, file jar, war,... sẽ được thực hiện tự động 
+
+- QUản lý phiên bản và Release: Các dependence sẽ có các version, thì MAVEN sẽ hỗ trợ.
+=> Các IDE đều có hỗ trợ MAVEN nên làm việc với MAVEN sẽ tốt nhất.
+
+- Chuẩn hóa cấu trúc dự án:
+	+ src/main/java: Source java code
+	+ src/main/resource: Chứa các file liên quán đến config.
+	+ src/main/webapp: JSP, JS, html,...
+	+ src/test: nơi chứa source code để test
+	+ target: build các file và nó sẽ nằm ở target, pom.xml chứa các cấu hình.

@@ -1,0 +1,15 @@
+D:\Study\FPTU\SEM_7\PRN221\TaskDemonstration\TaskDemonstration\bin\Debug\net6.0\TaskDemonstration.exe
+D:\Study\FPTU\SEM_7\PRN221\TaskDemonstration\TaskDemonstration\bin\Debug\net6.0\TaskDemonstration.deps.json
+D:\Study\FPTU\SEM_7\PRN221\TaskDemonstration\TaskDemonstration\bin\Debug\net6.0\TaskDemonstration.runtimeconfig.json
+D:\Study\FPTU\SEM_7\PRN221\TaskDemonstration\TaskDemonstration\bin\Debug\net6.0\TaskDemonstration.dll
+D:\Study\FPTU\SEM_7\PRN221\TaskDemonstration\TaskDemonstration\bin\Debug\net6.0\TaskDemonstration.pdb
+D:\Study\FPTU\SEM_7\PRN221\TaskDemonstration\TaskDemonstration\obj\Debug\net6.0\TaskDemonstration.GeneratedMSBuildEditorConfig.editorconfig
+D:\Study\FPTU\SEM_7\PRN221\TaskDemonstration\TaskDemonstration\obj\Debug\net6.0\TaskDemonstration.AssemblyInfoInputs.cache
+D:\Study\FPTU\SEM_7\PRN221\TaskDemonstration\TaskDemonstration\obj\Debug\net6.0\TaskDemonstration.AssemblyInfo.cs
+D:\Study\FPTU\SEM_7\PRN221\TaskDemonstration\TaskDemonstration\obj\Debug\net6.0\TaskDemonstration.csproj.CoreCompileInputs.cache
+D:\Study\FPTU\SEM_7\PRN221\TaskDemonstration\TaskDemonstration\obj\Debug\net6.0\TaskDemonstration.sourcelink.json
+D:\Study\FPTU\SEM_7\PRN221\TaskDemonstration\TaskDemonstration\obj\Debug\net6.0\TaskDemonstration.dll
+D:\Study\FPTU\SEM_7\PRN221\TaskDemonstration\TaskDemonstration\obj\Debug\net6.0\refint\TaskDemonstration.dll
+D:\Study\FPTU\SEM_7\PRN221\TaskDemonstration\TaskDemonstration\obj\Debug\net6.0\TaskDemonstration.pdb
+D:\Study\FPTU\SEM_7\PRN221\TaskDemonstration\TaskDemonstration\obj\Debug\net6.0\TaskDemonstration.genruntimeconfig.cache
+D:\Study\FPTU\SEM_7\PRN221\TaskDemonstration\TaskDemonstration\obj\Debug\net6.0\ref\TaskDemonstration.dll

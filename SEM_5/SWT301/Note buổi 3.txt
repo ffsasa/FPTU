@@ -1,0 +1,32 @@
+
+I. Testing và các cách phân loại
+1. Tổng quan
+- You can do FUNCTIONAL TESTING(A type) during SYSTEM TESTING(A level) using BLACK BOX TESTING(A method)
+- Testing levels: Có 4 mức test ứng với các giai đoạn viết code, mô hình v-model phản ánh rõ 4 mức test, phụ thuộc vào giai đoạn ta muốn test.
+- Testing type: Với mỗi mục tiêu, mục đính, đối tượng test cụ thể ta có các loại kiểu thử khác nhau, phụ thuộc vào cái ta muốn test.
+- Testing method/techniques: Cách thức thực hiện tiến hành test.
+
+2. TESTING LEVELS
+- Tuy thuộc và hoạn thiện code của app, mức độ hoàn thiện của app mà ta có cách thức test khác nhau.
+- Mức độ hoàn thiện app/code đi qua 4 mức sau:
+	+ Mới viết được hàm, class: DEV là người test, test từng hàm. => Unit Testing.
+	+ Lắp ráp các class tạo ra các tính năng (login, logout, registe,...) thì ta bắt đầu test tính năng, chức năng được thực hiện bởi TESTER. => Integration Testing(Kiểm thử tích hợp). Kiểm thử 1 nhóm modul liên quan.
+	+ Tạo ra được cái app rồi thì mình test cái app. => System testing(QC)
+	+ Mời USER trải nghiệm => UAT LEVEL  
+
+3. TEST TYPES
+- Test level thì không đủ để test các khía cạnh của component hay system. Ví dụ: unit test thì test được function đúng hay không như không test được thời gian trả về nhanh hay không?
+- Một loại test type chỉ tập trung vào một mục tiêu test cụ thể, có thể là chức năng được thực thi bởi một component/system, hiệu năng thực thi của hệ thống.
+- Mỗi loại test type xác định rõ/cụ thể đối tượng muốn test và mục đích, ví dụ chức năng login, chức năng thanh toán...
+- Phân loại: 
+	+ Functional Testing(Kiểm thử chức năng): Xem phân loại ở sơ đồ thầy Hoàng
+	+ Non-functional Testing(Kiểm thử phi chức năng): Xem phân loại ở sơ đồ thầy Hoàng
+	+ Structural/Architectural testing: Kiểm thử cấu trúc/kiến trúc phần mềm còn gọi là White-Box testing/Glass Box testing. Gồm 2 bước Understand the source code và Create the test cases and execute. Mỗi dòng code phải đc test ít nhất 1 lần.
+	+ Change-related Testing: Confirmation testing(kiểm thử xác nhận) kiểm thử khi app sau khi bị thay đổi do fix bug, do chỉnh sửa chức năng. Ngoài ra phải Regression testing(kiểm thử hồi quy) kiểm thử cả phần không bị chỉnh sửa để xem có bị ảnh hưởng bởi phần bị chỉnh sửa không.
+	+ Maintenance testing: Kiểm thử bảo trì được thực hiện trên hệ thống đã tồn tại và được tiến hành khi có sự thay đổi, di chuyển, nâng cấp, loại bỏ phần mềm hoặc hệ thống. Impact analysis phân tích các tác động khi phần mềm bị thay đổi, Risk analysis phân tích rủi ro sẽ giúp quyết định được nơi cần tập trung kiểm thử hồi quy. Có 2 loại bảo trì, bảo trì theo lịch, bảo trì do thay đổi bộc phát.
+
+4. TESTING TECHNIQUES
+- Kỹ thuật thiết kế kiểm thử là các tiêu chuẩn của thiết kế kiểm thử cho phép tạo ra các trường hợp kiểm thử có hệ thống và được chấp nhận rộng rãi.
+- 2 loại kĩ thuật thiết kế: Static test, Dynamic test
+- Thiết kế kiểm thử đang tạo một bộ đầu vào cho phần mềm nhất định để cung cấp một bộ đầu ra dự kiến. => Tạo ra sản phẩm cuối ít lỗi nhất cho người dùng.
+   

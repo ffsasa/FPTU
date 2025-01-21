@@ -1,0 +1,4 @@
+1. Một số câu lệnh git
+- LỆNH git add <file names>: Thêm tệp vào index(staging area) nếu không ghi tên file mà dùng "." thì sẽ đẩy tất cả vào staging area.
+- LỆNH git commit -m "Nội dung ghi chú": Tạo commit đưa lên Repo.
+- LỆNH git diff: So sánh với commit cuối cùng.

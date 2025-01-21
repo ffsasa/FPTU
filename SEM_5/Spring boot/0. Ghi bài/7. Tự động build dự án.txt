@@ -1,0 +1,14 @@
+I. Tự động build
+- Cứ mỗi lần thêm code, chỉnh sửa, phải run lại dự án. Tìm cách để chỉ cần save lại thì dự án tự build
+
+1. Spring Boot DevTools
+- Khởi động tự động: Khi các tệp có thay đổi, sẽ tự  khởi động lại để áp dụng thay đổi, không cần run thủ công.
+- Tải tự động: Khi thay đổi các tài nguyên tĩnh trong resource sẽ tự động tải lại để hiển thị những thay đổi.
+- Khởi động nhanh: Chia tách lớp giảm thời gian khởi động ứng dụng.
+
+=> CHỉ sử dụng, cài đặt dependency này trong lúc lập trình, cần xóa nó đi khi đem ra môi trường sử dụng vì nó có thể làm giảm hiệu suất.
+
+2. Cần setup để sử dụng dependency: Spring Boot DevTools
+- B1: File->Setting->Build, excution...->Compiler->Tick "Build project automatically".
+- B2: File->Advanced Setting->Tick "Allow auto-make to start..."
+

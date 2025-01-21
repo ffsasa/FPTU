@@ -1,0 +1,53 @@
+I. Mô hình cũ
+- Hiện tại chúng ta đang sử dụng mô hình gồm
+	+ DAO
+	+ Controller
+	+ Entiry
+- Ở mô hình này các thao tác đơn giản sẽ được viết ở DAO
+- Ví dụ: getById, getAll, deleteById, Update,... những thao tác này chỉ thuộc về 1 thằng DAO duy nhất giống như trong tên.
+
+- Tuy nhiên trong thực tế sẽ có những truy vấn nhiều bảng, vậy thì ở trong Controller phải gọi ra nhiều thằng DAO để làm việc với nhau mới đưa ra được kết quả cuối cùng.
+- Ví dụ: StudentDAO, ObjectDAO,... Nếu muốn xem môn học của học sinh theo Id. Thì không thể viết lệnh truy vấn này ở StudentDAO hay ObjectDAO được mà phải viết trong Controller.
+=> Nhưng vận sẽ làm Controller rất dơ và phải import vô số thằng DAO
+
+========> Tạo ra 1 thằng mới chuyên viết những truy vấn: SERVICE
+
+II. Mô hình mới - Spring Data JPA
+- Ở mô hình này gồm có
+	+ Repository (Tạo sẵn cho ta các DAO đơn giản)
+	+ Controller
+	+ Model (Entity)
+	+ Service (new)
+- Repository lưu nhiều phương thức cơ bản của DAO được extend thay vì phải tự viết (1 interface, 1 implement). Service (gồm 1 interface và 1 implement) sử dụng Repository để tạo ra truy vấn phức tạp hơn (tạo ra đối tượng Repository bên trong mình). Controller lại gọi Service để sử dụng trực tiếp các dịch vụ được cung cấp từ cơ bản đến phức tạp.
+=> Repository chỉ có phương thức cơ bản, Service phải viết đầy đủ mọi thứ, Controller chỉ gọi đúng 1 method cần gọi, Model chỉ là ánh xạ của Bảng và Đối tượng.
+
+====>>>> ĐỌC PROJECT FIRSTAPI <<<<====
+
+-------------------------------------------
+
+III. Spring Data REST
+
+- Nếu có quá nhiều đối tượng, việc viết Service và ServiceImpl thực sự tốn thời gian và mệt mỏi.
+- Thêm dependency: Spring Data REST và chuyển từ @Repository thành @RepositoryRestResource(path = "<đường dẫn>")
+
+=> Tạo ra Spring Data REST đây là phần ở rộng của Spring Data JPA: Spring Data REST là một phần mở rộng của Spring Data JPA, cung cấp cách dễ dàng để tạo RESTful API từ các repository JPA mà không cần viết thêm mã điều khiển (controller) tùy chỉnh.
+	+ GET /students: Lấy danh sách tất cả sinh viên
+	+ GET /students/{id}: Lấy thông tin chi tiết của một sinh vi 
+	+ POST /students: Thêm sinh viên mới
+	+ PUT /students/{id}: Cập nhật thông tin của 1 sinh viên theo ID
+	+ DELETE /students/{id}: Xóa một sinh viên dự trên ID
+
+- Đặc biệt nhất là nó giúp chúng ta phân trang, tuy nhiên cần cấu hình.
+#Config paging
+spring.data.web.pageable.default-page-size=5
+spring.data.web.pageable.max-page-size=5
+-> Gọi api phân trang: http://localhost:8080/students?page=0&size=5
+-> Gọi api sắp xếp: http://localhost:8080/students?sort=firstName,asc (hoặc desc) 
+
+-----------------------------------------------
+
+*CÂU TRUYỆN BÊN LỀ
+- Mô hình bàn đầu: Model - DAO - Controller
+DAO viết quá mệt và Controller quá dơ => cung cấp Repository
+- Mô hình 2: Model - Repository - Service - Controller
+Service viết lặp lại quá nhiều => Cung cấp Spring Data REST gồm API cơ bản

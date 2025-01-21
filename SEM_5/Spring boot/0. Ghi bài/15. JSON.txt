@@ -1,0 +1,14 @@
+I. JSON là gì?
+- JSON là một đinh dạng dữ liệu dựa trên văn bản dễ đọc và dễ viết cho việc truyển tai dữ liệu giữa các máy tính
+- Nó đã trở thành một tiêu chuẩn cho truyển tải dữ liệu giữa các ứng dụng web. Ở đây kể cả truyển tải ảnh cũng chuyển về dạng text để truyền tải.
+- ĐƯợc thể hiện dưới dạng Key - Value. Có thể có các JSON lồng nhau. Mảng JSON sử dụng [] chữa gồm nhiều JSON {}
+
+II. JSON và Java POJO
+1. Java POJO
+- Plain Old Java Object: Là các class java thuần túy, không có gì đặc biệt.
+- Chứa các thuộc tính và constructor, set, get, không ràng buộc về extend, implement nào cả, không phụ thuộc Framework, Annotation nào cả.
+- 1 class bình thường nhất có thể của java -> Giống 1 DAO.
+
+2. JSON chuyển đổi Java POJO
+- Khi người dùng, frontend yêu cầu 1 đối tượng ví dụ nó yêu cầu thông tin của 1 sinh viên. CHúng ta không thể trả về 1 sinh viên, hay 1 ghi file giá trị được mà phải chuyển đổi sang dạng dữ liệu có thể dễ dàng đọc và sử dụng. Sinh ra JSON.
+- Trong Spring Framework, chuyển đổi giữa JSON và Java POJO được thực hiện thông qua các thành phần của Jackson - một thư viện mạnh mẽ hỗ trợ JSON trong Java.
