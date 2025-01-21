@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Psychological_APIServices.props" />
+</Project>

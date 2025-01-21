@@ -153,7 +153,7 @@ namespace Candidate_WPF_GUI {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Candidate_WPF_GUI;component/cadidateprofilewindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Candidate_WPF_GUI;V1.0.0.0;component/cadidateprofilewindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\CadidateProfileWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

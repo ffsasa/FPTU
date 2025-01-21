@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "6gM79kx/44I=",
+  "success": true,
+  "projectFilePath": "D:\\Study\\SEM_8\\PRN231\\SP25_NET1720_PRN231_ASM1_QE170035_TaNgocAn\\Psychological.MVCWebApp\\Psychological.MVCWebApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.identitymodel.abstractions\\8.3.0\\microsoft.identitymodel.abstractions.8.3.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\8.3.0\\microsoft.identitymodel.jsonwebtokens.8.3.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.identitymodel.logging\\8.3.0\\microsoft.identitymodel.logging.8.3.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.3.0\\microsoft.identitymodel.tokens.8.3.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\system.identitymodel.tokens.jwt\\8.3.0\\system.identitymodel.tokens.jwt.8.3.0.nupkg.sha512"
+  ],
+  "logs": []
+}

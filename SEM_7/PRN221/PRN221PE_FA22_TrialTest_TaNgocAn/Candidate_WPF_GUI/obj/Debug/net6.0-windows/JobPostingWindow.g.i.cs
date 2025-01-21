@@ -137,7 +137,7 @@ namespace Candidate_WPF_GUI {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Candidate_WPF_GUI;component/jobpostingwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Candidate_WPF_GUI;V1.0.0.0;component/jobpostingwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\JobPostingWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
