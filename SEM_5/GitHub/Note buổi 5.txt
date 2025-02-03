@@ -1,0 +1,8 @@
+1. Làm việc với remote repository
+- git init --bare: Tạo một Local repository -> Chỉ thực hành ở các file trong máy, chưa thực sự dùng github
+- git clone [repo name][clone name]: Sao chép và liên kết repo name
+- git fetch: lấy các thông tin về commit mới từ central(remote)
+- git pull: lấy dữ liệu từ central về local repo
+- git push: đẩy các commit từ local lên central(remote)
+
+ 

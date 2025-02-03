@@ -1,0 +1,16 @@
+Assets
++---Art
+| +---Materials
+| +---Models
+| +---Textures
++---Audio
+| +---Music
+| +---Sound
++---Code
+| +---Scripts # C# scripts
+| +---Shaders # Shader files and shader graphs
++---Docs # Wiki, concept art, marketing material
++---Level # Anything related to game design in Unity
+| +---Prefabs
+| +---Scenes
+| +---UI

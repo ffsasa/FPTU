@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#8E24AA"
+        android:text="Linear Layout"
+        android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:padding="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="#FFEB3B"
+            android:text="Android"
+            android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
+            android:textColor="#FF0000"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:background="#029EE4"
+            android:text="PHP"
+            android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
+            android:textColor="#E95621"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:background="#00796B"
+            android:text="SQL"
+            android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
+            android:textColor="#FFEB3B"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#FFEB3B"
+            android:text="PYTHON"
+            android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
+            android:textColor="#03A9F4"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+</LinearLayout>

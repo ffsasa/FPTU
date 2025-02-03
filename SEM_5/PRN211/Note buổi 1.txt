@@ -1,0 +1,33 @@
+hoangnt20@fe.edu.vn
+0.SDK là gì?
+I. .NET SDK là gì?
+-  là viết tắt của "Software Development Kit," hay "Bộ công cụ phát triển phần mềm" trong tiếng Việt. Đây là một bộ công cụ cung cấp tài nguyên và các phần mềm hỗ trợ cho việc phát triển ứng dụng. SDK thường bao gồm các công cụ như trình biên dịch, thư viện, tài liệu và các thành phần khác giúp nhà phát triển xây dựng ứng dụng một cách hiệu quả.
+
+- .NET SDK là một SDK được phát triển bởi Microsoft để hỗ trợ phát triển ứng dụng trên nền tảng .NET. .NET là một nền tảng phát triển ứng dụng đa ngôn ngữ, hỗ trợ nhiều ngôn ngữ lập trình như C#, VB.NET, F#, và nhiều ngôn ngữ khác. .NET SDK cung cấp các công cụ và thư viện cho việc phát triển ứng dụng .NET, và nó bao gồm trình biên dịch, thư viện chuẩn, trình quản lý gói (NuGet), và các công cụ hỗ trợ khác để xây dựng, chạy và quản lý ứng dụng trên nền tảng .NET.
+II. QUY ƯỚC VỀ NƠI LƯU TRỮ SOURCE CODE - PROJECT
+(ÁP DỤNG CHUNG CHO TẤT CẢ CÁC NGÔN NGỮ LẬP TRÌNH)
+1. KHÔNG ĐẶT TÊN THƯ MỤC/FOLDER/DIRECTORY CHỨA CODE CÓ DẤU TIẾNG VIỆT, CÓ KÍ TỰ UNICODE, CÓ KHOẢNG TRẮNG, KÍ TỰ ĐẶC BIỆT - VÌ NÓ SẼ ẢNH HƯỚNG ĐẾN QUÁ TRÌNH BIÊN DỊCH, ĐÓNG GÓI APP DO TOOL BIÊN DỊCH KHÔNG THÂN THIỆN VỚI UNICODE/TIẾNG VIỆT CÓ DẤU
+- NOT OKE: KÌ 1\ KÌ_1, KỲ 1
+- OKE: KI5\ KY5\ KY_5\ KY-5
+
+2. KHÔNG LƯU CODE Ở Ổ ĐĨA C:\ 
+   NÊN Ở Ổ ĐĨA D:\ E:\ HOẶC DESKTOP
+
+3. CẤU TRÚC GỢI Ý THƯ MỤC CHỨA SOURCE CODE
+	NET1702\
+	PRN211_NET1702\
+	SEM5_PRN211\
+		Session01-HelloWorld\
+		Session02-Language\
+		Session03-OOP\
+
+4.DLL
+- File dll không chạy trực tiếp được, ở windonw nó chạy bằng file exe
+- Nó dùng để chạy đa nền tảng
+
+5.PlatformDependence có nghĩa là ngôn ngữ phụ thuộc vào hệ điều hành.
+
+6. MSIL
+- Những ngôn ngữ không chạy đa nền tảng thì sau khi compile nó sẽ dịch sang hẳn native cho nền tảng đó để chạy ví dụ như C.
+- Còn đối với những ngôn ngữ chạy đa nền tảng thì sau khi compile nó sẽ dịch sang 1 loại file chứa các mã trung gian khác ví dụ với C# là file dll.
+- Và thông qua 1 máy ảo thì nó sẽ trở thành native và chạy được trên các hệ điều hành khác nhau.

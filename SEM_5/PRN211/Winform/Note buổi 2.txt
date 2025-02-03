@@ -1,0 +1,22 @@
+1. Label là gì?
+- Label là 1 dòng nội dung, text được thêm vào trong form
+2. Cách tạo label
+- Label năm trong form nên cần chọn chính xác form cần thêm label
+- Mở hộp thoại toolbox, và tìm từ khóa label
+- Kéo từ khóa đó vào form của mình để tạo ra 1 label
+3. 1 số thuộc tính của label
+- Text: Dòng chữ được hiển thị của label
+- TextAlign: Vị trí chữ
+- Anchor: Ghim dòng chữ của label theo Top, left, bottom, right
+- Autosize: Chọn kích thước của label có phụ thuộc vào nội dung hay không
+- BackColor
+- BorderStyle: Kiểu dánh border của label
+- Cursor: Kiểu dánh con chuột khi đưa vào label
+- Font: Font chữ
+- Fore: Màu chữ
+- Image: Nền label
+- ImageAlign: Vị trí nền
+4.1 số làm sử dụng với label
+- Show: Show ra 1 đối tượng. Ví dụ: Thêm event "Click" cho label. Trong code của event, ta tạo 1 đối tượng form và show nó. Form2 a = new Form2(); a.show(); đây là code trong function event click của label thì nó sẽ tạo và bật lên form2.
+- ShowDiaLog: Cũng là Show ra nhưng phải tắt cái form vừa được show ra mới có thể làm việc tiếp tục với form ban đầu. Còn với show bth có thể tạo ra n form mới và vẫn làm việc được với form ban đầu.
+- Sau khi tạo đối tượng form, thì ta có thể gọi cái đối tượng nằm trong form. Ví dụ: a.label => Gọi đối tượng label của form2 trên form1.

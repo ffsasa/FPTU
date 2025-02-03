@@ -1,0 +1,44 @@
+III. SOLUTION VÀ PROJECT
+1. 
+- Solution là 1 cái app sẽ được làm trong tương lai, được thiết kế để giải quyết nhu cầu của một bộ phận user.
+- Ví dụ: Game fifa2023, LMHT - solution
+	+ Game-play project: Cảnh, nhân vật, kịch bản, tương tác
+	+ Authen project: Bảo mật
+	+ Cheat project: Xử lý sự bất thường của player
+	+ Trading project: Buôn bán
+	+ ...
+2.
+- Project là tập hợp của 1 nhóm code, 1 nhóm các class dùng để làm 1 chức năng riêng biệt nào đó!!!
+- 1 solution là cái app bự cuối cùng sẽ gồm nhiều project bên trong, gom nhiều project để có được app hoàn chỉnh các chức năng.
+- Chia 1 solution thành nhiều project dể dễ bảo trì, dễ quản lý suorce code.
+- Mỗi project sẽ biến thành 1 dll, 1 app/1 solution có nhiều dll.
+- Mỗi project là 1 library (chứa nhiều code) -> dependency. 
+
+	=> 1 solution là 1 app, và nó có nhiều project bên trong.
+	   1 project là 1 nhóm code làm 1 việc/chức năng nào đó. 
+	   1 project sẽ biến thành 1 dll - 1 thư viện - 1 dependency.
+	   1 project có nhiều namespace - chia thành nhiều khu vực chứa call bên trong.
+	   1 namespace có nhiều class bên trong.
+	   1 class có nhiều method/function và các đặc tính bên trong (property, attribute, field, instance, members)
+IV. CODING CONVENTION - QUY ƯỚC VIẾT CODE HOẶC BẠN BỊ CHECK VAR
+1. Quy tắc đặt tên cho solution
+2. Quy tắc đặt tên cho project
+3. Quy tắc đặt tên cho namespace
+4. Quy tắc đặt tên cho class
+- Noun, Pascal Case Notation
+5. Quy tắc đặt tên cho function
+- Verb + Object động từ kèm bổ ngữ
+- Chữ hoa từng đầu từ, khác java, java xài lạc đà
+- Ví dụ: GetBmi, SetBmi
+6. Quy tắc đặt tên cho biết cục bộ
+- Noun
+- Biến trong hàm hoặc ngay trên tham số hàm
+- Cú pháp con lạc đà, camel Case Notation, chữ hoa từng đầu từ, từ đầu tiên chữ thường
+- Ví dụ: salary, basicSalary
+7. Quy tắc đặt tên cho hằng số
+8. Quy tắc đặt tên cho đặc tính của class(field)
+- Noun
+- Cú pháp con lạc đà
+- Thêm dấu _ ở đầu thuộc tính attribute
+9. Quy tắc đặt tên cho Dalegate/event
+10. Quy tắc đặt tên cho form/các component trong form (GUI-PE)

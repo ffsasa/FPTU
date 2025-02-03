@@ -1,0 +1,90 @@
+I. Spring Security là gì?
+- Nó là môi trường dứng giữa Web Resource và Client. Và nó quản lý xem Client này có được phép truy cập vào Web Resource đó hay không.
+- Cung cấp các tính năng bảo mật để bảo vệ ứng dụng khỏi các cuộc tấn công, giúp bạn kiểm soát quyển truy cập của người dùng và cung cấp một cơ chế xác thực dựa trên các phương thức như username/password, OAuth, JWT, và nhiều phương thức khác.
+
+II. Spring Security hạt động
+-> Client truy cập 
+-> Spring Securtiry Filter kiểm tra xem, nội dung có được bảo mật hay không 
+-> Nếu không được bảo mật(Trả về cho họ), Nếu có thì kiểm tra xem đã đăng nhập chưa (Authenticated) 
+-> Chưa đăng nhập thì bắt đăng nhập, Nếu đã đăng nhập thì kiểm tra quyền có được truy cập vào không (Authorized). 
+-> Nếu được phép cho truy cập, Không được phép thì thông báo.
+
+III. Authentication vs Authorized
+1. Authentication
+- Kiếm tra xem người dùng đã đăng nhập hay chưa. Tài khoản này có tồn tại không, tên đăng nhập và mật khẩu có khớp không,...
+- Hoặc thông qua các phương thức xác thực bổ sung như Signle Sign On (SSO) và OAuth.
+
+2. Authorized 
+- Kiểm soát quyền truy cập của người dùng vào các phần của ứng dụng.
+- Bạn có thể xác định các vai trò và phân quyền cho từng người dùng hoặc nhóm người dùng, sau đó sử dụng chúng để giới hạn quyền truy cập vào các tài nguyên.
+
+3. Resource Protection
+- Bảo vệ các tài nguyên trong ứng dụng, chẳng hạn như các URL, trang web, API endpoint, và các thành phần khác
+- Nó cho phép bạn áp dụng các quy tắc bảo mật để chỉ cho phép người dùng có quyền truy cập vào những tài nguyên mong muốn.
+
+IV. User ảo
+- Tạo thêm user để phân ra vai trò, và làm việc với 1 số endpoint, web resource đươc phân quyền.
+1. Password store
+- Mật khẩu được lưu dưới dạng:
+    + Văn bản thô (noop)
+          {noop}test123456
+    + Mã hóa (bcrypt - BCryptPasswordEncoder)
+	  {bcryp}------------
+
+2. InMemoryUserDetailsManager
+- Là một lớp mà Spring Security cung cấp để xử lý việc quản lý người dùng và cung cấp thông tin về người dùng (username, password, roles) từ bộ nhớ.
+-> Thường được sử dụng để test trước, chứ ít khi được sử dụng trong thực tế, vì trong thực tế chúng ta có các bảng account, roles của chúng ta. Và lớp này tốn rất nhiều bộ nhớ.
+------------------------------------
+
+- Spring Security hỗ trợ nhiều phương thức xác thực, cho phép bạn tích hợp với hệ thống xác thực của bên thứ ba như OAuth, LDAP, CAS và nhiều hơn nữa.
+
+
+V. Mã hóa mật khẩu với Bcrypt
+- Để tránh dịch ngược giống sha1 thì Bcrypt cũng bổ sung thêm những đoạn text ngẫu nhiên được gọi là Salt.
+- Tuy nhiên khác với sha1 thì Bcrypt có Salt là được random ngẫu nhiên. Nên những mật khẩu giống nhau sau khi mã hóa vẫn cho ra kết quả khác nhau.
+- Ngoài ra kết quả mã hóa không chỉ lưu mật khẩu mà lưu toàn bộ thông tin mã hóa
+- Ví dụ:
+Mật khẩu: mypassword
+Salt: abc1234 (random khác nhau)
+Mật khẩu sau mã hóa: zxcqweasd
+=>Kết quả được lưu sẽ có dạng: $2a$12$abc1234zxcqweasd
+-> Gồm số lần mã hóa liên tục + salt + mk đã mã hóa. Độ dài tối thiểu của kết quả phải là 68.
+
+- Cách lưu trong db: {bcrypt}password
+=> Chỉ cần lưu mật khẩu mã hóa, không cần mã hóa khi đăng nhập. Tức chỉ mã hóa 1 lần lúc đăng ký để lưu vào db về sau khi đăng nhập thằng JdbcUserDetailsManager sẽ tự lo xem mật khẩu có chính xác không.
+
+VI. Cấu hình lại khi sử dụng JdbcUserDetailsManager
+
+- Nếu tên bảng và cột khác mặc định: users(username, password, enabled) -> accounts(id, pw, active)
+- Ta cấu hình lại: jdbcUserDetailsManager.setUsersByUsernameQuery("SELECT id, pw, active FROM accounts WHERE id=?");
+
+- Nếu tên bảng và cột khác mặc định: authorities(username, authority) -> roles(id, role)
+- Ta cấu hình lại: jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("SELECT id, role FROM roles WHERE id=?");
+
+VI. Các câu lệnh trong Spring Security
+
+- Lấy thông tin từ Database:
+@Bean
+    @Autowired
+    public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource){
+        return new JdbcUserDetailsManager(dataSource);
+    }
+
+- Tạo Security filter:
+@Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.authorizeHttpRequests(
+                configurer->configurer.anyRequest().authenticated()
+		//anyRequest: là yêu cầu bất kỳ request nào cũng phải đăng nhập
+		//authenticated: là kiểm tra nó đã đăng nhập chưa
+
+        ).formLogin(
+	//Cấu hình form cho login
+                form->form.loginPage("/showLoginPage")
+		//Khi login sẽ k đến trang mặc đinh của Spring Security nữa mà tới /showLoginPage.html
+                        .loginProcessingUrl("/authenticateTheUser")
+			//Sau khi login sẽ mặc định chuyển thông tin đến authenticateTheUser cho Spring Security
+			.permitAll()
+			//Những phần không cần đăng nhập vẫn được truy cập sẽ được cấu hình ở đây
+        )
+

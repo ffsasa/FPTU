@@ -1,0 +1,24 @@
+I. Các loại actor
+- Actor là tất cả các đối tượng tác động đến app, có thể là con người, app khác, CRON.
+- Có 2 loại user: user bình thường, và user admin
+- Actor cũng có thể là các app bên ngoài. Ví dụ: use case login by google cần được nối với actor Google. Không cần vẽ thêm actor này vì ai cũng biết nó phải ra ngoài để tương tác vs app khác. Nhưng nếu nó là một app không nhiều người biết thì phải vẽ để người ta biết đang sử dụng hoặc chạy song song với app này.
+- Actor cũng có thể là còn CRON/TIẾN TRÌNH app tự chạy: Đoạn code thay người kcihs hoạt tính năng, làm app chạy cũng được tính là 1 actor. Actor này được gọi là SYSTEM HANDLER, khi đạt được 1 ngưỡng data nào đó nó sẽ chạy, báo thức, tự lưu điểm,...
+II. Các mối quan hệ trong use case diagram
+1. Associationt (Kết hợp)
+- Nét nối thẳng, nối giữa Actor và Use Case hàm ý rằng User X xài tính năng Y
+
+2. Generalization - TỔNG QUÁT HÓA - kế thừa - IS A, tam giác rỗng
+- Dùng để nối giữa actor với	 actor để nói rằng các actor có dùng chung 1 cụm tính năng nào đó. Sử dụng để giảm số nét kết nối vào Use Case
+- Có thể dùng giữa các Use Case với nhau, nếu ta đọc được câu "IS A" 1 chiều. Cái này có ý nghĩa gom cụm tính năng
+- A,D,C ĐỀU LÀ B -> Sử dụng Generalization
+
+3. Include 
+- Sự phụ thuộc giữa 2 use case, phụ thuộc chặt chẽ, sống còn. Use Case A include Use Case B, thì để thực hiện được A bắt buộc phải thực hiện B. Nếu A được thực hiện, thì B đã thực hiện rồi. A ---> B
+
+4. Extend: Switch case, option
+- Sự phụ thuộc giữa 2 use case, phụ thuộc lỏng lẻ, tồn tại độc lập. Use Case A extend B thì khi dùng A có thể dùng B. Còn nếu không muốn thì thôi. A<---B
+
+=> Mũi tên của include và extend khác nhau. A được gọi là base use case.
+
+III. Ghi chú
+- UCD luôn có 1 hình chữ nhật gọi là System Boundary bao quanh Use Case.

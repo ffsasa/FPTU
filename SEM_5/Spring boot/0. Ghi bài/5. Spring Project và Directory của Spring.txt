@@ -1,0 +1,62 @@
+I. Các Spring Project
+
+- Spring Framework:
+	+ Dự án cốt lõi của Spring Framework
+	+ Tập trung vào việc cung cấp một nền tảng phát triển ứng dụng Java
+	+ Mục tiêu chính là cung cấp các tính năng và mô hình để xây dựng các ứng dụng Java linh hoạt, dễ bảo trì và dễ mở rộng
+
+- Spring Boot: 
+	+ Giúp người dùng tạo các ứng dụng Spring nhanh chóng
+	+ Cung cấp cấu hình mặc định và tích hợp sẵn cho một số công nghệ phổ biến
+	+ Giúp giảm thiểu sự phức tạp trong việc thiết lập và triển khai ứng dụng
+
+- Spring Data:
+	+ Cung cấp các công cụ dễ dùng và mạnh để làm việc với cơ sở dữ liệu trong ứng dụng Java.
+	+ Cung cấp một tập hợp các API và công cụ để giảm thiểu việc lặp lại khi làm việc với cơ sở dữ liệu, cho phép bạn tập trung vào việc phát triển logic ứng dụng chính.
+
+- Spring Cloud:
+	+ Cung cấp một bộ công cụ và thư viện để xây dựng và triển khai các ứng dụng cloud.
+	+ Tăng tính mạnh mẽ và linh hoạt của ứng dụng bằng cách cung cấp các tính năng như cấu hình phân tán, quản lý dịch vụ, điều hướng tải và theo dõi.
+
+- Spring Security:
+	+ Cung cấp các cơ chế bảo mật mạnh cho ứng dụng Java.
+	+ Mục tiêu của Spring Security là giúp phát triển ứng dụng an toàn và bảo vệ khỏi các cuộc tấn công như xâm nhập, giả mạo danh tính và tấn công từ chối dịch vụ.
+
+- Spring Web Service:
+	+ Phát triển các dịch vụ web dựa trên tiêu chuẩn SOAP (Simple Object Access Protocol)
+	+ Cung cấp cách tiếp cận linh hoạt và dễ sử dụng để phát triển các ứng dụng dịch vụ web
+
+II. Cấu trúc thư mục trong một dự án Spring
+1. .IDEA
+=> Không quan trọng
+
+2. .MVN - Wrapper
+- Xem thông tin của Maven
+- Dựa theo thông tin của file này để tải Maven phù hợp để chạy
+
+3. src/main/java
+- Nơi chứa các file java
+
+4. src/test/java
+- Nơi đặt những cái test
+- Khi run dự án các file text này sẽ tự động chạy
+
+5. Target
+- Nơi chứa các file kết quả của build dự án
+
+6. gitignore => Đã học
+7. mvnw và mvnw.cmd
+- 2 file này dùng để chạy Maven
+
+8. Pom.xml
+- Nới chứa các thông tin cấu hình: mô tả của dự án(Description trở lên), cấu hình version java(properties), khai báo các phụ thuộc(Dependencies), cấu hình phần build dự án(plugins) 
+
+9. Resource
+- Nơi lưu các nguồn tài nguyên
+- Static: Nằm trong resource lưu các tài nguyên tĩnh như: Ảnh, icon, file js, html,...
+- Template: Học với THYMELEAF - tạo ra các cái mẫu và đẩy nội dung của chúng ta lên, tạo ra các giao diện và đẩy giá trị lên.
+- Application.properties: Nơi cấu hình các thuộc tính tĩnh của ứng dụng chúng ta 
+	+ Cấu hình cơ sở dữ liệu
+	+ Cấu hình cổng server (port)
+	+ Cấu hình gửi email
+	+ Cấu hình loggin

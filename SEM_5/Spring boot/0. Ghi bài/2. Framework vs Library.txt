@@ -1,0 +1,47 @@
+I. Framework
+1. Framework là gì?
+- Là một tập hợp các thư viện, công cụ, mô hình thiết kế và quy tắc mà lập trình viên sử dụng để phát triển phần mềm 1 cách dễ dàng hơn.
+
+2. Framework và library
+- Library: 1 thư viện phục vụ cho 1 công việc cụ thể
+- Framework: Là tập hợp gồm nhiều thư viện.
+- Hibernate thuộc Framework ORM được sử dụng để ánh xạ tới DB, hoặc 1 số câu lệnh làm việc với DB
+- Spring Boot: Là 1 Framework sử dụng các annotation để cấu hình dự án và các quy tắc giả định. Cung cấp 1 khung cấu trúc, khung làm việc để phát triển phần mềm.
+
+3. Framework có gì?
+- Thư viện
+- Design pattern: Các design pattern không phải là mã nguồn cụ thể hoặc framework, mà là mô hình tổng quát hoặc kiểu thiết kế có thể được áp dụng trong nhiều ngôn ngữ và framework khác nhau. Các design pattern giúp giải quyết các vấn đề phổ biến mà nhà phát triển thường gặp khi xây dựng phần mềm.
+- Directory structure: Là cách tổ chức và sắp xếp các thư mục, tệp tin (files), và thư mục con trong một dự án phần mềm hoặc một hệ thống. 
+
+4. Các loại Framework?
+- Framework hỗ trợ phát triển web.
+- Framework hỗ trợ phát triển các phần mềm chạy trên các nền tảng moblie.
+- Framework hỗ trợ phát triển các phần mềm chạy trên các nền tảng desktop.
+- Framework liên quan đến khoa học dữ liệu. 
+
+5. Các kiến thức cần thiết
+- OOP: Object oriented programing
+
+---------------------------------------------------
+
+II. Spring và Spring boot
+1. Spring Framework
+- Là một Framework phát triển ứng dụng JAVA mạnh mẽ và linh hoạt nhất.
+
+- Khó khăn:
+	+ Khó triển khai khi mới tiếp cận
+	+ Cần xác định rõ các thư viện cần dùng
+	+ Hiểu rõ cách cấu hình
+	+ Cài đặt hàng loạt các công cụ bổ trợ,...
+=> Tạo ra Spring boot
+
+2. Spring boot
+- Bắt đầu với Spring boot một cách dễ dàng hơn
+- Tối thiểu hóa việc phải hiểu rõ cấu hình các tập tin
+- Sử dụng dễ dàng với Maven
+- Tránh xung đột giữa các Dependency
+- Tính hợp sẵn web server ...
+
+3. So sánh
+- Spring framework phải tải thêm các application Container, sau đó phải config nó để có thể sử dụng được
+- Spring boot đã có spring famework nhưng đã có sẵn các container, và được cấu hình phù hợp để run luôn dự án.

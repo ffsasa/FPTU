@@ -1,0 +1,21 @@
+1. Các thuộc tính trong Properties
+- AcceptButton: Bằng với nút Enter.
+- AutoScroll: Tự động tạo thanh cuộn.
+- BackColor: Màu nền app.
+- BackgroundImage: Hình nền app.
+- BackgroundIamgeLayout: Chọn kiểu layout của hình nền.
+- CancelButton: Bằng với nút esc.
+- ContextMenuStrip: Bật menu khi nhấp phải chuột trên app.
+- ControlBox: Bật tắt 3 nút ở góc trên bên phải app'
+- Cursor: Tạo hình con chuột trên app.
+- Enabled: = True là sử dụng được, = False thì block tất cả nút bấm, tính năng của app.
+- Font: Kiểu chữ của từng thành phần trên app.
+- ForeColor: Màu chữ.
+- FormborderStyle: Có thể kéo chiều dài và dọc của app khi = Sizable..., App bị cố định kích thước khi = Fix..., ToolWindow là tắt các nút ân, phóng to của app(góc trên bên phải).
+- Icon: Icon của app ở góc trên bên trái.
+- MainMenuStrip: giống ContextMenuStrip đều bật menu của app, nhưng đây là ở góc trên bên trái.
+- Opacity: độ mờ của app.
+- RightToLeft: Chuyển layout từ phải sang trái thành từ trái sang phải.
+- ShowinTaskbar: Là có hiện ở taskbar của máy tính không.
+- StarPosition: Vị trí xuất hiện bắt đầu của app, thường thì sẽ là CenterScreen để app được bật ở giữa màn hình.
+- WindowState: Kích thước của app khi bắt đầu mở.

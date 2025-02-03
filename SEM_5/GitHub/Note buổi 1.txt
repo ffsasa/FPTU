@@ -1,0 +1,23 @@
+1. Đây là mô hình mà sẽ có một máy chủ từ xa Repository là nơi lưu trữ chung. Các máy local sẽ lấy code từ đây về và sử dụng tùy mục đích.
+
+2. LỆNH -cd <Tên thư mục/tập tin>: CHANGE DIRECTORY
+- Lệnh thay đổi thư mục đang đứng. Ví dụ 'cd ..' là lệnh quay về thư mục cha.
+
+3. LỆNH dir (đã sử dụng trong môn PRN)
+- Lệnh này hiển thị danh sách tập tin/thư mục bên trong thư mục hiện hành.
+
+4. LỆNH mkdir <Tên thư mục> (Lệnh này có sử dụng để tạo file trong java)
+- Lệnh này sử dụng để tạo ra thư mục.
+
+5. LỆNH touch <Tên tập tin>
+- Lệnh này sử dụng để tạo ra 1 tập tin mới. Ví dụ: touch ontap.txt.
+
+6. LỆNH echo "<String>"
+- Lệnh này để in ra cửa sổ cmd-GIT dòng String được nhập.
+- Sử dụng thêm dấu ">" để chỉ định in vào 1 tập tin, và thông tin sẽ được ghi đè (Overwrite). Ví dụ: echo "Tạ Ngọc An" > Text.txt. Còn nếu sử dung ">>" thì không Overwrite mà ghi newline.
+
+7. Lệnh cat <Tên tập tin>
+- Lệnh này đọc nội dụng từ trong tập tin và in ra cmd-GIT.
+
+8. Lệnh rm <Tên tập tin>
+- Lệnh này sẽ xóa tập tin. Thêm hậu tố "-d" thì nó sẽ xóa được thư mục RỖNG. "-r" sẽ xóa cả thư mục KHÔNG RỖNG.

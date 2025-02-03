@@ -1,0 +1,286 @@
+SƠ ĐỒ JWT
+
+FilterChain -> Intercept Token -> Login Controller -> Generate JWT -> Return With Login
+
+- Sau khi đi qua filter bộ lọc thì nó sẽ, được Intercept Token chặn lại ở đây là 1 câu lệnh if else và dù kết quả là gì nó cũng sẽ đưa kết quả đến Login Controller
+- Ở Login Controller nó sẽ kiểm tra xem người dùng có thực sự đăng nhập hay không. Nếu có nó sẽ tạo ra 1 mã JWT và sau đó return về thông tin đặng nhập của người dùng.
+
+B1: Viết phần Exception cho bộ lọc. Bộ lọc khi chặn người dùng chưa đăng nhập phải trả về cho người dùng 1 thứ gì đó chứ k thể là 1 trang trắng được. Trong thư học Security
+
+@Component
+public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
+    }
+}
+
+===========
+
+B2: Thêm cấu hình trả về ngoại lệ vào Filter chúng ta đã viết ở SecurityConfig
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    private JwtAuthEntryPoint jwtAuthEntryPoint;
+
+    private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService, JwtAuthEntryPoint jwtAuthEntryPoint) {
+        this.customUserDetailsService = customUserDetailsService;
+        this.jwtAuthEntryPoint = jwtAuthEntryPoint;
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
+                .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(jwtAuthEntryPoint)
+                )
+                .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .httpBasic(Customizer.withDefaults());
+
+        return http.build();
+    }
+
+
+================
+
+B3: Viết JWTGenerator là nơi cấu hình tạo ra mã JWT của chúng ta. Và ở đây ngoài những dependency chúng ta đã dùng như lombok, JPA, Security, Web,... chúng ta phải thêm vào jwt.
+
+Thêm dependency:
+    <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-api</artifactId>
+        <version>0.11.5</version>
+    </dependency>
+    <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-impl</artifactId>
+        <version>0.11.5</version>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-jackson</artifactId> <!-- hoặc jjwt-gson nếu sử dụng Gson -->
+        <version>0.11.5</version>
+        <scope>runtime</scope>
+    </dependency>
+
+
+Sau đó bắt đầu viết:
+@Component
+public class JWTGenerator {
+
+    private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+
+    public String generateToken(Authentication authentication) {
+        String username = authentication.getName();
+        Date currentDate = new Date();
+        Date expireDate = new Date(currentDate.getTime() + SecurityConstants.JWT_EXPIRATION);
+
+        String token = Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(expireDate)
+                .signWith(key, SignatureAlgorithm.HS512)
+                .compact();
+        System.out.println("New token :");
+        System.out.println(token);
+        return token;
+    }
+}
+
+- Bên trên chúng ta có thể thấy chúng ta cần cung cấp JWT_EXPIRATION và chính vì thế chúng ta sẽ giấu chúng trong 1 class riêng tên là SecurityConstants
+
+public class SecurityConstants {
+    public static final long JWT_EXPIRATION = 70000;
+}
+
+==============
+
+B4: Sau khi đã tạo ra được mã JWT thì chúng ta cần sử dụng được chúng. Chủ yếu chúng ta sử dụng chúng để đọc ra Username và kiểm tra tính hợp lệ của Token. Ta viết thêm 2 method getUsernameFromJWT và validateToken vào JWTGenerator
+
+    public String getUsernameFromJWT(String token) {
+
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getSubject();
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (Exception ex) {
+            throw new AuthenticationCredentialsNotFoundException("JWT was exprired or incorrect",ex.fillInStackTrace());
+        }
+    }
+
+==============
+
+B5: Sử dụng JWTGenerator và bắt đầu làm JWIFilter, đây là nơi chúng ta sẽ triển khai bộ lọc một lần cho mỗi yêu cầu HTTP. Đây là bộ lọc nội bộ, nó sẽ kiểm tra xem có Token nào trong mỗi header của yêu cầu hay không. Trong class này chúng ta kế thừa OncePerRequestFilter và override method doFilterInternal.
+
+public class JWTAuthenticationFilter extends OncePerRequestFilter {
+
+    @Autowired
+    private JWTGenerator tokenGenerator;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
+        String token = getJWTFromRequest(request);
+        if(StringUtils.hasText(token) && tokenGenerator.validateToken(token)) {
+            String username = tokenGenerator.getUsernameFromJWT(token);
+
+            UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null,
+                    userDetails.getAuthorities());
+            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        }
+        filterChain.doFilter(request, response);
+    }
+
+	//Hàm lấy ra Token
+    private String getJWTFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
+}
+
+- Ở hàm lấy ra Token chúng ta có thể thấy Token sẽ được lấy ra ở phần Header của mỗi Request và nếu Header Request đó không chứa Token thì sẽ bị doFilterInternal chặn.
+- Header của Request có dạng sau:
+
+GET /some-endpoint HTTP/1.1
+Host: example.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+Content-Type: application/json
+
+- Hàm getJWTFromRequest sẽ thấy ra phần Header của Request, sau đó lấy thông tin của mục Authorization. Kiểm tra xem chuỗi bearerToken có chữ hay không và có chữ Bearer hay không. Bỏ qua 7 kí tự đầu là "Bearer " và lấy phần token phía sau để trả về.
+
+- Ở hàm doFilterInternal nó sẽ lấy token từ hàm getJWTFromRequest vừa viết. Kiểm tra token có Text nào không và validate nó có hợp lệ không bằng hàm validateToken được viết ở JWTGenerator. Tiếp theo đọc thông tin người dùng từ hàm getUsernameFromJWT được viết ở JWTGenerator. Sau khi có được thông tin người dụng cụ thể là Username thì loadUserByUsername được viết ở CustomUserDetailsService chúng ta sẽ có được userDetail cụ thể là 1 thực thể User. Cuối cùng tạo đối tượng xác thực authenticationToken, và đặt nó vào ngữ cảnh bảo mật hiện tại. Và tiếp tục chuỗi bộ lọc.
+
+=================
+
+B5: Thêm FWTfilter vào Filter chung của SecurityConfig
+@Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
+                .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(jwtAuthEntryPoint)
+                )
+                .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .httpBasic(Customizer.withDefaults());
+
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+
+@Bean
+    public  JWTAuthenticationFilter jwtAuthenticationFilter() {
+        return new JWTAuthenticationFilter();
+    }
+
+================
+
+B6: Viết AuthResponseDTO
+package com.pokemonreview.api.dto;
+
+import lombok.Data;
+
+@Data
+public class AuthResponseDTO {
+    private String accessToken;
+    private String tokenType = "Bearer ";
+
+    public AuthResponseDTO(String accessToken) {
+        this.accessToken = accessToken;
+    }
+}
+
+===============
+
+B7: Viết lại login của controller sử dụng thêm JWT
+
+    private JWTGenerator jwtGenerator;
+
+
+@PostMapping("login")
+    public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDto loginDto){
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                loginDto.getUsername(),
+                loginDto.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = jwtGenerator.generateToken(authentication);
+        return new ResponseEntity<>(new AuthResponseDTO(token), HttpStatus.OK);
+    } 
+
+
+
+
+==============================
+
+TÓM TẮT LẠI CÁCH HOẠT ĐỘNG CỦA JWT
+- Yêu cầu HTTP ban đầu: Người dùng gửi yêu cầu đăng nhập (chưa có mã JWT vì chưa xác thực).
+
+- FilterChain (Bộ lọc chuỗi): Bộ lọc kiểm tra xem yêu cầu có chứa mã JWT hay không. Nếu không, yêu cầu sẽ được chuyển tiếp đến bước tiếp theo.
+
+- Intercept Token (Chặn token): Ở bước này, hệ thống kiểm tra và nhận ra rằng không có mã JWT trong yêu cầu. Thông tin này sẽ được chuyển đến Login Controller.
+
+- Login Controller (Bộ điều khiển đăng nhập): Hệ thống nhận thông tin đăng nhập từ yêu cầu, bao gồm tài khoản và mật khẩu do người dùng nhập. Hệ thống kiểm tra thông tin này bằng cách so sánh với dữ liệu trong cơ sở dữ liệu.
+
+- Xác thực thành công: Nếu tài khoản và mật khẩu đúng, hệ thống xác nhận người dùng đã đăng nhập thành công.
+
+- Generate JWT (Tạo JWT): Hệ thống tạo một mã JWT chứa thông tin xác thực của người dùng.
+
+- Trả về thông tin đăng nhập: Mã JWT được gắn vào header của phản hồi HTTP và trả về cho người dùng.
+Người dùng sẽ sử dụng mã JWT này trong các yêu cầu tiếp theo để được xác thực.
+
+
+
+CÒN ĐỒI VỚI CÁC YÊU CẦU HTTP SAU KHI ĐÃ ĐĂNG NHẬP THÌ SẼ ĐƯỢC SỬ LÝ NHƯ SAU
+- Yêu cầu HTTP với JWT: Người dùng gửi yêu cầu HTTP đến máy chủ, bao gồm mã JWT trong header của yêu cầu (thường là trong header Authorization dưới dạng Bearer <token>).
+
+- FilterChain (Bộ lọc chuỗi): Bộ lọc kiểm tra xem yêu cầu có chứa mã JWT hay không. Nếu có, nó sẽ chuyển mã JWT đến bước tiếp theo để kiểm tra tính hợp lệ.
+
+- Intercept Token (Chặn token): Hệ thống sẽ giải mã và kiểm tra tính hợp lệ của mã JWT. Các bước cụ thể bao gồm:
+Giải mã JWT: Mã JWT sẽ được giải mã để lấy thông tin người dùng và các thông tin khác.
+Kiểm tra tính hợp lệ: Hệ thống sẽ kiểm tra các thông tin trong JWT như thời gian hết hạn, tính hợp lệ của chữ ký, và các quyền hạn của người dùng.
+
+- Xác thực: Nếu mã JWT hợp lệ, hệ thống sẽ xác nhận rằng người dùng đã được xác thực và cho phép yêu cầu tiếp tục.
+Nếu mã JWT không hợp lệ (hết hạn, bị giả mạo, v.v.), hệ thống sẽ trả về lỗi 401 Unauthorized hoặc 403 Forbidden và yêu cầu người dùng đăng nhập lại.
+
+- Xử lý yêu cầu: Nếu mã JWT hợp lệ, yêu cầu của người dùng sẽ được xử lý bởi các bộ điều khiển (controller) và dịch vụ (service) của ứng dụng. Các bộ điều khiển sẽ thực hiện các chức năng cụ thể dựa trên yêu cầu của người dùng, như truy xuất dữ liệu, cập nhật thông tin, v.v.
+
+- Trả về phản hồi: Sau khi xử lý yêu cầu, hệ thống sẽ tạo ra phản hồi và trả về cho người dùng. Phản hồi này có thể bao gồm dữ liệu được yêu cầu, xác nhận thành công của một hành động, hoặc thông báo lỗi nếu có vấn đề xảy ra trong quá trình xử lý.
+
+=> Còn nếu yêu cầu http này không yêu cầu xác thực thì dùng FilterChain sẽ không kiểm tra mã JWT và nó được chuyển tới controller và service thích hợp luôn
+

@@ -1,0 +1,57 @@
+I. Actuator là gì?
+- Nó là 1 dependecy cung cấp các API để cũng ta sử dụng.
+- Spring Boot Actuator là một sub-probject của Spring Boot. Actuator cho phép ta theo dõi, giám sát ứng dụng, thu thập số liệu, lưu lượng truy cập hay trạng thái cơ sở dữ liệu, v.v. mà không cần thêm bất kỳ dòng code nào.
+
+II. Endpoint là gì?
+- Khi project của ta được cấu hình Spring Actuator thì mặc định ta sẽ có sẵn các endpoint để quản lý và theo dõi ứng dụng của ta.
+
+=> Thêm Spring Boot Actuator dependecy vào.
+
+III. Các endpoint thường được sử dụng
+1. /actuator/health: Endpoint này kiểm tra trạng thái sức khỏe của ứng dụng. Trạng thái sức khỏe có thể trả về các giá trị như "UP" (hoạt động), "DOWN" (không hoạt động) hoặc "UNKNOWN" (không xác định).
+
+2. /actuator/info: Endpoint này cung cấp thông tin về ứng dụng, bao gồm tên, mô tả và phiên bản. Những thông tin này đã được cấu hình trước.
+
+3. /actuator/metrics: Endpoint này cung cấp thông tin về các chỉ số và thống kê về hiệu suất của ứng dụng. Bạn có thể xem các chỉ số như số lượng request được xử lý, thời gian xử lý trung bình, bộ nhớ sử dụng,...
+
+4. /actuator/env: Endpoint này cho phép bạn xem cấu hình môi trường của ứng dụng, bao gồm các biển môi trường và các cấu hình được đọc từ các nguồn khác nhau.
+
+5. /actuator/beans: Endpoint này liệt kê tất cả các bean đã được tạo trong ứng dụng. Bạn có thể xem tên, lớp, phạm vi và các phụ thuộc của mỗi bean.
+
+6. /actuator/loggers: Endpoint này cho phép bạn quản lý và xem thông tin về loggers trong ứng dụng. Bạn có thể xem và thay đổi cấu hình logger, mức độ log và các logger đã được cấu hình.
+
+7. /actuator/mappings: Endpoint này hiển thị thông tin về các URL mapping trong ứng dụng. Bạn có thể xem danh sách các endpoint và phương thức HTTP tương ứng.
+
+8. /actuator/trace: Endpoint này hiển thị thông tin về các request gần đây được gửi đến ứng dụng. Bạn có thể xem các thông tin như HTTP method, URL, thời gian xử lý và kết quả
+
+IV. Cấu hình sử dụng endpoint
+1. CHo phép sử dụng
+- management.endpoints.web.exposure.include=health,info => cho phép sử dụng endpoint health và info
+- management.endpoints.web.exposure.include=* => cho phép sử dụng tất cả endpoint
+
+2. Không cho phép sử dụng
+management.endpoints.web.exposure.exclude=info
+
+3. Cấu hình thêm info
+- Để lấy được thông tin lưu trong info cần thêm 1 cấu hình:
+management.info.env.enabled=true
+
+-----------------------------------------------------
+
+V. Vì sao cần sử dụng Security
+- Một số thông tin cần hạn chế truy cập, chỉ có những người có quyền truy cập mới được phép truy cập. Để đảm bảo an toàn cho trang web hoặc ứng dụng. 
+=> Security ra đời.
+
+- Khi chúng ta sử dụng Actuator để đọc thông tin của phần mềm, những thông tin này cần bảo mật, chỉ những người được cho phép mới có thể xem. 
+
+VI. Spring Security kết hợp với Actuator
+1. Sử dụng Spring 
+- Khi thêm dependency Spring Security vào lúc chạy chúng sẽ tự động yêu cầu đăng nhập vào role để thực hiện chức năng.
+- Username mặc định : User
+- Passwork sẽ được cung cấp ngẫu nhiên trong conslose log.
+
+2. Cấu hình username, passwork của Security
+- Ví dụ:
+spring.security.user.name=admin
+spring.security.user.password=yourpassword
+spring.security.user.roles=ADMIN  

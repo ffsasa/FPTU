@@ -1,0 +1,25 @@
+I. FORM: BIỂU MẪU, CỬA SỔ, HCN CÓ MẶT NỀ
+
+- Là 1 class cha có sẵn trong SDK, nó là 1 class dùng để biểu diễn 1 hcn mà có thể render và xuất hiện trên desktop
+- 1 cửa sổ trong app của ta là 1 Object thuộc class cha FORM
+- Tuy nhiên ta không dùng trực tiếp class này mà tạo class kế thừa class FORM này, để ta có chỗ độ thêm nhiều thứ từ class gốc
+
+* TRONG PROJECT TÊN LÀ WINDOWS FORMS (VIẾT TẮT TRÊN MẠNG LÀ WINFORMS) TA SẼ THẤY CÓ 1 CLASS LÀ CON CỦA CLASS FORM
+
+Ví dụ:
+
+public partial class ZodiacGUI : Form 
+{
+   //ta sẽ viết code bên trong class con này, ứng với việc sau này cửa sổ được render ra sẽ hđ theo cách ta code
+}
+
+* MỘT CLASS LÀ 1 CÁI KHUÔN, TEMPLATE, BẢN THIẾT KẾ DÙNG ĐỂ CLONE RA NHỮNG OBJECT TƯƠNG ỨNG
+
+=> Lần đầu tiên 1 Object được render xuất hiện trên màn hình desktop 
+
+II. So sánh với web vs GUI
+- 2 thành phần này cách lập trình giống như nhau
+- 1 form <html></html> = 1 Class : Form. Đều là form có sẵn sẽ được render ra Trình duyệt hoặc desktop
+- WEB: các thẻ a, p ,h1, ... thì GUI: button, label. Đều là cách thành phần nằm trong form được sử dụng và độ lại bằng CSS(WEB) hoặc Chỉnh sửa(GUI)
+- WEB:F12 show code == GUI:F4 bật property
+- WEB: JS tạo hành động == GUI: F7 bật trang code hành động.

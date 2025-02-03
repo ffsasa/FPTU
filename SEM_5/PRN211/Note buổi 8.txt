@@ -1,0 +1,10 @@
+I. SchoolManager Session4
+1. Tạo đối tượng Annonymous
+Var name = new {Các thuộc tính}
+Ví dụ: 
+var s4 = new { Id = "QE170035", FullName = "AnTaNgoc"};
+var s5 = new { s3.Id, s3.Name };
+
+Ví dụ 2:
+var aBeer = new { Code = "BA001", Name = "Heineken", Price = 23000, Ml = 330 };
+Console.WriteLine($"{aBeer.Code} | {aBeer.Name} | {aBeer.Price} | {aBeer.Ml}");

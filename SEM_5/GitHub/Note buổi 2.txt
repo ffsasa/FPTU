@@ -1,0 +1,21 @@
+1. Một số từ khóa cần nhớ
+- Repository(repo): Khu lưu trữ ở xa
+- Commit: Một đơn vị làm việc, xác nhận để đưa lên repo
+- Branch: Nhán
+- Main/Master: Tên của Repository chính (main repo)
+- Merge/Rebase: Kết hợp 2 nhánh lại với nhau
+
+2. Một số câu lệnh làm việc với git
+- LỆNH git --help: Hiển thị những trợ giúp giúp tìm hiểu về git
+- LỆNH git --version: Hiển thị thông tin phiên bản máy đang sử dụng
+- LỆNH git status: Hiển thị trạng thái kho lưu trữ
+- LỆNH git log: Hiển thị lịch sử các commit
+
+3. Các câu lệnh tạo ra một git mới (bắt đầu sử dụng git)
+- LỆNH git init [repo name]: Tạo ra một kho lưu trữ
+- LỆNH git clone [repo name] [clone name]: Tạo một bản sao được liên kết với kho lưu trữ repo
+- LỆNH git config -l: Xem cấu hình hiện tại
+- LỆNH git config -l [--scope][option_name][value]
+	+scope: --system(toàn hệ thống), --global(liên quan toàn bộ repo trên máy), --local(liên quan đến 1 repo đang làm việc)
+- LỆNH git config  (--local/--global) (user.name/user.email) "<Tên user/email>": Lệnh set thông tin cho repo
+

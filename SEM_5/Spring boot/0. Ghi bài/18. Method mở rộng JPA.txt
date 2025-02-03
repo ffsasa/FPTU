@@ -1,0 +1,16 @@
+I. Quy tắc
+- Tên phương thức nên bắt đầu bằng tiền tố find, read, get, query. Tùy chọn bạn có thể sử dụng một trong số này, nhưng find thường được ưa chuộng
+- Tiếp theo là từ khóa By và sau đó là tên thuộc tính của đối tượng bạn muốn truy vấn. Hãy đảm bảo đặt tên thuộc tính đúng với tên trong đối tượng entity.
+- Nếu muốn truy vấn dựa trên nhiều thuộc tính, bạn có thể sử dụng And, Or, In, Notln, GreaterThan, LessThan,... để kết hợp các điều kiện.
+- Đối với các trường hợp truy vấn phức tạp hơn, bạn cũng có thể sử dụng @Query annotation để viết truy vấn bằng HQL hoặc SQL.
+- Ví dụ: 
+	List<Student> findByLastName(String lastName);
+	List<Student> findByAgeGreaterThan(int age);
+
+- Kiểu trả về: Spring Data JPA hỗ trờ nhiều kiểu trả về như List, Set, Optional<T>, Page, Slice,...
+
+II. Truy vấn phức tạp
+- Sử dụng Anntation @Query
+- Ví dụ:
+@Query("SELECT u FROM User u WHERE u.firstName LIKE %?1% AND u.age >=?2")
+List<User>findByFirstNameContainingAndAgeGreaterThanOrEqual(String firstName, int age);
