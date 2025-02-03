@@ -137,3 +137,5 @@ android/fastlane/metadata/android/
 # Tệp hệ thống
 .DS_Store
 Thumbs.db
+
+*.mkv
