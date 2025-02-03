@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\CandidateManagement_TaNgocAn.props" />
-</Project>

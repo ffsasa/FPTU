@@ -1,0 +1,139 @@
+# Ignore Visual Studio temporary files, build results, and
+# user-specific files
+
+## Ignore Visual Studio specific files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Ignore build output
+bin/
+obj/
+out/
+
+# Ignore JetBrains Rider project files
+.idea/
+*.sln.iml
+
+# Ignore dependencies
+node_modules/
+packages/
+
+# Ignore logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore environment variables and secrets
+.env
+.env.local
+.env.*.local
+
+# Ignore compiled files
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+*.lock
+*.mp4
+*.avi
+*.mov
+*.zip
+*.tar.gz
+*.rar
+
+# Ignore test results
+TestResults/
+
+# Ignore IDE-specific files
+*.vscode/
+*.sln.dotSettings*
+
+# Ignore generated files
+Generated/
+ServiceFabricBackup/
+backup/
+
+# Ignore publish and deployment files
+.publish/
+.Docker/
+.DockerfileBackup/
+*.dockerignore
+*.publish.xml
+
+# Ignore database files
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# Ignore debugging files
+.vscode/
+launch.json
+tasks.json
+
+# Ignore other unneeded files
+node_modules/
+bower_components/
+coverage/
+
+# Ignore lock files
+package-lock.json
+yarn.lock
+
+# Ignore temporary files
+*.tmp
+*.bak
+~$*
+
+# Thư mục build và output
+.gradle/
+local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+*.iml
+*.hprof
+
+# Build output
+/build/
+/captures/
+
+# Gradle Wrapper
+gradle/wrapper/gradle-wrapper.properties
+
+# NDK
+/.cxx/
+
+# Dependency caches
+**/build/
+/out/
+
+# Tệp cấu hình riêng tư
+*.keystore
+*.jks
+
+# Flutter (nếu dùng Flutter)
+.flutter-plugins
+.flutter-plugins-dependencies
+.dart_tool/
+android/fastlane/report.xml
+android/fastlane/metadata/android/
+
+# Lint
+/lint/intermediates/
+/lint/generated/
+
+# Tệp hệ thống
+.DS_Store
+Thumbs.db
