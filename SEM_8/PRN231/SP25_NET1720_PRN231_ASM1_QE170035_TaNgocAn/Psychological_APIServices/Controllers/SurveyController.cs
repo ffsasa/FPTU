@@ -27,20 +27,21 @@ namespace Psychological_APIServices.Controllers
         // GET api/<SurveyController>/5
         [HttpGet("{id}")]
         [Authorize(Roles = "1,2")]
-        public async Task<Survey> Get(int id)
+        public async Task<Survey> GetById(int id)
         {
             return await _surveyService.GetById(id);
         }
 
         [HttpGet("(Name)/(Number)/(Verygood)")]
         [Authorize(Roles = "1,2")]
-        public async Task<IEnumerable<Survey>> Get(string Name, int Number, int Verygood)
+        public async Task<IEnumerable<Survey>> Search(string Name, int Number, int Verygood)
         {
             return await _surveyService.SearchAsync(Name, Number, Verygood);
         }
 
         // POST api/<SurveyController>
         [HttpPost]
+        [Authorize(Roles = "1, 2")]
         public async Task<int> Post(Survey survey)
         {
             return await _surveyService.Create(survey);
@@ -48,14 +49,18 @@ namespace Psychological_APIServices.Controllers
 
         // PUT api/<SurveyController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [Authorize(Roles = "1, 2")]
+        public async Task<int> Put(int id, [FromBody] Survey survey)
         {
+            return await _surveyService.Update(survey);
         }
 
         // DELETE api/<SurveyController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        [Authorize(Roles = "1, 2")]
+        public async Task<bool> Delete(int id)
         {
+            return await _surveyService.Delete(id);
         }
     }
 }

@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Psychological.Service;
+
 namespace Psychological.MVCWebApp
 {
     public class Program
@@ -8,7 +11,16 @@ namespace Psychological.MVCWebApp
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<SurveyUserAccountService>();
+            builder.Services.AddHttpClient();
 
+            builder.Services.AddAuthentication()
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+                {
+                    options.LoginPath = new PathString("/SurveyUserAccounts/Login");
+                    options.AccessDeniedPath = new PathString("/SurveyUserAccounts/Forbidden");
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

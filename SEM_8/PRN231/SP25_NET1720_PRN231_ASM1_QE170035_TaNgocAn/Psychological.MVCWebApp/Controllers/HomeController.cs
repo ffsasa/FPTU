@@ -5,9 +5,9 @@ using System.Diagnostics;
 
 namespace Psychological.MVCWebApp.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
-    {
-        [Authorize]
+    {   
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)

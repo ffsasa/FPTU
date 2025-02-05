@@ -1,15 +1,23 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Psychological.MVCWebApp.Models;
+using System.Net.Http;
 
 namespace Psychological.MVCWebApp.Controllers
 {
-    public class SurveyUserAccountController : Controller
+    public class SurveyUserAccountsController : Controller
     {
         private string APIEndPoint = "https://localhost:7097/api/";
+        private readonly IHttpClientFactory _httpClientFactory;
+
+
+        public SurveyUserAccountsController(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
         public IActionResult Index()
         {
             return RedirectToAction("Login");
@@ -23,12 +31,16 @@ namespace Psychological.MVCWebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginRequest login)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(login);  // Return the login model to show validation errors
+            }
 
             try
             {
-                using (var httpClient = new HttpClient())
+                using (var httpClient = _httpClientFactory.CreateClient())
                 {
-                    using (var response = await httpClient.PostAsJsonAsync(APIEndPoint + "SystemUserAccounts/Login", login))
+                    using (var response = await httpClient.PostAsJsonAsync(APIEndPoint + "SurveyUserAccounts/Login", login))
                     {
                         if (response.IsSuccessStatusCode)
                         {
@@ -39,9 +51,11 @@ namespace Psychological.MVCWebApp.Controllers
 
                             if (jwtToken != null)
                             {
-                                var userName = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
+                                var userName = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
                                 var role = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
+                            if (userName != null && role != null)
+                            { 
                                 var claims = new List<Claim>
                         {
                             new Claim(ClaimTypes.Name, userName),
@@ -55,19 +69,22 @@ namespace Psychological.MVCWebApp.Controllers
                                 Response.Cookies.Append("Role", role);
 
                                 return RedirectToAction("Index", "Home");
+                                }
                             }
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Invalid login attempt.");
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-
+                ModelState.AddModelError("", $"An error occurred: {ex.Message}");
             }
 
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            ModelState.AddModelError("", "Login failure");
-            return View();
+            return View(login);
         }
 
         public async Task<IActionResult> Logout()

@@ -25,6 +25,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                            <div class="nav-item text-nowrap">
+                                Welcome
+                                <strong>@(Context.Request.Cookies["UserName"] != null ? Context.Request.Cookies["UserName"] : "Guest")</strong>
+                            </div>
+                        </div>
                     </ul>
                 </div>
             </div>
