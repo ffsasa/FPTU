@@ -1,166 +1,209 @@
 package com.example.lab31;
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int PICK_IMAGE_REQUEST = 1;
-    private ArrayList<Item> items;
-    private CustomAdapter adapter;
-    private ListView listView;
-    EditText titleInput, descriptInput;
-    Button btnAdd, btnUpdate, btnSelectImage;
-    int selectedIndex = -1;
-    ImageView imageView;
-    private Uri imageUri = null;
+    ListView listView;
+    ArrayList<Item> fruitList = new ArrayList<Item>();
+    Spinner imageSpinner;
+    EditText txtTitle, txtDescription;
+    Button btnAdd, btnRemove, btnEdit;
+    int selectedPos = -1;
+    int selectedImage = -1;
+
+    private int[] fruitImages = {
+            R.drawable.banana,
+            R.drawable.dragonfruit,
+            R.drawable.orange,
+            R.drawable.melon,
+            R.drawable.strawberry
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        EdgeToEdge.enable(this); // Enable edge-to-edge display for the activity
+        setContentView(R.layout.activity_main); // Set the layout for the activity
+        // Apply window insets to manage padding for system bars
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
-        // Khởi tạo ListView
-        listView = findViewById(R.id.listView);
-        titleInput = findViewById(R.id.editTitle);
-        descriptInput = findViewById(R.id.editDescription);
-        imageView = findViewById(R.id.imageView);
-        btnAdd = findViewById(R.id.addButton);
-        btnUpdate = findViewById(R.id.updateButton);
-        btnSelectImage = findViewById(R.id.selectImageButton);
+        Mapping();
 
-        // Tạo danh sách các Item
-        items = new ArrayList<>();
-        items.add(new Item(getUriFromDrawable(R.drawable.banana), "Chuối tiêu", "Chuối tiêu Long An"));
-        items.add(new Item(getUriFromDrawable(R.drawable.dragon_fruit), "Thanh Long", "Thanh long ruột đỏ"));
-        items.add(new Item(getUriFromDrawable(R.drawable.strawberry), "Dâu tây", "Dâu tây Đà Lạt"));
-        items.add(new Item(getUriFromDrawable(R.drawable.watermelon), "Dưa hấu", "Dưa hấu Tiền Giang"));
-        items.add(new Item(getUriFromDrawable(R.drawable.orange), "Cam vàng", "Cam vàng nhập khẩu"));
+        ImageSpinnerAdapter imageSpinnerAdapter = new ImageSpinnerAdapter(this, fruitImages);
+        imageSpinner.setAdapter(imageSpinnerAdapter);
 
-        // Tạo CustomAdapter và set vào ListView
-        adapter = new CustomAdapter(this, R.layout.list_item_layout, items);
-        listView.setAdapter(adapter);
+        CustomAdapter customAdapter = new CustomAdapter(this, R.layout.list_item_layout, fruitList);
+        listView.setAdapter(customAdapter);
 
-        // Xử lý chọn ảnh
-        btnSelectImage.setOnClickListener(new View.OnClickListener() {
+        // Listener for selecting an image from the spinner
+        imageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                openImagePicker();
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedImage = i; // Update the selected image index
+                //Toast.makeText(MainActivity.this, "Selected position: " + i, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                //Nothing
             }
         });
 
-        // Xử lý sự kiện giữ lâu để xóa phần tử
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                items.remove(i);
-                adapter.notifyDataSetChanged();
-                titleInput.setText("");
-                descriptInput.setText("");
-                selectedIndex = -1;
-                Toast.makeText(MainActivity.this, "Đã xóa!", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
-
+        // Image Dropdown list (Spinner)
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedIndex = i;
-                titleInput.setText(items.get(i).getTitle());
-                descriptInput.setText(items.get(i).getDescription());
-                imageUri = items.get(i).getImageUri();
-                if (imageUri != null) {
-                    imageView.setImageURI(imageUri);
+                // Get the selected fruit from the list
+                Item selectedFruit = fruitList.get(i);
+                txtDescription.setText(selectedFruit.getDescription());
+                txtTitle.setText(selectedFruit.getTitle());
+
+                // Find the position of the fruit's image in the image array
+                int imagePos = 0;
+                for (int j = 0; j < fruitImages.length; j++){
+                    if (fruitImages[j] == selectedFruit.getImage()){
+                        imagePos = j; // Store the image position
+                        break;
+                    }
                 }
+                imageSpinner.setSelection(imagePos);  // Set the spinner selection to the image position
+                selectedPos = i; // Set the selected position
             }
         });
 
-        // Xử lý sự kiện khi bấm nút "Thêm"
+        // Add fruit
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String title = titleInput.getText().toString().trim();
-                String description = descriptInput.getText().toString().trim();
+                String title = txtTitle.getText().toString().trim();
+                String description = txtDescription.getText().toString().trim();
 
-                if (!title.isEmpty() && !description.isEmpty() && imageUri != null) {
-                    Item newItem = new Item(imageUri, title, description); // Sử dụng imageUri đã chọn
-                    items.add(newItem);
-                    adapter.notifyDataSetChanged();
-                    titleInput.setText("");
-                    descriptInput.setText("");
-                    imageView.setImageResource(R.drawable.ic_launcher_background); // Reset ảnh về ảnh mặc định
-                    imageUri = null; // Reset URI ảnh
-                    Toast.makeText(MainActivity.this, "Đã thêm!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.this, "Nhập đủ thông tin và chọn ảnh!", Toast.LENGTH_SHORT).show();
+                // Kiểm tra nếu tên, mô tả hoặc ảnh chưa được chọn
+                if (title.isEmpty() || description.isEmpty() || selectedImage == -1) {
+                    // Nếu tên hoặc mô tả rỗng, hiển thị thông báo lỗi trong ô input
+                    if (title.isEmpty()) {
+                        txtTitle.setError("Vui lòng nhập tên trái cây!");
+                    }
+                    if (description.isEmpty()) {
+                        txtDescription.setError("Vui lòng nhập mô tả!");
+                    }
+                    if (selectedImage == -1) {
+                        Toast.makeText(MainActivity.this, "Vui lòng chọn một hình ảnh!", Toast.LENGTH_SHORT).show();
+                    }
+                    return;
                 }
+
+                // Thêm trái cây vào danh sách
+                fruitList.add(new Item(title, description, fruitImages[selectedImage]));
+                customAdapter.notifyDataSetChanged(); // Cập nhật danh sách
+                Toast.makeText(MainActivity.this, "Thêm mới trái cây thành công", Toast.LENGTH_SHORT).show();
+
+                // Reset các trường nhập sau khi thêm
+                txtTitle.setText("");
+                txtDescription.setText("");
+                imageSpinner.setSelection(0);
+                selectedImage = -1; // Reset ảnh đã chọn
             }
         });
 
+        btnEdit.setOnClickListener(view -> {
+            if (selectedPos == -1) {
+                Toast.makeText(MainActivity.this, "Hãy chọn trái cây cần sửa!", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-        // Xử lý sự kiện khi bấm nút "Cập nhật"
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String title = titleInput.getText().toString().trim();
-                String description = descriptInput.getText().toString().trim();
+            String title = txtTitle.getText().toString().trim();
+            String description = txtDescription.getText().toString().trim();
 
-                if (selectedIndex != -1 && !title.isEmpty() && !description.isEmpty() && imageUri != null) {
-                    Item updatedItem = new Item(imageUri, title, description);
-                    items.set(selectedIndex, updatedItem);
-                    adapter.notifyDataSetChanged();
-                    Toast.makeText(MainActivity.this, "Đã cập nhật!", Toast.LENGTH_SHORT).show();
-                    selectedIndex = -1;
-                    titleInput.setText("");
-                    descriptInput.setText("");
-                    imageUri = null; // Reset URI ảnh
-                    imageView.setImageResource(R.drawable.ic_launcher_background); // Reset ảnh
-                } else {
-                    Toast.makeText(MainActivity.this, "Chọn một mục và nhập nội dung mới!", Toast.LENGTH_SHORT).show();
-                }
+            // Kiểm tra nếu tên, mô tả hoặc ảnh chưa được chọn
+            if (title.isEmpty()) {
+                txtTitle.setError("Vui lòng nhập tên trái cây!");
+            }
+            if (description.isEmpty()) {
+                txtDescription.setError("Vui lòng nhập mô tả!");
+            }
+            if (selectedImage == -1) {
+                Toast.makeText(MainActivity.this, "Vui lòng chọn một hình ảnh!", Toast.LENGTH_SHORT).show();
+            }
+
+            // Kiểm tra nếu tất cả các điều kiện đều hợp lệ
+            if (title.isEmpty() || description.isEmpty() || selectedImage == -1) {
+                return; // Nếu có lỗi, không thực hiện cập nhật
+            }
+
+            // Cập nhật thông tin trái cây
+            Item updatedFruit = new Item(title, description, fruitImages[selectedImage]);
+            fruitList.set(selectedPos, updatedFruit);
+            customAdapter.notifyDataSetChanged(); // Cập nhật danh sách
+            Toast.makeText(MainActivity.this, "Cập nhật trái cây thành công!", Toast.LENGTH_SHORT).show();
+
+            // Reset các trường nhập sau khi sửa
+            txtTitle.setText("");
+            txtDescription.setText("");
+            imageSpinner.setSelection(0);
+            selectedPos = -1;
+        });
+
+
+        // Remove fruit
+        btnRemove.setOnClickListener(view -> {
+            if (selectedPos != -1) {
+                // Hiển thị AlertDialog xác nhận xóa
+                new androidx.appcompat.app.AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Xác nhận")
+                        .setMessage("Bạn có chắc chắn muốn xóa trái cây này không?")
+                        .setPositiveButton("Xóa", (dialog, which) -> {
+                            // Xóa trái cây
+                            fruitList.remove(selectedPos);
+                            customAdapter.notifyDataSetChanged();
+                            txtTitle.setText(""); // Xóa nội dung nhập
+                            txtDescription.setText("");
+                            selectedPos = -1; // Đặt lại vị trí được chọn
+                            Toast.makeText(MainActivity.this, "Xóa trái cây thành công!", Toast.LENGTH_SHORT).show();
+                        })
+                        .setNegativeButton("Hủy", (dialog, which) -> {
+                            // Hủy xóa
+                            Toast.makeText(MainActivity.this, "Đã hủy xóa!", Toast.LENGTH_SHORT).show();
+                        })
+                        .show();
+            } else {
+                Toast.makeText(MainActivity.this, "Hãy chọn trái cây cần xóa!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void openImagePicker() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
-    }
+    private void Mapping(){
+        listView = findViewById(R.id.listView);
+        txtTitle = findViewById(R.id.edtTitle);
+        txtDescription = findViewById(R.id.edtDescription);
+        imageSpinner = findViewById(R.id.spImage);
+        btnAdd = findViewById(R.id.btnAdd);
+        btnEdit = findViewById(R.id.btnEdit);
+        btnRemove = findViewById(R.id.btnRemove);
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imageUri = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-                imageView.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private Uri getUriFromDrawable(int drawableId) {
-        return Uri.parse("android.resource://" + getPackageName() + "/" + drawableId);
-    }
+        fruitList.add(new Item("Chuối tiêu","Chuối tiêu Long An", R.drawable.banana));
+        fruitList.add(new Item("Thanh long","Thanh long ruột đỏ", R.drawable.dragonfruit));
+        fruitList.add(new Item("Dưa hấu","Dưa hấu mê lon", R.drawable.melon));
+        fruitList.add(new Item("Cam cam","Cam cam là do cam màu cam", R.drawable.orange));
+        fruitList.add(new Item("Dâu tây","Dâu tây Đã Lạt", R.drawable.strawberry));
+    };
 }

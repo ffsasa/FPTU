@@ -29,7 +29,7 @@ namespace Psychological.MVCWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginRequest login)
+        public async Task<IActionResult> Login([FromBody] LoginRequest login)
         {
             if (!ModelState.IsValid)
             {

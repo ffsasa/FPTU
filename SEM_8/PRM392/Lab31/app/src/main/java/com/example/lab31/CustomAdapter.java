@@ -5,44 +5,57 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class CustomAdapter extends ArrayAdapter<Item> {
-    private Context mContext;
-    private int mResource;
+public class CustomAdapter extends BaseAdapter {
 
-    public CustomAdapter(Context context, int resource, ArrayList<Item> objects) {
-        super(context, resource, objects);
-        this.mContext = context;
-        this.mResource = resource;
+    private Context context; // => Là bối cảnh Adapter chạy, dùng để nạp dữ liệu
+    private int layout; // => Lưu layout mà mỗi item được biểu diễn
+    private List<Item> fruitList; // => Lưu danh sách mà Adapter chứa
+
+    public CustomAdapter(Context context, int layout, List<Item> fruitList) {
+        this.context = context;
+        this.layout = layout;
+        this.fruitList = fruitList;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_layout, parent, false);
-        }
+    public int getCount() {
+        return this.fruitList.size();
+    }
 
-        Item currentItem = getItem(position);
+    @Override
+    public Object getItem(int i) {
+        return null;
+    }
 
-        ImageView imageView = convertView.findViewById(R.id.imageView);
-        TextView titleView = convertView.findViewById(R.id.editTitle);
-        TextView descriptionView = convertView.findViewById(R.id.editDescription);
+    @Override
+    public long getItemId(int i) {
+        return 0;
+    }
 
-        // Hiển thị hình ảnh từ URI
-        if (currentItem.getImageUri() != null) {
-            imageView.setImageURI(currentItem.getImageUri());
-        } else {
-            imageView.setImageResource(R.drawable.ic_launcher_background); // Ảnh mặc định
-        }
+    @Override
+    public View getView(int position, View view, ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        view = inflater.inflate(layout, null);
+        // Anh xa
+        TextView txtName = view.findViewById(R.id.tvName);
+        TextView txtDescription = view.findViewById(R.id.tvDescription);
+        ImageView image = view.findViewById(R.id.imgFruit);
 
-        titleView.setText(currentItem.getTitle());
-        descriptionView.setText(currentItem.getDescription());
+        //Gan gia tri
+        Item fruit = fruitList.get(position);
 
-        return convertView;
+        txtName.setText(fruit.getTitle());
+        txtDescription.setText(fruit.getDescription());
+        image.setImageResource(fruit.getImage());
+
+        return view;
     }
 }
 

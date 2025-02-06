@@ -1,20 +1,33 @@
 package com.example.lab31;
 
-import android.net.Uri;
-
 public class Item {
-    private Uri imageUri; // Lưu URI của hình ảnh
+    private int image;
     private String title;
     private String description;
 
-    public Item(Uri imageUri, String title, String description) {
-        this.imageUri = imageUri;
+    public Item() {
+    }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
+    }
+
+    public Item(String title, String description, int image) {
+        this.image = image;
         this.title = title;
         this.description = description;
     }
 
-    public Uri getImageUri() {
-        return imageUri;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getTitle() {
