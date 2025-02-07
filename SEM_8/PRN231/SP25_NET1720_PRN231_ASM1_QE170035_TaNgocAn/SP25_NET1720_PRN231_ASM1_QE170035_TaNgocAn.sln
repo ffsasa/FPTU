@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Psychological.Service", "Ps
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Psychological_APIServices", "Psychological_APIServices\Psychological_APIServices.csproj", "{33BC6A0E-85B8-46CC-8BCE-7C540722DEB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Psychological.MVCWebApp", "Psychological.MVCWebApp\Psychological.MVCWebApp.csproj", "{43150B21-1F87-4AB0-A1FC-B77A2F69B7C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Psychological.MVCWebApp", "Psychological.MVCWebApp\Psychological.MVCWebApp.csproj", "{998DA8C9-3D78-4158-B8CE-4A0C849E7EFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{33BC6A0E-85B8-46CC-8BCE-7C540722DEB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33BC6A0E-85B8-46CC-8BCE-7C540722DEB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33BC6A0E-85B8-46CC-8BCE-7C540722DEB3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{43150B21-1F87-4AB0-A1FC-B77A2F69B7C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43150B21-1F87-4AB0-A1FC-B77A2F69B7C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43150B21-1F87-4AB0-A1FC-B77A2F69B7C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43150B21-1F87-4AB0-A1FC-B77A2F69B7C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{998DA8C9-3D78-4158-B8CE-4A0C849E7EFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{998DA8C9-3D78-4158-B8CE-4A0C849E7EFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{998DA8C9-3D78-4158-B8CE-4A0C849E7EFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{998DA8C9-3D78-4158-B8CE-4A0C849E7EFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

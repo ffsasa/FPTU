@@ -540,217 +540,275 @@ namespace Psychological_APIServices.Controllers
 }
 
 
-Bước 20: Tạo project mới tên là (Dự án).MVCWebApp
+Bước 20: Tạo project mới tên là (Dự án).MVCWebApp và NuGet thư viện Microsoft.AspNetCore.Authentication.JwtBearer 8.0.1
 
-Bước 21: Tạo controller SurveyUserAccountController trong controller của WebApp, giống tên với controller trong APIService và viết như sau (đây là bảng chính):
-namespace Psychological.MVCWebApp.Controllers
+Bước 21: Tạo controller AccountController trong controller của WebApp, giống tên với controller trong APIService và viết như sau (đây là bảng chính):
+public class AccountController : Controller
 {
-    public class SurveyUserAccountController : Controller
-    {
-        private string APIEndPoint = "https://localhost:7097/api/";
-        public IActionResult Index()
-        {
-            return RedirectToAction("Login");
-        }
+	private string APIEndPoint = "https://localhost:7097/api/";   =>>>Sửa cho đúng port của API
+	public IActionResult Index()
+	{
+		return RedirectToAction("Login");
+	}
 
-        public IActionResult Login()
-        {
-            return View();
-        }
+	public IActionResult Login()
+	{
+		return View();
+	}
 
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginRequest login)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(login);  // Return the login model to show validation errors
-            }
+	[HttpPost]
+	public async Task<IActionResult> Login(LoginRequest login)
+	{
 
-            try
-            {
-                using (var httpClient = new HttpClient())
-                {
-                    using (var response = await httpClient.PostAsJsonAsync(APIEndPoint + "SystemUserAccounts/Login", login))
-                    {
-                        if (response.IsSuccessStatusCode)
-                        {
-                            var tokenString = await response.Content.ReadAsStringAsync();
+		try
+		{
+			using (var httpClient = new HttpClient())
+			{
+				using (var response = await httpClient.PostAsJsonAsync(APIEndPoint + "SurveyUserAccounts/Login", login))   =>> Viết đúng tên API
+				{
+					if (response.IsSuccessStatusCode)
+					{
+						var tokenString = await response.Content.ReadAsStringAsync();
 
-                            var tokenHandler = new JwtSecurityTokenHandler();
-                            var jwtToken = tokenHandler.ReadToken(tokenString) as JwtSecurityToken;
+						var tokenHandler = new JwtSecurityTokenHandler();
+						var jwtToken = tokenHandler.ReadToken(tokenString) as JwtSecurityToken;
 
-                            if (jwtToken != null)
-                            {
-                                var userName = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
-                                var role = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+						if (jwtToken != null)
+						{
+							var userName = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
+							var role = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
-                            if (userName != null && role != null)
-                            { 
-                                var claims = new List<Claim>
-                        {
-                            new Claim(ClaimTypes.Name, userName),
-                            new Claim(ClaimTypes.Role, role),
-                        };
+							var claims = new List<Claim>
+					{
+						new Claim(ClaimTypes.Name, userName),
+						new Claim(ClaimTypes.Role, role),
+					};
 
-                                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+							var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+							await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
 
-                                Response.Cookies.Append("UserName", userName);
-                                Response.Cookies.Append("Role", role);
+							Response.Cookies.Append("UserName", userName);
+							Response.Cookies.Append("Role", role);
+							Response.Cookies.Append("TokenString", tokenString);
 
-                                return RedirectToAction("Index", "Home");
-                                }
-                            }
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("", "Invalid login attempt.");
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", $"An error occurred: {ex.Message}");
-            }
+							return RedirectToAction("Index", "Home");
+						}
+					}
+				}
+			}
+		}
+		catch (Exception ex)
+		{
 
-            return View(login);
-        }
+		}
 
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login", "Account");
-        }
+		HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+		ModelState.AddModelError("", "Login failure");
+		return View();
+	}
 
-        public async Task<IActionResult> Forbidden()
-        {
-            return View();
-        }
-    }
+	public async Task<IActionResult> Logout()
+	{
+		await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+		Response.Cookies.Delete("UserName");
+		Response.Cookies.Delete("Role");
+		Response.Cookies.Delete("TokenString");
+
+		return RedirectToAction("Login", "Account");
+	}
+
+	public async Task<IActionResult> Forbidden()
+	{
+		return View();
+	}
 }
 
-Bước 22: Đã có controller cho login và forbidden ở trên giờ chúng ta viết giao diện cho chúng. LƯU Ý: TÊN FOLDER, ĐƯỜNG DẪN ĐẾN FILE NÀY SẼ CẦN DÙNG ĐỂ SETUP TRONG PROGRAM.CS
-=> Tạo foder SystemUserAccounts nằm trong foler Views của WebApp. Và tạo 2 file Login và Forbidden => 2 đương dẫn được tạo ra sẽ là /SystemUserAccounts/Login và /SystemUserAccounts/Forbidden
+Bước 22: Tạo giao diện login và Forbidden
+@model Psychological.MVCWebApp.Models.LoginRequest
 
-Code file Login.cshtml:
-
-@model Psychological.MVCWebApp.Models.LoginRequest; => Sử đúng địa chỉ
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	Layout = null;
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Psychological.MVCWebApp</title> => Sử đúng tên
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/SPHealthSupportSystem_MVCWebApp.styles.css" asp-append-version="true" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Psychological.MVCWebApp</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/Psychological.MVCWebApp.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <div class="container">
-        <main role="main" class="pb-3">
-            <div class="row text-center">
-                <h1 class="display-4">Login</h1>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                </div>
-                <div class="col-md-4">
-                    <form asp-action="Login">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-group">
-                            <label asp-for="UserName" class="control-label"></label>
-                            <input asp-for="UserName" class="form-control" />
-                            <span asp-validation-for="UserName" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Password" class="control-label"></label>
-                            <input type="password" asp-for="Password" class="form-control" />
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="Login" class="btn btn-primary" />
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-4">
-                </div>
-            </div>
-        </main>
-    </div>
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+			<div class="container-fluid">
+				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Psychological.MVCWebApp</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+					<ul class="navbar-nav flex-grow-1">
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container">
+		<main role="main" class="pb-3">
+			<div class="container">
+				<main role="main" class="pb-3">
+					<div class="row text-center">
+						<h1 class="display-4">Login</h1>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+						</div>
+						<div class="col-md-4">
+							<form asp-action="Login">
+								<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+								<div class="form-group">
+									<label asp-for="UserName" class="control-label"></label>
+									<input asp-for="UserName" class="form-control" />
+									<span asp-validation-for="UserName" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label asp-for="Password" class="control-label"></label>
+									<input type="password" asp-for="Password" class="form-control" />
+									<span asp-validation-for="Password" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<input type="submit" value="Login" class="btn btn-primary" />
+								</div>
+							</form>
+						</div>
+						<div class="col-md-4">
+						</div>
+					</div>
+				</main>
+			</div>
+		</main>
+	</div>
+	<footer class="border-top footer text-muted">
+		<div class="container">
+			&copy; 2025 - Psychological.MVCWebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+		</div>
+	</footer>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
 </body>
+</html>
 
+============> VÀ <=============
 
-Code file Forbidden.cshtml:
-﻿<!DOCTYPE html>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	Layout = null;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Psychological.MVCWebApp</title>    ============>>>>>>>>>>>>>>>>>>>>> SỬA TÊN
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Psychological.MVCWebApp.styles.css" asp-append-version="true" /> ============>>>>>>>>>>>>>>>>>>>>> SỬA TÊN
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Psychological.MVCWebApp</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/Psychological.MVCWebApp.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <div class="row text-center">
-        <h3 class="text-danger">Forbidden</h3>
-        <h4 class="text-danger">You do not have permission to do this function!</h4>
-        <div>
-            <a asp-action="Login" asp-asp-controller="UserAccounts" class="btn btn-primary">Login</a>
-        </div>
-    </div>
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Psychological.MVCWebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>  ============>>>>>>>>>>>>>>>>>>>>> SỬA TÊN
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+			<div class="container-fluid">
+				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Psychological.MVCWebApp</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+					<ul class="navbar-nav flex-grow-1">
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container">
+		<main role="main" class="pb-3">
+			<div class="row text-center">
+				<h3 class="text-danger">Forbidden</h3>
+				<h4 class="text-danger">You do not have permission to do this function!</h4>
+				<div>
+					<a asp-action="Login" asp-asp-controller="Account" class="btn btn-primary">Login</a>
+				</div>
+			</div>
+		</main>
+	</div>
+
+	<footer class="border-top footer text-muted">
+		<div class="container">
+			&copy; 2025 - Psychological.MVCWebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+		</div>
+	</footer>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>
 
 
-Bước 23: Thêm phần sau vào program.cs của WebApp thêm bên trên app = builder.Build()
-builder.Services.AddAuthentication()
-    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-    {
-        options.LoginPath = new PathString("/SystemUserAccounts/Login");        => Ghi đúng tên đường dẫn vừa tạo 2 file bên trên, và đúng tên của controller bỏ chữ controller, ví dụ SystemUserAccountsController và có method Login
-        options.AccessDeniedPath = new PathString("/SystemUserAccounts/Forbidden");
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-    }); 
-
-Bước 24: Thêm [Authorize] vào HomeController của WebApp:
-
-namespace Psychological.MVCWebApp.Controllers
-{
-    [Authorize]  =>>================>>>>
-    public class HomeController : Controller
-    {   
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
-
-Bước 25: Vào file: Views/Shared/_Layout.cshtml của WebApp và ở dưới dòng:
-<li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-</li>
-
-Chúng ta thêm thẻ sau:
-<div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
-    <div class="nav-item text-nowrap">
-        Welcome
-        <strong>@Context.Request.Cookies["UserName"].ToString()</strong>
-        | @* <a href="/Account/Logout">LogOut</a> *@
-        <a asp-controller="SurveyUserAccount" asp-action="Logout">Logout</a>
-    </div>
+Bước 23: Thêm phần sau vào dưới <ul></ul> của _Layout.cshtml của Shared trong WebApp
+<div class="nav-item text-nowrap">
+    Welcome
+    <strong>@(Context.Request.Cookies["UserName"]?.ToString() ?? "Guest")</strong>
+    |
+    <a asp-controller="Account" asp-action="Logout">Logout</a>
 </div>
 
-Phải ghi đúng tên vì trong code này nó sẽ đi vào SurveyUserAccountController gọi đến method Logout
 
-Bước 26: Xóa file appsetting của WebApp vì k cần
+
+Bước 25: Thêm phần sau vào program.cs của WebApp trước var app = builder.Build();
+builder.Services.AddAuthentication()
+	.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+	{
+		options.LoginPath = new PathString("/Account/Login");
+		options.AccessDeniedPath = new PathString("/Account/Forbiden");
+		options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+	});
+
+
+
+
+Bước 26: Thêm phần sau trên tên class của home controller:
+[Authorize]
+
+Bước 27: Viết loginrequest trong models của WebApp:
+public class LoginRequest
+{
+	public string UserName { get; set; }
+	public string Password { get; set; }
+}
+
+
+Bước 28: Cho WebApp dependenci đến Project Repository để gencode cho nhanh.
+Bước 29: Sau đó chọn folder controller của WebApp -> Chọn new controller -> chọn kiểu using Entity Frameword để tạo Controller -> Sau đó comment toàn bộ phần bên trong class controller
+
+Bước 30: 

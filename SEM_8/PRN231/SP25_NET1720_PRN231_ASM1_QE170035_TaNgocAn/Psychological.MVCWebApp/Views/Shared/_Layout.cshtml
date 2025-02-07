@@ -25,13 +25,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
-                            <div class="nav-item text-nowrap">
-                                Welcome
-                                <strong>@(Context.Request.Cookies["UserName"] != null ? Context.Request.Cookies["UserName"] : "Guest")</strong>
-                            </div>
-                        </div>
-                    </ul>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Surveys" asp-action="Index">Surveys</a>
+                        </li>
+                    </ul>             
+                </div>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                    <div class="nav-item text-nowrap">
+                        Welcome
+                        <strong>@Context.Request.Cookies["UserName"].ToString()</strong>
+                        | @* <a href="/Account/Logout">LogOut</a> *@
+                        <a asp-controller="Account" asp-action="Logout">Logout</a>
+                    </div>
                 </div>
             </div>
         </nav>

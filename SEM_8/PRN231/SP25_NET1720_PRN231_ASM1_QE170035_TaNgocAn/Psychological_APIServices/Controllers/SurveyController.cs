@@ -19,6 +19,7 @@ namespace Psychological_APIServices.Controllers
 
         // GET: api/<SurveyController>
         [HttpGet]
+        [Authorize(Roles = "1,2")]
         public async Task<IEnumerable<Survey>> Get()
         {
             return await _surveyService.GetAll();

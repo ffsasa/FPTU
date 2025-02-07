@@ -17,7 +17,7 @@ namespace Psychological.Service
             _surveyUserAccountRepository = new SurveyUserAccountRepository();
         }
 
-        public async Task<UserAccount?> Authenticate(string userName, string password)
+        public async Task<UserAccount> Authenticate(string userName, string password)
         {
             return await _surveyUserAccountRepository.GetUserAccount(userName, password);
         }

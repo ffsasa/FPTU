@@ -1,14 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.Data;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Psychological.Repository.Models;
 using Psychological.Service;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Psychological_APIServices.Controllers
 {
@@ -18,6 +14,7 @@ namespace Psychological_APIServices.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly SurveyUserAccountService _surveyUserAccountService;
+
         public SurveyUserAccountsController(SurveyUserAccountService surveyUserAccountService, IConfiguration configuration)
         {
             _surveyUserAccountService = surveyUserAccountService;

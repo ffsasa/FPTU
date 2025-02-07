@@ -11,7 +11,8 @@ namespace Psychological.Repository
 {
     public class SurveyUserAccountRepository : GenericRepository<UserAccount>
     {
-        public async Task<UserAccount?> GetUserAccount(string userName, string password)
+        public SurveyUserAccountRepository() { }
+        public async Task<UserAccount> GetUserAccount(string userName, string password)
         {
             return await _context.UserAccounts.FirstOrDefaultAsync(
                 u => u.UserName == userName && 
