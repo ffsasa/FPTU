@@ -21,6 +21,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- FoodActivity (Màn hình chọn món ăn) -->
+        <activity android:name=".FoodActivity"
+            android:exported="false" />
+
+        <!-- DrinksActivity (Màn hình chọn đồ uống) -->
+        <activity android:name=".DrinksActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
