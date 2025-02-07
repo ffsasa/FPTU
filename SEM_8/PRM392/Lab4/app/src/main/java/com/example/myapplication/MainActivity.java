@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String selectedFood = "";
     private String selectedDrinks = "";
-    Button btnFood, btnDrinks;
+    Button btnFood, btnDrinks, btnQuit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnDrinks = findViewById(R.id.btnDrinks);
         btnFood = findViewById(R.id.btnFood);
+        btnQuit = findViewById(R.id.btnQuit);
 
         ActivityResultLauncher<Intent> foodActivityLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -78,13 +79,20 @@ public class MainActivity extends AppCompatActivity {
                 drinksActivityLauncher.launch(intent);
             }
         });
+
+        btnQuit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     public void updateUI(){
         TextView txtResult = findViewById(R.id.txtResult);
 
         if (!selectedFood.isEmpty() && !selectedDrinks.isEmpty()) {
-            txtResult.setText("Món đã chọn: " + selectedFood + " - " + selectedDrinks);
+            txtResult.setText("Món đã chọn: " + selectedFood + " - Nước đã chọn: " + selectedDrinks);
         }
         else if (!selectedFood.isEmpty()) {
             txtResult.setText("Món đã chọn: " + selectedFood);
