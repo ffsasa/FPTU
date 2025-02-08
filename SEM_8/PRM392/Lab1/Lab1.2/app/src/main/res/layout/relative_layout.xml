@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="20dp"
+        android:text="Sign in From"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#808080"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:backgroundTint="#808080"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Username"
+        android:textColor="#A6A6A6"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editTextNumberPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextTextEmailAddress"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#808080"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Password"
+        android:textColor="#A6A6A6"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextNumberPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:text="Not account yet? Create now"
+        android:textColor="#808080"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewOR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:text="Or"
+        android:textColor="#A6A6A6"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/line_left"
+        android:layout_width="50dp"
+        android:layout_height="2dp"
+        android:layout_below="@id/textViewOR"
+        android:layout_marginTop="-10dp"
+        android:layout_marginRight="3dp"
+        android:layout_toStartOf="@+id/textViewOR"
+        android:background="#A6A6A6" />
+
+    <View
+        android:id="@+id/line_right"
+        android:layout_width="50dp"
+        android:layout_height="2dp"
+        android:layout_below="@id/textViewOR"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="-10dp"
+        android:layout_toEndOf="@+id/textViewOR"
+        android:background="#A6A6A6" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewOR"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:background="#A6A6A6"
+        android:text="SIGN IN"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+</RelativeLayout>
