@@ -100,4 +100,14 @@
         android:textColor="#000000"
         android:textSize="16sp" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="-362dp"
+        android:layout_toStartOf="@+id/textView3"
+        android:text="Button" />
+
 </RelativeLayout>
