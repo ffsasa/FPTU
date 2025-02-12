@@ -43,17 +43,59 @@ namespace Psychological.MVCWebApp.Controllers
                     }
                 }
             }
-
             return View(new List<Survey>());
         }
 
-        /*
-        private readonly NET1720_PRN231_PRJ_G1_SchoolPsychologicalHealthSupportSystemContext _context;
-
-        public SurveysController(NET1720_PRN231_PRJ_G1_SchoolPsychologicalHealthSupportSystemContext context)
+        public async Task<IActionResult> Details(int id)
         {
-            _context = context;
+            using (var httpClient = new HttpClient()) {
+
+                var tokenString = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == "TokenString").Value;
+
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
+
+                using (var response = await httpClient.GetAsync(APIEndPoint + "Survey/" + id))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        var result = JsonConvert.DeserializeObject<Survey>(content);
+
+                        if(result != null) { return View(result); }
+                    }
+
+                    ModelState.AddModelError("", "Không thể tải dữ liệu. Vui lòng thử lại!");
+                    return View("Error");
+                }
+            }
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteQuicly(int id)
+        {
+            bool deleteStatus = false;
+
+            using (var httpClient = new HttpClient())
+            {
+                var tokenString = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == "TokenString").Value;
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
+
+                using (var response = await httpClient.DeleteAsync(APIEndPoint + "Survey/" + id))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        deleteStatus = true;
+                    }
+                }
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        /*
+        
 
         // GET: Surveys
         public async Task<IActionResult> Index()
@@ -177,25 +219,7 @@ namespace Psychological.MVCWebApp.Controllers
             return View(survey);
         }
 
-        // POST: Surveys/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var survey = await _context.Surveys.FindAsync(id);
-            if (survey != null)
-            {
-                _context.Surveys.Remove(survey);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool SurveyExists(int id)
-        {
-            return _context.Surveys.Any(e => e.Id == id);
-        }
+        
         */
     }
 }
