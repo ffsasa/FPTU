@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -93,9 +94,159 @@ namespace Psychological.MVCWebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: Surveys/Edit/5
+        public async Task<IActionResult> Edit(int id)
+        {
+            var surveysCategory = new List<ServeyCategory>();
+
+            using (var httpClient = new HttpClient())
+            {
+                var tokenString = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == "TokenString").Value;
+
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
+
+                using (var response = await httpClient.GetAsync(APIEndPoint + "ServeyCategories"))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        surveysCategory = JsonConvert.DeserializeObject<List<ServeyCategory>>(content);
+                    }
+                }
+            }
+
+            using (var httpClient = new HttpClient())
+            {
+                var tokenString = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == "TokenString").Value;
+
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
+
+                using (var response = await httpClient.GetAsync(APIEndPoint + "Survey/" + id))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        var result = JsonConvert.DeserializeObject<Survey>(content);
+
+                        if (result != null)
+                        {
+                            ViewData["CategoryId"] = new SelectList(surveysCategory, "Id", "Name", result.CategoryId);
+                            return View(result);
+                        }
+                    }
+                   
+                }
+            }
+
+            if (surveysCategory == null)
+            {
+                surveysCategory = new List<ServeyCategory>(); // Khởi tạo danh sách trống để tránh lỗi
+            }
+
+            ViewData["CategoryId"] = new SelectList(surveysCategory, "CategoryId", "Name");
+            return View(new Survey());
+        }
+
+        // POST: Surveys/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Survey survey)
+        {
+            var saveStatus = false;
+
+            if (survey == null)
+            {
+                // Xử lý nếu survey là null
+                survey = new Survey();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    using (var httpClient = new HttpClient())
+                    {
+                        var tokenString = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == "TokenString").Value;
+
+                        httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
+
+                        using (var response = await httpClient.PutAsJsonAsync(APIEndPoint + "Survey/" + survey.Id, survey))
+                        {
+                            if (response.IsSuccessStatusCode)
+                            {
+                                var content = await response.Content.ReadAsStringAsync();
+                                var result = JsonConvert.DeserializeObject<int>(content);
+
+                                if (result > 0)
+                                {
+                                    saveStatus = true;
+                                }
+                            }
+                            else
+                            {
+                                // Xử lý khi request không thành công (in ra log hoặc lỗi)
+                                var errorContent = await response.Content.ReadAsStringAsync();
+                                // Log lỗi ở đây nếu cần
+                            }
+
+                        }
+                    }
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw;
+                }
+            }
+            if (saveStatus)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                if (survey.CategoryId == null)
+                {
+                    // Xử lý nếu survey là null
+                    survey = new Survey();
+                }
+
+                var categories = await this.GetServeyCategory();
+                if (categories == null)
+                {
+                    // Xử lý trường hợp không có danh mục
+                    categories = new List<ServeyCategory>();
+                }
+                ViewData["CategoryId"] = new SelectList(categories, "Id", "Name", survey.CategoryId);
+                return View(survey);
+            }
+        }
+
+        public async Task<List<ServeyCategory>> GetServeyCategory()
+        {
+            var serveyCategory = new List<ServeyCategory>();
+
+            using (var httpClient = new HttpClient())
+            {
+                var tokenString = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == "TokenString").Value;
+
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
+
+                using (var response = await httpClient.GetAsync(APIEndPoint + "ServeyCategories"))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        serveyCategory = JsonConvert.DeserializeObject<List<ServeyCategory>>(content);
+                    }
+                }
+            }
+            return serveyCategory;
+        }
+
 
         /*
-        
+
 
         // GET: Surveys
         public async Task<IActionResult> Index()
@@ -147,58 +298,7 @@ namespace Psychological.MVCWebApp.Controllers
             return View(survey);
         }
 
-        // GET: Surveys/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var survey = await _context.Surveys.FindAsync(id);
-            if (survey == null)
-            {
-                return NotFound();
-            }
-            ViewData["CategoryId"] = new SelectList(_context.ServeyCategories, "Id", "Id", survey.CategoryId);
-            return View(survey);
-        }
-
-        // POST: Surveys/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CategoryId,Description,Number,PointAverage,Verygood,Good,Medium,Bad,VeryBad,CreateBy,CreateAt,UpdateAt")] Survey survey)
-        {
-            if (id != survey.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(survey);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SurveyExists(survey.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CategoryId"] = new SelectList(_context.ServeyCategories, "Id", "Id", survey.CategoryId);
-            return View(survey);
-        }
 
         // GET: Surveys/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -219,7 +319,7 @@ namespace Psychological.MVCWebApp.Controllers
             return View(survey);
         }
 
-        
+
         */
     }
 }

@@ -23,6 +23,7 @@ namespace Psychological_APIServices
 			builder.Services.AddSwaggerGen();
 
 			builder.Services.AddScoped<ISurveyService, SurveyService>();
+			builder.Services.AddScoped<ISurveyCategoryService, SurveyCategoryService>();
 			builder.Services.AddScoped<SurveyUserAccountService>();
 
 			builder.Services.AddControllers().AddJsonOptions(options =>
