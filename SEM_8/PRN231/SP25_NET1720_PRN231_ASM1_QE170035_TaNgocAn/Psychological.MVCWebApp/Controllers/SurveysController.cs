@@ -143,7 +143,7 @@ namespace Psychological.MVCWebApp.Controllers
                 surveysCategory = new List<ServeyCategory>(); // Khởi tạo danh sách trống để tránh lỗi
             }
 
-            ViewData["CategoryId"] = new SelectList(surveysCategory, "CategoryId", "Name");
+            ViewData["CategoryId"] = new SelectList(surveysCategory, "Id", "Name");
             return View(new Survey());
         }
 

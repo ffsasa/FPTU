@@ -97,9 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 String title = txtTitle.getText().toString().trim();
                 String description = txtDescription.getText().toString().trim();
 
-                // Kiểm tra nếu tên, mô tả hoặc ảnh chưa được chọn
                 if (title.isEmpty() || description.isEmpty() || selectedImage == -1) {
-                    // Nếu tên hoặc mô tả rỗng, hiển thị thông báo lỗi trong ô input
                     if (title.isEmpty()) {
                         txtTitle.setError("Vui lòng nhập tên trái cây!");
                     }

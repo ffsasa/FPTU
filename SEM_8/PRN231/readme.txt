@@ -318,7 +318,7 @@ Bước 12: Viết tạo appsettings trong project API:
   }
 }
 
-Bước 13: Tạo controller bằng cách => Chọn new scaffolded Item trong add của controller và viết controller như sau, tương tự với các controller khác:
+Bước 13: Tạo controller bằng cách => Chọn new scaffolded Item trong add của controller và chọn API Controller read/write action và viết controller như sau, tương tự với các controller khác:
 
 namespace Psychological_APIServices.Controllers
 {
@@ -811,4 +811,309 @@ public class LoginRequest
 Bước 28: Cho WebApp dependenci đến Project Repository để gencode cho nhanh.
 Bước 29: Sau đó chọn folder controller của WebApp -> Chọn new controller -> chọn kiểu using Entity Frameword để tạo Controller -> Sau đó comment toàn bộ phần bên trong class controller
 
-Bước 30: 
+Bước 30: Viết lại Index() của survey controller của webapp:
+
+private string APIEndPoint = "https://localhost:7097/api/";
+public SurveysController() { }
+
+public async Task<IActionResult> Index()
+{
+    using (var httpClient = new HttpClient())
+    {
+        #region Add Token to header of Request
+
+        var tokenString = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == "TokenString").Value;
+
+        httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
+
+        #endregion
+
+
+        using (var response = await httpClient.GetAsync(APIEndPoint + "Survey"))
+        {
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<Survey>>(content);
+
+                if (result != null)
+                {
+                    return View(result);
+                }
+            }
+        }
+    }
+    return View(new List<Survey>());
+}
+
+
+Bước 31: Viết thằng Delete trong survey controller:
+
+ ========> Trong SurveyController(đối tượng chính) của webapp, viết Delete sau:   ==========================
+	[HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteQuicly(int id)
+        {
+            bool deleteStatus = false;
+            using (var httpClient = new HttpClient())
+            {
+                var tokenString = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == "TokenString").Value;
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
+                using (var response = await httpClient.DeleteAsync(APIEndPoint + "Survey/" + id))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        deleteStatus = true;
+                    }
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+========> Trong Index.html của Surveys xóa thẻ delete cũ là thêm form delete mới:   ==========================
+
+     -> Xóa:                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+     -> Thêm:
+<form method="post" asp-action="DeleteQuicly" asp-route-id="@item.Id" style="display:inline;">
+    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">
+        <span class="fw-bold">X</span>
+    </button>
+</form>
+
+
+Bước 32: Viết thằng details trong survey controller của WebApp:
+
+ 	public async Task<IActionResult> Details(int id)
+        {
+            using (var httpClient = new HttpClient()) {
+                var tokenString = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == "TokenString").Value;
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
+                using (var response = await httpClient.GetAsync(APIEndPoint + "Survey/" + id))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        var result = JsonConvert.DeserializeObject<Survey>(content);
+
+                        if(result != null) { return View(result); }
+                    }
+                    ModelState.AddModelError("", "Không thể tải dữ liệu. Vui lòng thử lại!");
+                    return View("Error");
+                }
+            }
+        }
+
+Bước 33: Thêm thằng sau vào program.cs của API bên trên app.Run();:
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+Bước 34: Gen tiếp controller SurveyCategoryController (đối tượng phụ) bằng cách add controller của WebApp, chọn using EF Framework sau đó chọn đúng model và dbcontext
+
+Bước 35: Viết API của SurveyCategory 2 API getall và getbyId:
+=> Trong class SurveyCategoryService viết thêm class Interface:
+	public interface ISurveyCategoryService
+    {
+        Task<List<ServeyCategory>> GetAll();
+        Task<ServeyCategory> GetById(int id);
+    }
+
+=> Viết class SurveyCategoryService sau:
+public class SurveyCategoryService : ISurveyCategoryService
+{
+    private SurveyCategoryRepository _surveyCategoryRepository;
+
+    public SurveyCategoryService ()
+    {
+        _surveyCategoryRepository = new SurveyCategoryRepository();
+    }
+
+    public async Task<List<ServeyCategory>> GetAll()
+    {
+        return await _surveyCategoryRepository.GetAllAsync();
+    }
+
+    public async Task<ServeyCategory> GetById(int id)
+    {
+        return await _surveyCategoryRepository.GetByIdAsync(id);
+    }
+}
+
+=> Thêm DI vào programcs của API
+
+Bước 36: Viết SurveyCategoryController trong API chỉ cần viết rõ Get và GetById cách tạo giống bước 13:
+
+[Route("api/[controller]")]
+[ApiController]
+public class ServeyCategoriesController : ControllerBase
+{
+    private readonly ISurveyCategoryService _surveyCategoryService;
+    public ServeyCategoriesController(ISurveyCategoryService surveyCategoryService)
+    {
+        _surveyCategoryService = surveyCategoryService;
+    }
+
+    // GET: api/<ServeyCategoriesController>
+    [HttpGet]
+    public async Task<IEnumerable<ServeyCategory>> Get()
+    {
+        return await _surveyCategoryService.GetAll();
+    }
+
+    // GET api/<ServeyCategoriesController>/5
+    [HttpGet("{id}")]
+    [Authorize(Roles = "1,2")]
+    public async Task<ServeyCategory> GetById(int id)
+    {
+        return await _surveyCategoryService.GetById(id);
+    }
+
+    // POST api/<ServeyCategoriesController>
+    [HttpPost]
+    public void Post([FromBody] string value)
+    {
+    }
+
+    // PUT api/<ServeyCategoriesController>/5
+    [HttpPut("{id}")]
+    public void Put(int id, [FromBody] string value)
+    {
+    }
+
+    // DELETE api/<ServeyCategoriesController>/5
+    [HttpDelete("{id}")]
+    public void Delete(int id)
+    {
+    }
+}
+
+Bước 37: Quay lại SurveyController để viết tiếp details post, details get và hàm get đối tượng phụ:
+	// GET: Surveys/Edit/5
+        public async Task<IActionResult> Edit(int id)
+        {
+            var surveysCategory = new List<ServeyCategory>();
+            using (var httpClient = new HttpClient())
+            {
+                var tokenString = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == "TokenString").Value;
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
+                using (var response = await httpClient.GetAsync(APIEndPoint + "ServeyCategories")) => Đối tượng phụ
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        surveysCategory = JsonConvert.DeserializeObject<List<ServeyCategory>>(content);
+                    }
+                }
+            }
+            using (var httpClient = new HttpClient())
+            {
+                var tokenString = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == "TokenString").Value;
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
+                using (var response = await httpClient.GetAsync(APIEndPoint + "Survey/" + id)) => Đối tượng chính
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        var result = JsonConvert.DeserializeObject<Survey>(content);
+                        if (result != null)
+                        {
+                            ViewData["CategoryId"] = new SelectList(surveysCategory, "Id", "Name", result.CategoryId); => Id và Name là field của đối tượng phụ
+                            return View(result);
+                        }
+                    }
+                   
+                }
+            }
+            if (surveysCategory == null)
+            {
+                surveysCategory = new List<ServeyCategory>(); // Khởi tạo danh sách trống để tránh lỗi
+            }
+            ViewData["CategoryId"] = new SelectList(surveysCategory, "Id", "Name");
+            return View(new Survey());
+        }
+
+        // POST: Surveys/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Survey survey)
+        {
+            var saveStatus = false;
+            if (survey == null)
+            {
+                // Xử lý nếu survey là null
+                survey = new Survey();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    using (var httpClient = new HttpClient())
+                    {
+                        var tokenString = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == "TokenString").Value;
+                        httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
+                        using (var response = await httpClient.PutAsJsonAsync(APIEndPoint + "Survey/" + survey.Id, survey))
+                        {
+                            if (response.IsSuccessStatusCode)
+                            {
+                                var content = await response.Content.ReadAsStringAsync();
+                                var result = JsonConvert.DeserializeObject<int>(content);
+                                if (result > 0)
+                                {
+                                    saveStatus = true;
+                                }
+                            }
+                            else
+                            {
+                                // Xử lý khi request không thành công (in ra log hoặc lỗi)
+                                var errorContent = await response.Content.ReadAsStringAsync();
+                                // Log lỗi ở đây nếu cần
+                            }
+                        }
+                    }
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw;
+                }
+            }
+            if (saveStatus)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                if (survey.CategoryId == null)
+                {
+                    // Xử lý nếu survey là null
+                    survey = new Survey();
+                }
+                var categories = await this.GetServeyCategory();
+                if (categories == null)
+                {
+                    // Xử lý trường hợp không có danh mục
+                    categories = new List<ServeyCategory>();
+                }
+                ViewData["CategoryId"] = new SelectList(categories, "Id", "Name", survey.CategoryId);
+                return View(survey);
+            }
+        }
+
+	//Get đối tượng phụ
+        public async Task<List<ServeyCategory>> GetServeyCategory()
+        {
+            var serveyCategory = new List<ServeyCategory>();
+            using (var httpClient = new HttpClient())
+            {
+                var tokenString = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == "TokenString").Value;
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
+                using (var response = await httpClient.GetAsync(APIEndPoint + "ServeyCategories"))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        serveyCategory = JsonConvert.DeserializeObject<List<ServeyCategory>>(content);
+                    }
+                }
+            }
+            return serveyCategory;
+        }
