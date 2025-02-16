@@ -1117,3 +1117,7 @@ Bước 37: Quay lại SurveyController để viết tiếp details post, detail
             }
             return serveyCategory;
         }
+
+4 bước để làm odata:
+3 bước trong zalo và ENABELQUERY TRONG API => 8-10 điểm
+
