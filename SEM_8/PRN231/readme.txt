@@ -985,7 +985,7 @@ public class ServeyCategoriesController : ControllerBase
     }
 }
 
-Bước 37: Quay lại SurveyController để viết tiếp details post, details get và hàm get đối tượng phụ:
+Bước 37: Quay lại SurveyController để viết tiếp edit post, edit get và hàm get đối tượng phụ:
 	// GET: Surveys/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
@@ -1117,6 +1117,57 @@ Bước 37: Quay lại SurveyController để viết tiếp details post, detail
             }
             return serveyCategory;
         }
+
+Bước 38: Viết get và post create của webapp:
+
+// GET: Surveys/Create
+public async Task<IActionResult> Create()
+{
+    ViewData["CategoryId"] = new SelectList(await this.GetServeyCategory(), "Id", "Name");
+    return View();
+}
+
+// POST: Surveys/Create
+// To protect from overposting attacks, enable the specific properties you want to bind to.
+// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Create(Survey survey)
+{
+    if (ModelState.IsValid)
+    {
+        try
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var tokenString = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == "TokenString").Value;
+
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
+
+                using (var response = await httpClient.PostAsJsonAsync(APIEndPoint + "Survey/", survey))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        var result = JsonConvert.DeserializeObject<int>(content);
+
+                        if (result > 0)
+                        {
+                            return RedirectToAction(nameof(Index));
+                        }
+                    }
+                }
+            }
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            throw;
+        }
+    }
+    ViewData["CategoryId"] = new SelectList(await this.GetServeyCategory(), "Id", "Name", survey.CategoryId);
+
+    return View(survey);
+}
 
 4 bước để làm odata:
 3 bước trong zalo và ENABELQUERY TRONG API => 8-10 điểm
