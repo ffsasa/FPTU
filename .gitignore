@@ -139,3 +139,9 @@ android/fastlane/metadata/android/
 Thumbs.db
 
 *.mkv
+
+# Ignore local Android SDK settings
+local.properties
+
+# Ignore Gradle wrapper binary
+gradle/wrapper/gradle-wrapper.jar
