@@ -1,0 +1,32 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Psychological.GrpcService.Protos";
+
+package survey;
+
+service SurveyService {
+  // Phương thức để lấy tất cả survey
+  rpc GetAll (Empty) returns (SurveyList);
+}
+
+message Survey {
+  int32 id = 1;                
+  int32 categoryId = 2;        
+  string description = 3;      
+  int32 number = 4;            
+  float pointAverage = 5;      
+  int32 veryGood = 6;          
+  int32 good = 7;              
+  int32 medium = 8;            
+  int32 bad = 9;               
+  int32 veryBad = 10;          
+  int32 createBy = 11;          
+  string createAt = 12;         
+  string updateAt = 13;         
+}
+
+message SurveyList {
+  repeated Survey surveys = 1; 
+}
+
+message Empty {}
