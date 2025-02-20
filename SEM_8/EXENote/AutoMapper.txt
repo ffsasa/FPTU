@@ -1,0 +1,43 @@
+Bước 1: Tải thư viện: Install-Package AutoMapper
+Bước 2: Dựa vào entity viết Request, Response
+Bước 3: Tạo Profile ánh xạ những thuộc tính đặc biệt:
+public class UserInfoMapper : Profile
+{
+    public UserInfoMapper()
+    {
+        CreateMap<CreateUserInfoRequest, UserInfo>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
+            .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => true))
+            .ForMember(dest => dest.CreateAt, opt => opt.MapFrom(src => TimeUtil.GetCurrentSEATime()))
+            .ForMember(dest => dest.UpdateAt, opt => opt.MapFrom(src => TimeUtil.GetCurrentSEATime()));
+
+        CreateMap<UpdateUserInfoRequest, UserInfo>()
+            .ForMember(dest => dest.UpdateAt, opt => opt.MapFrom(src => TimeUtil.GetCurrentSEATime()));
+
+        CreateMap<UserInfo, CreateUserInfoResponse>();
+    }
+}
+
+=> Chỉ các thuộc tính được ánh xạ đặc biệt hoặc k được ghi vào Request/Response Class mới cần cấu hình.
+
+Bước 4: Đăng ký ID của Automapper có 3 cách
+builder.Services.AddAutoMapper(typeof(AccountMapper)); -> Chỉ thực hiện mapper với AccountMapper
+builder.Services.AddAutoMapper(typeof(Program).Assembly); -> Thực hiện mapper với tất cả class kế thừa lớp Profile trong cùng Project
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); -> Thực hiện mapper với tất cả class kế thừa lớp Profile trong cùng Solution
+
+Bước 5: Sử dụng:
+Cần DI vào class sử dụng:
+        private readonly IMapper _mapper;
+
+public UserCallService(IUnitOfWork<HarmonContext> unitOfWork, ILogger<UserCallService> logger, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(unitOfWork, logger, mapper, httpContextAccessor)
+{
+    _mapper = mapper;
+}
+
+Cách 1: var userCall = _mapper.Map<CreateUserCallRequest, UserCall>(request);
+Cách 2: var userCall = _mapper.Map<CreateUserCallRequest>(request);
+
+=> Cách 1 và 2 giống nhau nhưng cách 1 chỉ rõ kiểu trả về là UserCall
+
+Cách 3: userCall = _mapper.Map(request, userCall);
+=> Cách 1 và 2 sử dụng khi tạo đối tượng, các thuộc tính không được map trong file Profile sẽ bị để trống hoặc null (giá trị mặc định). Còn cách thứ 3 dùng khi update, các thuộc tính k được map sẽ được giữ nguyên.

@@ -1,0 +1,74 @@
+1. Đặc biệt: Logger đã có sẵn như 1 lệnh Console.WriteLine nên k cần tải thư viện hay DI vào program gì cả, chỉ cần sử dụng bằng các DI trực tiếp vào constructor là được:
+
+public UserCallService(IUnitOfWork<HarmonContext> unitOfWork, ILogger<UserCallService> logger, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(unitOfWork, logger, mapper, httpContextAccessor)
+{
+    _mapper = mapper;
+}
+
+Và config trong appsetting:
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    },
+    "Console": {
+      "IncludeScopes": true
+    }
+  }
+}
+
+2. Cấp độ ghi log
+
+Trace:	Ghi lại thông tin chi tiết nhất (thường dùng để debug rất cụ thể).
+Debug:	Ghi lại thông tin chỉ cần thiết khi debug.
+Information:	Ghi lại thông tin tổng quan, hữu ích trong trạng thái vận hành bình thường của ứng dụng.
+Warning:	Ghi lại các cảnh báo (không nghiêm trọng nhưng cần chú ý).
+Error:	Ghi lại lỗi nghiêm trọng trong ứng dụng (thường là lỗi cần xử lý hoặc thông báo cho người dùng).
+Critical:	Ghi lại lỗi nghiêm trọng nhất (ứng dụng có thể ngừng hoạt động hoặc gặp sự cố nghiêm trọng).
+
+3. Ghi log ra tệp
+
+- Nếu muốn ghi logger ra tiêp thì cần: 
+Install-Package Serilog.Extensions.Hosting
+Install-Package Serilog.Settings.Configuration
+Install-Package Serilog.Sinks.File
+Install-Package Serilog.Sinks.Console
+
+Sau đó cấu hình trong program.cs:
+using Serilog;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Cấu hình Serilog
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
+var app = builder.Build();
+app.Run();
+
+Chi tiết:
+logs/log-.txt:
+
+logs là thư mục mà file log sẽ được lưu trữ.
+log- là tiền tố của tên file log.
+- sẽ được thay thế bằng ngày hiện tại.
+rollingInterval: RollingInterval.Day:
+
+Log sẽ được chia thành các tệp mới mỗi ngày.
+Ví dụ:
+Ngày 2025-01-28: logs/log-20250128.txt
+Ngày 2025-01-29: logs/log-20250129.txt
+
+
+
+
+4. Sử dụng log giống lệnh console.Writeline:
+        _logger.LogInformation("HomeController Index action called.");
+Có nhiều kiểu . hãy lựa chọn
+

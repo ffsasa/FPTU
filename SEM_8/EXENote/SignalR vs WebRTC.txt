@@ -1,0 +1,78 @@
+🛠 1. WebRTC là gì?
+WebRTC (Web Real-Time Communication) là một công nghệ giúp trình duyệt giao tiếp trực tiếp với nhau (peer-to-peer - P2P) mà không cần server trung gian. Nó được dùng để truyền âm thanh, video, và dữ liệu một cách nhanh chóng và bảo mật.
+
+✅ WebRTC gồm 3 thành phần chính:
+📞 Peer-to-Peer (P2P) Connection
+
+WebRTC giúp hai trình duyệt kết nối trực tiếp với nhau mà không cần server trung gian.
+🌍 STUN/TURN Servers
+
+STUN: Giúp xác định địa chỉ IP bên ngoài của người dùng (dùng để thiết lập kết nối P2P).
+TURN: Nếu P2P không thể kết nối trực tiếp (do firewall/NAT), TURN sẽ giúp trung gian chuyển dữ liệu.
+🔄 Signaling (Dùng để trao đổi thông tin giữa 2 client trước khi kết nối P2P)
+
+WebRTC không tự có signaling, nên chúng ta phải dùng WebSocket hoặc SignalR để trao đổi SDP Offer/Answer và ICE Candidates.
+
+🔄 2. WebSocket là gì?
+WebSocket là một giao thức giúp gửi và nhận dữ liệu theo thời gian thực giữa client và server.
+
+Khác với HTTP (mỗi lần request → response xong là kết thúc), WebSocket mở một kết nối liên tục.
+Dùng WebSocket để gửi thông tin signaling giữa hai trình duyệt trước khi chúng có thể kết nối P2P qua WebRTC.
+📌 Tóm lại: WebSocket giúp trao đổi thông tin giữa hai trình duyệt trước khi WebRTC có thể hoạt động.
+
+
+WebRTC, WebSocket, và SignalR là ba công nghệ khác nhau, nhưng chúng có thể kết hợp với nhau để xây dựng một hệ thống gọi âm thanh/video trực tuyến. Mình sẽ giải thích rõ ràng về từng cái và cách chúng hoạt động cùng nhau.
+
+🛠 1. WebRTC là gì?
+WebRTC (Web Real-Time Communication) là một công nghệ giúp trình duyệt giao tiếp trực tiếp với nhau (peer-to-peer - P2P) mà không cần server trung gian. Nó được dùng để truyền âm thanh, video, và dữ liệu một cách nhanh chóng và bảo mật.
+
+✅ WebRTC gồm 3 thành phần chính:
+📞 Peer-to-Peer (P2P) Connection
+
+WebRTC giúp hai trình duyệt kết nối trực tiếp với nhau mà không cần server trung gian.
+🌍 STUN/TURN Servers
+
+STUN: Giúp xác định địa chỉ IP bên ngoài của người dùng (dùng để thiết lập kết nối P2P).
+TURN: Nếu P2P không thể kết nối trực tiếp (do firewall/NAT), TURN sẽ giúp trung gian chuyển dữ liệu.
+🔄 Signaling (Dùng để trao đổi thông tin giữa 2 client trước khi kết nối P2P)
+
+WebRTC không tự có signaling, nên chúng ta phải dùng WebSocket hoặc SignalR để trao đổi SDP Offer/Answer và ICE Candidates.
+
+
+
+🔄 2. WebSocket là gì?
+WebSocket là một giao thức giúp gửi và nhận dữ liệu theo thời gian thực giữa client và server.
+
+Khác với HTTP (mỗi lần request → response xong là kết thúc), WebSocket mở một kết nối liên tục.
+Dùng WebSocket để gửi thông tin signaling giữa hai trình duyệt trước khi chúng có thể kết nối P2P qua WebRTC.
+📌 Tóm lại: WebSocket giúp trao đổi thông tin giữa hai trình duyệt trước khi WebRTC có thể hoạt động.
+
+
+
+⚡ 3. SignalR là gì?
+SignalR là một thư viện của Microsoft (trên ASP.NET) giúp đơn giản hóa việc sử dụng WebSocket.
+
+🔹 Lợi ích của SignalR so với WebSocket:
+✅ Tự động chuyển đổi: Nếu trình duyệt không hỗ trợ WebSocket, SignalR sẽ fallback sang Long Polling.
+✅ Hỗ trợ gửi message giữa nhiều client dễ dàng (thích hợp để ghép đôi người dùng).
+✅ Tích hợp tốt với .NET.
+
+📌 Tóm lại: SignalR chỉ là một thư viện giúp quản lý WebSocket dễ dàng hơn trong ASP.NET.
+
+
+
+📌 4. vai trò của Signaling
+Signaling là quy trình trao đổi Offer, Answer, ICE Candidate.
+SignalR/WebSocket chỉ là công cụ hỗ trợ Signaling.
+Sau Signaling, WebRTC hoạt động độc lập, không cần SignalR/WebSocket nữa.
+
+
+====>>>> Tóm lại:
+WebRTC giúp giao tiếp trực tiếp (P2P) giữa hai trình duyệt.
+Để kết nối được, nó cần thông tin SDP Offer/Answer + ICE Candidates + Địa chỉ IP.
+Địa chỉ IP được lấy từ STUN/TURN servers.
+SDP Offer/Answer & ICE Candidate được gửi qua Signaling (dùng SignalR/WebSocket).
+SignalR giúp quản lý WebSocket để làm nhiệm vụ signaling.
+Khi đủ thông tin, P2P connection được thiết lập và dữ liệu âm thanh/video sẽ truyền trực tiếp giữa hai máy.
+
+
