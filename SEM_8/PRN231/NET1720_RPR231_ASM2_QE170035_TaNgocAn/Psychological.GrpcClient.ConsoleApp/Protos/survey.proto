@@ -26,7 +26,7 @@ message ActionResult {
   int32 Status = 1;
   string Message = 2;
   SurveyList Data = 3;
-}	
+}
 
 message Survey {
   int32 id = 1;                
