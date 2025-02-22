@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.lab4;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,25 +14,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class DrinksActivity extends AppCompatActivity {
+public class FoodActivity extends AppCompatActivity {
     ListView listView;
     Button btnOrder;
-    ArrayList<Item> itemList = new ArrayList<Item>();
-    String selectedDrinks = "";
+    ArrayList<ItemF> itemList = new ArrayList<ItemF>();
+    String selectedFood;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_drinks);
+        setContentView(R.layout.activity_food);
 
-        listView = findViewById(R.id.listViewDrinks);
-        btnOrder = findViewById(R.id.btnOrderDrinks);
+        listView = findViewById(R.id.listViewFood);
+        btnOrder = findViewById(R.id.btnOrderFood);
 
-        itemList.add(new Item(R.drawable.heineken,"Heineken","Bia Heineken","10.000 VNĐ"));
-        itemList.add(new Item(R.drawable.saigondo,"Sài Gòn Đỏ","Bia Sài Gòn Đỏ","10.000 VNĐ"));
-        itemList.add(new Item(R.drawable.tiger,"Tiger","Bia Tiger","10.000 VNĐ"));
-        itemList.add(new Item(R.drawable.pepsi,"Pepsi","Nước Pepsi","10.000 VNĐ"));
+        itemList.add(new ItemF(R.drawable.bunbohue,"Bún bò Huế","Đây là bún bò Huế","50.000 VNĐ"));
+        itemList.add(new ItemF(R.drawable.hutieusaigon,"Hủ tiếu Sài Gòn","Đây là hủ tiếu Sài Gòn","50.000 VNĐ"));
+        itemList.add(new ItemF(R.drawable.miquang,"Mì quảng","Đây là mì quảng","50.000 VNĐ"));
+        itemList.add(new ItemF(R.drawable.phohanoi,"Phở Hà Nội","Đây là phở Hà Nội","50.000 VNĐ"));
 
         CustomAdapter customAdapter = new CustomAdapter(this, R.layout.list_item_layout, itemList);
         listView.setAdapter(customAdapter);
@@ -40,10 +40,10 @@ public class DrinksActivity extends AppCompatActivity {
         listView.setOnItemClickListener( new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Item selected = itemList.get(i);
-                selectedDrinks = selected.getName();
+                ItemF selected = itemList.get(i);
+                selectedFood = selected.getName();
 
-                Toast.makeText(DrinksActivity.this, "Đã chọn nước uống: " + selectedDrinks, Toast.LENGTH_SHORT).show();
+                Toast.makeText(FoodActivity.this, "Đã chọn món ăn: " + selectedFood, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -51,7 +51,7 @@ public class DrinksActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("SELECTED_DRINKS", selectedDrinks);
+                resultIntent.putExtra("SELECTED_FOOD", selectedFood);
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();
             }

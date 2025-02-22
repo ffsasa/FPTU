@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.lab4;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,6 +13,9 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,37 +34,37 @@ public class MainActivity extends AppCompatActivity {
         btnQuit = findViewById(R.id.btnQuit);
 
         ActivityResultLauncher<Intent> foodActivityLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        Intent data = result.getData();
-                        if (data != null) {
-                            selectedFood = data.getStringExtra("SELECTED_FOOD");
-                            // Xử lý kết quả từ FoodActivity
-                            updateUI();
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Intent data = result.getData();
+                            if (data != null) {
+                                selectedFood = data.getStringExtra("SELECTED_FOOD");
+                                // Xử lý kết quả từ FoodActivity
+                                updateUI();
+                            }
                         }
                     }
                 }
-            }
         );
 
         ActivityResultLauncher<Intent> drinksActivityLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == RESULT_OK){
-                        Intent data = result.getData();
-                        if (data != null){
-                            selectedDrinks = data.getStringExtra("SELECTED_DRINKS");
-                            // Xử lý kết quả từ DrinksActivity
-                            updateUI();
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == RESULT_OK){
+                            Intent data = result.getData();
+                            if (data != null){
+                                selectedDrinks = data.getStringExtra("SELECTED_DRINKS");
+                                // Xử lý kết quả từ DrinksActivity
+                                updateUI();
+                            }
                         }
                     }
                 }
-            }
         );
 
         btnFood.setOnClickListener(new View.OnClickListener() {

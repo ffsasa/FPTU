@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.lab52;
 
 import org.junit.Test;
 

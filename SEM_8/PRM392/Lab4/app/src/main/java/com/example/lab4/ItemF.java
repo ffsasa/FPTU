@@ -1,19 +1,19 @@
-package com.example.myapplication;
+package com.example.lab4;
 
-public class Item {
-    private int image;
-    private String name;
-    private String description;
-    private String price;
+public class ItemF {
+    public int image;
+    public String name;
+    public String description;
+    public String price;
 
-    public Item(int image, String name, String description, String price) {
+    public ItemF(int image, String name, String description, String price) {
         this.image = image;
         this.name = name;
         this.description = description;
         this.price = price;
     }
 
-    public Item() {
+    public ItemF() {
     }
 
     public int getImage() {

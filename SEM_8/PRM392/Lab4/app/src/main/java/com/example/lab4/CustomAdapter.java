@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.lab4;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,9 +13,9 @@ import java.util.List;
 public class CustomAdapter extends BaseAdapter {
     private Context context;
     private int layout;
-    private List<Item> itemList;
+    private List<ItemF> itemList;
 
-    public CustomAdapter(Context context, int layout, List<Item> itemList) {
+    public CustomAdapter(Context context, int layout, List<ItemF> itemList) {
         this.context = context;
         this.layout = layout;
         this.itemList = itemList;
@@ -47,7 +47,7 @@ public class CustomAdapter extends BaseAdapter {
         ImageView image = view.findViewById(R.id.imgItem);
 
         //Gan gia tri
-        Item item = itemList.get(i);
+        ItemF item = itemList.get(i);
 
         txtName.setText(item.getName());
         txtDescription.setText(item.getDescription());
