@@ -145,3 +145,14 @@ local.properties
 
 # Ignore Gradle wrapper binary
 gradle/wrapper/gradle-wrapper.jar
+
+*.gradle
+*.gradle.kts
+gradle.properties
+gradle/libs.versions.toml
+/.gradle
+/app/src/test/
+/app/src/androidTest/
+/app/src/main/res/mipmap-anydpi-v26/
+/app/src/main/res/xml/
+
