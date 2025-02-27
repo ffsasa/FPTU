@@ -15,6 +15,16 @@ service SurveyService {
   rpc Add (Survey) returns (ActionResult);
 
   rpc Edit (Survey) returns (ActionResult);
+
+  rpc GetAllAsync (Empty) returns (SurveyList);
+
+  rpc GetByIdAsync (SurveyIdRequest) returns (Survey);
+
+  rpc DeleteByIdAsync (SurveyIdRequest) returns (ActionResult);
+
+  rpc AddAsync (Survey) returns (ActionResult);
+
+  rpc EditAsync (Survey) returns (ActionResult);
 }
 
 // Request để truyền ID khảo sát

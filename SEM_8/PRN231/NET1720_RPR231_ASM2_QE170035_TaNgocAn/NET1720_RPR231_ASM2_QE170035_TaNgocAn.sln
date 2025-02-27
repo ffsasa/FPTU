@@ -5,7 +5,11 @@ VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Psychological.GrpcService", "Psychological.GrpcService\Psychological.GrpcService.csproj", "{5064CA30-9B77-4853-B6CC-A4CCA2CE7191}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Psychological.GrpcClient.ConsoleApp", "Psychological.GrpcClient.ConsoleApp\Psychological.GrpcClient.ConsoleApp.csproj", "{0050F6D3-3990-451B-BAA3-F020EC4DA769}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Psychological.GrpcClient.ConsoleApp", "Psychological.GrpcClient.ConsoleApp\Psychological.GrpcClient.ConsoleApp.csproj", "{0050F6D3-3990-451B-BAA3-F020EC4DA769}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Psychological.Repository", "Psychological.Repository\Psychological.Repository.csproj", "{6306A730-DA4E-4851-AE8B-9CA71D2B4F0E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Psychological.Service", "Psychological.Service\Psychological.Service.csproj", "{99EA5E37-E8DA-4282-9979-A89718964C04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{0050F6D3-3990-451B-BAA3-F020EC4DA769}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0050F6D3-3990-451B-BAA3-F020EC4DA769}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0050F6D3-3990-451B-BAA3-F020EC4DA769}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6306A730-DA4E-4851-AE8B-9CA71D2B4F0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6306A730-DA4E-4851-AE8B-9CA71D2B4F0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6306A730-DA4E-4851-AE8B-9CA71D2B4F0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6306A730-DA4E-4851-AE8B-9CA71D2B4F0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99EA5E37-E8DA-4282-9979-A89718964C04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99EA5E37-E8DA-4282-9979-A89718964C04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99EA5E37-E8DA-4282-9979-A89718964C04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99EA5E37-E8DA-4282-9979-A89718964C04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

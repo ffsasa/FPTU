@@ -18,4 +18,10 @@
     <PackageReference Include="Grpc.AspNetCore" Version="2.57.0" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\Psychological.Repository\Psychological.Repository.csproj" />
+    <ProjectReference Include="..\Psychological.Service\Psychological.Service.csproj" />
+  </ItemGroup>
+
 </Project>

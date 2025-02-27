@@ -2,11 +2,13 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace Psychological.GrpcService.Models;
+namespace Psychological.Repository.Models;
 
 public partial class Survey
 {
+    [Key]
     public int Id { get; set; }
 
     public int? CategoryId { get; set; }
@@ -32,4 +34,6 @@ public partial class Survey
     public DateTime? CreateAt { get; set; }
 
     public DateTime? UpdateAt { get; set; }
+
+    public virtual ServeyCategory Category { get; set; }
 }
