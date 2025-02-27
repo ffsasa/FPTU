@@ -1,8 +1,12 @@
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.OData;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OData.Edm;
+using Microsoft.OData.ModelBuilder;
 using Microsoft.OpenApi.Models;
 using Psychological.Repository;
+using Psychological.Repository.Models;
 using Psychological.Service;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -77,7 +81,20 @@ namespace Psychological_APIServices
 				});
 			});
 
-			var app = builder.Build();
+            static IEdmModel GetEdmModel()
+            {
+                var odataBuilder = new ODataConventionModelBuilder();
+                odataBuilder.EntitySet<ServeyCategory>("ServeyCategories"); // ENTITY
+                odataBuilder.EntitySet<Survey>("Survey"); // ENTITY
+                return odataBuilder.GetEdmModel();
+            }
+            builder.Services.AddControllers().AddOData(options =>
+            {
+                options.Select().Filter().OrderBy().Expand().SetMaxTop(null).Count();
+                options.AddRouteComponents("odata", GetEdmModel());
+            });
+
+            var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

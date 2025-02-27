@@ -1169,6 +1169,29 @@ public async Task<IActionResult> Create(Survey survey)
     return View(survey);
 }
 
+================================================================================================
+
 4 bước để làm odata:
 3 bước trong zalo và ENABELQUERY TRONG API => 8-10 điểm
+Bước 1: Chạy ở repo: dotnet add package Microsoft.AspNetCore.OData --version 8.2.5
+
+
+Bước 2: Build lại project và thêm code sau vào Program của API:
+static IEdmModel GetEdmModel()
+{
+    var odataBuilder = new ODataConventionModelBuilder();
+    odataBuilder.EntitySet<ServeyCategory>("ServeyCategory"); // <Entity>("Tên trong swagger")
+    odataBuilder.EntitySet<Survey>("Survey"); // <Entity>("Tên trong swagger")
+    return odataBuilder.GetEdmModel();
+}
+builder.Services.AddControllers().AddOData(options =>
+{
+    options.Select().Filter().OrderBy().Expand().SetMaxTop(null).Count();
+    options.AddRouteComponents("odata", GetEdmModel());
+});
+
+
+Bước 3: Bước 3 thêm [Key] vào id của entity
+
+
 
