@@ -149,23 +149,92 @@ namespace Psychological.GrpcService.Services
                 var result = new SurveyList();
                 var surveyList = await surveyService.GetAll();
 
-                    var surveyString = JsonSerializer.Serialize(request, opt);
-                    var item = JsonSerializer.Deserialize<Repository.Models.Survey>(surveyString, opt);
+                var opt = new JsonSerializerOptions() { ReferenceHandler =
+                    ReferenceHandler.IgnoreCycles, DefaultIgnoreCondition =
+                    JsonIgnoreCondition.WhenWritingNull};
 
-                    var result = await surveyService.Create(item);
+                var surveyString = JsonSerializer.Serialize(surveyList, opt);
+                var items = JsonSerializer.Deserialize<List<Protos.Survey>>(surveyString, opt);
 
-                    if (result > 0)
-                    {
-                        return await Task.FromResult(new ActionResult() { Status = 1, Message = "Add Success" });
-                    }
-                
+                result.Surveys.AddRange(items);
+
+                return await Task.FromResult(result);               
             }
             catch (Exception ex)
             {
-                return await Task.FromResult(new ActionResult() { Status = -4, Message = string.Format("Add Fail. (0)", ex.ToString()) });
+                return new SurveyList();
 
             }
-            return await Task.FromResult(new ActionResult() { Status = -4, Message = "Add Fail" });
+        }
+
+        public override async Task<Protos.Survey> GetByIdAsync(SurveyIdRequest request, ServerCallContext context)
+        {
+            try
+            {
+                var survey = await surveyService.GetById(request.Id);
+
+                var opt = new JsonSerializerOptions()
+                {
+                    ReferenceHandler =
+                    ReferenceHandler.IgnoreCycles,
+                    DefaultIgnoreCondition =
+                    JsonIgnoreCondition.WhenWritingNull
+                };
+
+                var surveyString = JsonSerializer.Serialize(survey, opt);
+                var items = JsonSerializer.Deserialize<Protos.Survey>(surveyString, opt);
+
+                return await Task.FromResult(items);
+            }
+            catch (Exception ex) 
+            {
+                return new Protos.Survey();
+            }
+        }
+
+        public override async Task<ActionResult> EditAsync(Protos.Survey request, ServerCallContext context)
+        {
+            try
+            {
+                if (request != null)
+                {
+                    var opt = new JsonSerializerOptions()
+                    {
+                        ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                    };
+
+                    var surveyString = JsonSerializer.Serialize(request, opt);
+                    var item = JsonSerializer.Deserialize<Repository.Models.Survey>(surveyString, opt);
+
+                    var result = await surveyService.Update(item);
+
+                    if (result > 0)
+                    {
+                        return await Task.FromResult(new ActionResult() { Status = 1, Message = "Update Success" });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return await Task.FromResult(new ActionResult() { Status = -4, Message = string.Format("Update Fail. (0)", ex.ToString()) });
+
+            }
+            return await Task.FromResult(new ActionResult() { Status = -4, Message = "Update Fail" });
+        }
+
+        public override async Task<ActionResult> DeleteByIdAsync(SurveyIdRequest request, ServerCallContext context)
+        {
+            try
+            {
+                var survey = await surveyService.Delete(request.Id);
+
+                return await Task.FromResult(new ActionResult() { Status = 1, Message = "Delete success" });
+            }
+            catch (Exception ex)
+            {
+                return await Task.FromResult(new ActionResult() { Status = -1, Message = string.Format("Delete Fail .(0)", ex.ToString()) });
+            }
         }
     }
 }

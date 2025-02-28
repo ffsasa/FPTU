@@ -1193,5 +1193,5 @@ builder.Services.AddControllers().AddOData(options =>
 
 Bước 3: Bước 3 thêm [Key] vào id của entity
 
-
+Bước 4: Thêm [EnableQuery] vào các endpoint
 

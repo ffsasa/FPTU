@@ -1,0 +1,43 @@
+﻿@page "/Survey/SurveyList"
+@using Psychological.BlazorApp.Client.Models
+@inject HttpClient Http
+
+<h3>SurveyList</h3>
+
+@if (surveys == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>CreateAt</th>
+                <th>PointAverage</th>
+                <th>PointAverage</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var survey in surveys)
+            {
+                <tr>
+                    <td>@survey.CreateAt?.ToString("yyyy-MM-dd")</td>
+                    <td>@survey.PointAverage</td>
+                    <td>@(survey.PointAverage.HasValue ? survey.PointAverage.Value * 1.8 + 32 : (double?)null)</td>
+                    <td>@survey.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Survey>? surveys;
+
+    protected override async Task OnInitializedAsync()
+    {
+        surveys = await Http.GetFromJsonAsync<List<Survey>>("https://localhost:7093/api/Survey");
+    }
+}
