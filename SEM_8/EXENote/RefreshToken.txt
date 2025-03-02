@@ -1,3 +1,5 @@
+https://www.youtube.com/watch?v=kR_9gRBeRMQ&t=832s
+
 Bước 1: Tạo bảng RefreshToken
 Id	      GUID / BIGINT AUTO_INCREMENT	Khóa chính, định danh duy nhất cho mỗi token.
 UserId	      GUID / BIGINT	                ID của user sở hữu token này (liên kết với bảng Users).

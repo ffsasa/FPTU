@@ -224,7 +224,7 @@ public class GenericRepository<T> where T : class
     #endregion Separating asign entity and save operators
 }
 
-- Bước 9: Tạo Repository để PUBLIC và kế thừa thằng GenericRepository<*Tên entity*> và nếu có method nào cần thêm ngoài các method cơ bản thì viết thêm vào đây
+- Bước 9: Tạo Repository ở trong project Repository để PUBLIC và kế thừa thằng GenericRepository<*Tên entity*> và nếu có method nào cần thêm ngoài các method cơ bản thì viết thêm vào đây
 public class SurveyRepository : GenericRepository<Survey>
 {
     public SurveyRepository() { }
@@ -238,6 +238,28 @@ public class SurveyRepository : GenericRepository<Survey>
                         u.Verygood >= Verygood)
             .ToListAsync();
     }
+}
+
+
+======================
+public class SurveyUserAccountRepository : GenericRepository<UserAccount>
+{
+    public SurveyUserAccountRepository() { }
+    public async Task<UserAccount> GetUserAccount(string userName, string password)
+    {
+        return await _context.UserAccounts.FirstOrDefaultAsync(
+            u => u.UserName == userName && 
+            u.Password == password && 
+            u.IsActive == true
+            );
+    }
+}
+
+===========================
+public class SurveyCategoryRepository : GenericRepository<ServeyCategory>
+{
+    public SurveyCategoryRepository() { }
+
 }
 
 
@@ -296,8 +318,56 @@ public class SurveyRepository : GenericRepository<Survey>
         }
     }
 
+
+===================
+public interface ISurveyCategoryService
+{
+    Task<List<ServeyCategory>> GetAll();
+    Task<ServeyCategory> GetById(int id);
+}
+
+public class SurveyCategoryService : ISurveyCategoryService
+{
+    private SurveyCategoryRepository _surveyCategoryRepository;
+
+    public SurveyCategoryService ()
+    {
+        _surveyCategoryRepository = new SurveyCategoryRepository();
+    }
+
+    public async Task<List<ServeyCategory>> GetAll()
+    {
+        return await _surveyCategoryRepository.GetAllAsync();
+    }
+
+    public async Task<ServeyCategory> GetById(int id)
+    {
+        return await _surveyCategoryRepository.GetByIdAsync(id);
+    }
+}
+
+===========================================
+public class SurveyUserAccountService
+{
+    private readonly SurveyUserAccountRepository _surveyUserAccountRepository;
+
+    public SurveyUserAccountService()
+    {
+        _surveyUserAccountRepository = new SurveyUserAccountRepository();
+    }
+
+    public async Task<UserAccount> Authenticate(string userName, string password)
+    {
+        return await _surveyUserAccountRepository.GetUserAccount(userName, password);
+    }
+}
+
+
+
 Bước 11: Tạo project mới kiểu ASP.NET Core Web API và Add vào Program như sau:
 builder.Services.AddScoped<ISurveyService, SurveyService>();
+builder.Services.AddScoped<ISurveyCategoryService, SurveyCategoryService>();
+builder.Services.AddScoped<SurveyUserAccountService>();
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
@@ -401,51 +471,56 @@ app.UseAuthorization();
 
 Bước 17: Viết thêm vào UserAccountController của APIService phần sau:
 
-private readonly IConfiguration _config;
-private readonly SystemUserAccountsService _userAccountsService;
+ [Route("api/[controller]")]
+ [ApiController]
+ public class SurveyUserAccountsController : ControllerBase
+ {
+     private readonly IConfiguration _configuration;
+     private readonly SurveyUserAccountService _surveyUserAccountService;
 
-public SystemUserAccountsController(IConfiguration config, SystemUserAccountsService userAccountsService)
-{
-    _config = config;
-    _userAccountsService = userAccountsService;
-}
+     public SurveyUserAccountsController(SurveyUserAccountService surveyUserAccountService, IConfiguration configuration)
+     {
+         _surveyUserAccountService = surveyUserAccountService;
+         _configuration = configuration;
+     }
 
-[HttpPost("Login")]
-public IActionResult Login([FromBody] LoginReqeust request)
-{
-    var user = _userAccountsService.Authenticate(request.UserName, request.Password);
+     [HttpPost("Login")]
+     public IActionResult Login([FromBody] LoginRequest request)
+     {
+         var user = _surveyUserAccountService.Authenticate(request.UserName, request.Password);
 
-    if (user == null || user.Result == null)
-        return Unauthorized();
-    
-    var token = GenerateJSONWebToken(user.Result);
+         if (user == null || user.Result == null)
+             return Unauthorized();
 
-    return Ok(token);
-}
+         var token = GenerateJSONWebToken(user.Result);
 
-private string GenerateJSONWebToken(SystemUserAccount systemUserAccount)
-{
-    var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-    var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+         return Ok(token);
+     }
 
-    var token = new JwtSecurityToken(_config["Jwt:Issuer"]                    
-            , _config["Jwt:Audience"]
-            , new Claim[]
-            {
-                new(ClaimTypes.Name, systemUserAccount.UserName),
-                //new(ClaimTypes.Email, systemUserAccount.Email),
-                new(ClaimTypes.Role, systemUserAccount.RoleId.ToString()),                        
-            },
-            expires: DateTime.Now.AddMinutes(120),
-            signingCredentials: credentials                
-        );
+     private string GenerateJSONWebToken(UserAccount systemUserAccount)
+     {
+         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-    var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+         var token = new JwtSecurityToken(_configuration["Jwt:Issuer"]
+                 , _configuration["Jwt:Audience"]
+                 , new Claim[]
+                 {
+             new(ClaimTypes.Name, systemUserAccount.UserName),
+             //new(ClaimTypes.Email, systemUserAccount.Email),
+             new(ClaimTypes.Role, systemUserAccount.RoleId.ToString()),
+                 },
+                 expires: DateTime.Now.AddMinutes(120), 
+                 signingCredentials: credentials
+             );
 
-    return tokenString;
-}
+         var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
-public sealed record LoginReqeust(string UserName, string Password);
+         return tokenString;
+     }
+
+     public sealed record LoginRequest(string UserName, string Password);
+ }
 
 
 Bước 18: Thêm phần sau vào Program.cs của APIService:
@@ -540,7 +615,7 @@ namespace Psychological_APIServices.Controllers
 }
 
 
-Bước 20: Tạo project mới tên là (Dự án).MVCWebApp và NuGet thư viện Microsoft.AspNetCore.Authentication.JwtBearer 8.0.1
+Bước 20: Tạo project mới tên là (Dự án).MVCWebApp kiểu trong prject là Web App (Model-View-Controller) và NuGet thư viện Microsoft.AspNetCore.Authentication.JwtBearer 8.0.1
 
 Bước 21: Tạo controller AccountController trong controller của WebApp, giống tên với controller trong APIService và viết như sau (đây là bảng chính):
 public class AccountController : Controller
@@ -623,7 +698,7 @@ public class AccountController : Controller
 	}
 }
 
-Bước 22: Tạo giao diện login và Forbidden
+Bước 22: Tạo giao diện Login và Forbidden => Tạo folder Account trong Views tạo 2 class đó
 @model Psychological.MVCWebApp.Models.LoginRequest
 
 @*
@@ -805,6 +880,15 @@ public class LoginRequest
 {
 	public string UserName { get; set; }
 	public string Password { get; set; }
+}
+
+và 
+
+public class ErrorViewModel
+{
+	public string? RequestId { get; set; }
+
+	public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 }
 
 
