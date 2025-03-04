@@ -1,0 +1,145 @@
+1️⃣ Quản lý bộ nhớ thủ công
+C++ sử dụng con trỏ (pointers) và lập trình viên phải tự quản lý cấp phát và giải phóng bộ nhớ bằng new và delete.
+Nếu không quản lý tốt, sẽ dẫn đến rò rỉ bộ nhớ (memory leak) hoặc lỗi truy cập bộ nhớ (dangling pointer, segmentation fault).
+
+🏗️ Cấp phát và giải phóng bộ nhớ trong C++
+1️⃣ Cấp phát động bằng new
+Khi bạn tạo một đối tượng hoặc mảng trong heap bằng new, C++ cấp phát bộ nhớ và trả về con trỏ trỏ đến vùng nhớ đó.
+Ví dụ:
+
+int* p = new int(10); // Cấp phát một số nguyên và gán giá trị 10
+📌 Lưu ý: Nếu bạn quên giải phóng bộ nhớ sau khi dùng, chương trình sẽ bị rò rỉ bộ nhớ (memory leak).
+
+2️⃣ Giải phóng bộ nhớ bằng delete
+Sau khi không còn cần đến vùng nhớ đã cấp phát, bạn phải giải phóng nó bằng delete để tránh rò rỉ bộ nhớ.
+Ví dụ:
+
+delete p; // Giải phóng bộ nhớ của biến p
+p = nullptr; // Đặt con trỏ về NULL để tránh con trỏ lơ lửng (dangling pointer)
+📌 Nếu quên delete ➝ Rò rỉ bộ nhớ
+📌 Nếu delete nhiều lần ➝ Hành vi không xác định (undefined behavior)
+
+Khi bạn cấp phát bộ nhớ động (new) mà không thu hồi (delete), vùng nhớ đó vẫn tồn tại trong RAM nhưng không có con trỏ nào trỏ đến nó nữa. Điều này có nghĩa là:
+
+Vùng nhớ đó không thể được sử dụng lại vì lập trình viên đã mất quyền truy cập.
+Hệ điều hành không thể tự động giải phóng nó trong khi chương trình còn đang chạy.
+Nếu chương trình tiếp tục cấp phát thêm bộ nhớ, nó sẽ chiếm nhiều RAM hơn, dẫn đến rò rỉ bộ nhớ (Memory Leak).
+🎯 Hình dung dễ hiểu:
+🛠️ Bạn thuê một căn phòng (bộ nhớ) nhưng mất chìa khóa (con trỏ). Căn phòng vẫn thuộc về bạn, nhưng bạn không thể vào đó được. Bạn lại đi thuê phòng khác, và nếu tiếp tục như vậy, bạn sẽ thuê hết cả khách sạn (RAM) mà không thể sử dụng lại phòng cũ.
+
+🚀 Java cải tiến: Loại bỏ con trỏ trực tiếp và sử dụng Garbage Collector (GC) để tự động thu hồi bộ nhớ không dùng đến.
+🗑️ Garbage Collector (GC) trong Java là gì?
+Garbage Collector (Bộ thu gom rác) trong Java là một cơ chế tự động quản lý bộ nhớ, giúp thu hồi các đối tượng không còn được sử dụng, giải phóng vùng nhớ mà không cần lập trình viên phải tự gọi free() hay delete() như trong C/C++.
+Dấu hiệu nhận biết đối tượng cần thu hồi
+Không có biến nào tham chiếu đến nó.
+Ra khỏi phạm vi (scope) của hàm/method.
+Bị gán lại cho một đối tượng khác.
+
+=====================================================================================================================
+
+2️⃣ Nhiều kế thừa (Multiple Inheritance)
+C++ cho phép một lớp kế thừa từ nhiều lớp cha, có thể gây vấn đề kim cương (diamond problem) khi các lớp con chia sẻ cùng một lớp cha.
+
+class A {
+public:
+    void show() { cout << "Class A" << endl; }
+};
+
+class B : public A {}; // B kế thừa A
+class C : public A {}; // C cũng kế thừa A
+
+class D : public B, public C {}; // D kế thừa cả B và C
+
+int main() {
+    D obj;
+    obj.show(); // ❌ Lỗi! Không rõ gọi show() từ B hay C
+    return 0;
+}
+
+
+🚀 Java cải tiến: Không hỗ trợ nhiều kế thừa, thay vào đó dùng interface để thay thế.
+interface A {
+    void show();
+}
+
+interface B {
+    void show();
+}
+
+class C implements A, B {
+    public void show() {  // Chỉ cần override 1 lần
+        System.out.println("Class C implements show()");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        C obj = new C();
+        obj.show(); // ✅ Không lỗi, chỉ gọi 1 phương thức
+    }
+}
+
+=> java chỉ biết C có show cần triển khai và k quan tâm nó đến từ đâu, vì nó như nhau
+Tuy nhiên với trường hợp đó là default method thì khác:
+🚀 Default method là gì?
+Trước Java 8, interface chỉ có thể khai báo phương thức mà không có phần triển khai. Nhưng từ Java 8, Java cho phép interface có phương thức với phần thân (implementation) mặc định, gọi là default method.
+
+📌 Mục đích của default method
+Giúp mở rộng interface mà không phá vỡ code cũ
+Giảm sự trùng lặp code giữa các lớp triển khai
+Có thể triển khai logic chung ngay trong interface
+interface A {
+    default void show() {
+        System.out.println("Default method in A");
+    }
+}
+
+interface B {
+    default void show() {
+        System.out.println("Default method in B");
+    }
+}
+
+class C implements A, B {
+    // ❌ Lỗi! Java không biết chọn show() từ A hay B
+}
+
+public class Main {
+    public static void main(String[] args) {
+        C obj = new C();
+        obj.show();
+    }
+}
+
+✅ Cách giải quyết khi có default method trùng nhau
+	Override lại trong lớp con và chọn phương thức
+
+class C implements A, B {
+    public void show() {
+        A.super.show(); // Hoặc B.super.show();
+    }
+}
+📌 Cú pháp A.super.show(); gọi trực tiếp show() của A, tránh xung đột.
+
+🎯 Nếu A có default methodvàCoverride lại, liệu có chạy code trongA` không?
+👉 Không! Nếu lớp C override lại phương thức show(), thì chỉ chạy code trong C, không tự động chạy code trong A.
+
+🔥 Nhưng nếu muốn chạy cả code trong A và C, ta có thể gọi A.super.show(); bên trong phương thức override.
+
+=====================================================================================================================
+
+3️⃣ Toán tử & Chế độ truy cập cấp thấp
+C++ có thể thao tác trực tiếp với bộ nhớ bằng * (dereference), & (address-of), hoặc -> (pointer to member), dễ gây lỗi.
+🚀 Java cải tiến: Không hỗ trợ thao tác cấp thấp với con trỏ, hạn chế lỗi truy cập vùng nhớ ngoài phạm vi.
+
+=====================================================================================================================
+
+4️⃣ Hàm & Biến toàn cục (Global Variables & Functions)
+C++ cho phép khai báo biến toàn cục và hàm toàn cục, dễ dẫn đến lỗi do xung đột tên (name collision) và khó kiểm soát trạng thái chương trình.
+🚀 Java cải tiến: Tất cả các biến và hàm phải thuộc về một lớp (class), giúp đóng gói dữ liệu tốt hơn.
+
+=====================================================================================================================
+
+5️⃣ Xử lý ngoại lệ không an toàn
+C++ có cơ chế xử lý ngoại lệ nhưng không bắt buộc. Nếu không kiểm tra lỗi đúng cách, chương trình có thể gặp lỗi runtime không mong muốn.
+🚀 Java cải tiến: Bắt buộc xử lý ngoại lệ với try-catch hoặc khai báo throws, đảm bảo lập trình viên không bỏ qua lỗi.
