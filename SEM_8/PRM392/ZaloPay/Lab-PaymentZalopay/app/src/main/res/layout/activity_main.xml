@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="ZaloPay" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/textProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:text="Product: Premium Item"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textProductPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Price: 1,000,000 VND per unit"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/editTextQuantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter quantity"
+            android:inputType="number"
+            android:padding="16dp" />
+
+        <Button
+            android:id="@+id/buttonConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:text="Checkout" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,37 @@
+1️⃣ Chọn chủ đề để học theo thứ tự hợp lý
+✅ Cơ bản:
+
+Arrays & Hashing
+Two Pointers
+Stack / Queue
+Sliding Window
+Binary Search
+Recursion & Backtracking
+✅ Trung cấp:
+
+Linked List
+Trees & Graphs
+Heap (Priority Queue)
+Trie
+Dynamic Programming
+✅ Nâng cao:
+
+Advanced Graph (Dijkstra, Floyd-Warshall, Bellman-Ford)
+Segment Tree / Fenwick Tree
+Bit Manipulation
+Math & Geometry
+Bạn có thể tham khảo lộ trình từ NeetCode 150 để làm theo thứ tự này: https://neetcode.io/roadmap
+
+2️⃣ Học lý thuyết trước khi làm bài tập
+
+3️⃣ Luyện tập bài tập trên LeetCode theo từng chủ đề
+📌 Cách chọn bài để làm:
+
+Làm 3-5 bài Easy để hiểu rõ kiến thức cơ bản
+Làm 5-10 bài Medium để áp dụng
+Nếu cảm thấy quen rồi, thử làm 1-3 bài Hard
+📌 Bộ bài tập quan trọng:
+
+Blind 75: 75 bài quan trọng nhất cho phỏng vấn
+NeetCode 150: Lộ trình tốt nhất theo chủ đề
+LeetCode Top Interview Questions: Bộ bài tập mà các công ty hay hỏi nhất

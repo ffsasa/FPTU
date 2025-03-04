@@ -156,3 +156,6 @@ gradle/libs.versions.toml
 /app/src/main/res/mipmap-anydpi-v26/
 /app/src/main/res/xml/
 
+/externalNativeBuild
+.externalNativeBuild
+
