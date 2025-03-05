@@ -145,6 +145,8 @@ local.properties
 
 # Ignore Gradle wrapper binary
 gradle/wrapper/gradle-wrapper.jar
+gradlew
+gradlew.bat
 
 *.gradle
 *.gradle.kts
