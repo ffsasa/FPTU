@@ -1,0 +1,117 @@
+1️⃣ Tìm phần tử duy nhất (không lặp lại)
+🔹 Bài toán:
+Cho một mảng số nguyên nums, trong đó mỗi phần tử xuất hiện hai lần, ngoại trừ một phần tử duy nhất. Hãy tìm phần tử đó.
+Input: nums = [4, 1, 2, 1, 2]
+Output: 4
+
+🔹 Ràng buộc:
+1 <= nums.length <= 10^5
+-10^9 <= nums[i] <= 10^9
+Chỉ có một phần tử duy nhất, các phần tử khác xuất hiện đúng hai lần.
+Độ phức tạp mong muốn: O(n), không dùng thêm bộ nhớ nếu có thể.
+
+🔹 Gợi ý:
+XOR (^) có thể giúp giải bài này một cách tối ưu.
+
+🔵Bài làm:
+Map<Integer, Integer> freq = new HashMap<>();
+for (int num : arr) {
+    freq.put(num, freq.getOrDefault(num, 0) + 1);
+}
+int mostFrequent = Collections.min(freq.entrySet(), Map.Entry.comparingByValue()).getKey();
+
+🔥Lỗi: chỉ tìm ra số có chỉ số thấp nhất k phải = 1
+
+🟢Bài giải:
+public int singleNumber(int[] arr) {
+    int result = 0;
+    for (int num : arr) {
+        result ^= num; // XOR tất cả phần tử
+    }
+    return result;
+}
+
+🚀 XOR đã học từ rất lâu "^"
+1️⃣ Một số XOR với chính nó = 0
+A ^ A = 0
+👉 Dùng để loại bỏ số trùng lặp.
+
+2️⃣ Một số XOR với 0 không thay đổi
+A ^ 0 = A
+👉 Dùng để khởi tạo biến XOR.
+
+3️⃣ XOR có tính chất giao hoán và kết hợp
+A ^ B ^ C = C ^ B ^ A
+=> Nếu có A xuất hiện số lẻ lần, kết quả vẫn là A. Nếu A xuất hiện số chẵn lần, kết quả là 0. A^A^A = A
+=> K nhầm lẫn XOR với Mũ: Trong lập trình XOR là ^, Mũ là Math.pow(a, b) a mũ b
+
+-----------------------------------------------------------------------------------------------------------------
+
+2️⃣ Tìm cặp số có tổng bằng k
+🔹 Bài toán:
+Cho một mảng nums gồm các số nguyên và một số k, hãy tìm tất cả các cặp (a, b) sao cho a + b = k.
+
+🔹 Ví dụ:
+Input: nums = [2, 7, 11, 15], k = 9
+Output: [[2,7]]
+
+Input: nums = [3, 2, 4, 1, 6], k = 5
+Output: [[3,2], [4,1]]
+
+🔹 Ràng buộc:
+1 <= nums.length <= 10^5
+-10^9 <= nums[i] <= 10^9
+Có thể có nhiều hơn một cặp thỏa mãn.
+
+🔹 Gợi ý:
+HashSet giúp tìm phần tử trong O(1).
+Two pointers có thể được dùng nếu mảng đã sắp xếp.
+
+3️⃣ Sắp xếp mảng không dùng thư viện
+🔹 Bài toán:
+Viết một hàm sắp xếp mảng nums theo thứ tự tăng dần mà không dùng thư viện có sẵn.
+
+🔹 Ví dụ:
+Input: nums = [5, 2, 9, 1, 5, 6]
+Output: [1, 2, 5, 5, 6, 9]
+
+🔹 Ràng buộc:
+1 <= nums.length <= 10^5
+-10^9 <= nums[i] <= 10^9
+
+🔹 Gợi ý:
+QuickSort (O(n log n)) là lựa chọn tối ưu.
+BubbleSort (O(n²)) không tốt với n lớn.
+
+4️⃣ Tìm mảng con có tổng lớn nhất (Kadane’s Algorithm)
+🔹 Bài toán:
+Cho một mảng số nguyên nums, tìm mảng con liên tiếp có tổng lớn nhất.
+
+🔹 Ví dụ:
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+Output: 6
+// Mảng con tối ưu: [4,-1,2,1] có tổng 6.
+
+🔹 Ràng buộc:
+1 <= nums.length <= 10^5
+-10^4 <= nums[i] <= 10^4
+
+🔹 Gợi ý:
+Kadane’s Algorithm (O(n)) là cách tối ưu nhất.
+
+5️⃣ Tìm phần tử bị thiếu trong dãy 1-N
+🔹 Bài toán:
+Cho một mảng nums chứa N-1 số nguyên từ 1 đến N. Hãy tìm số bị thiếu.
+
+🔹 Ví dụ:
+Input: nums = [3, 7, 1, 2, 8, 4, 5]
+Output: 6
+
+🔹 Ràng buộc:
+1 <= N <= 10^5
+nums.length = N - 1
+Các số trong nums là duy nhất và nằm trong phạm vi [1, N].
+
+🔹 Gợi ý:
+Công thức tổng S = N * (N+1) / 2 giúp tìm số bị thiếu trong O(1).
+XOR (^) có thể giúp giải bài này mà không cần cộng dồn.
