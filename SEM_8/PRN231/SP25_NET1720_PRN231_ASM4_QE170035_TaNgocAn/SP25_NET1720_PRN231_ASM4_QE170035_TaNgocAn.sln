@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Psychological.Repository", "..\SP25_NET1720_PRN231_ASM1_QE170035_TaNgocAn\Psychological.Repository\Psychological.Repository.csproj", "{394B20FA-F2AA-462C-9016-0B8784A6C8A0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Psychological.Service", "..\SP25_NET1720_PRN231_ASM1_QE170035_TaNgocAn\Psychological.Service\Psychological.Service.csproj", "{7DF88884-63E4-4F02-92E3-99C994505966}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSPsychological.GraphQL.APIService", "PSPsychological.GraphQL.APIService\PSPsychological.GraphQL.APIService.csproj", "{40AA39C5-87FB-4AB8-98C9-6B595B905246}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{394B20FA-F2AA-462C-9016-0B8784A6C8A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{394B20FA-F2AA-462C-9016-0B8784A6C8A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{394B20FA-F2AA-462C-9016-0B8784A6C8A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{394B20FA-F2AA-462C-9016-0B8784A6C8A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DF88884-63E4-4F02-92E3-99C994505966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DF88884-63E4-4F02-92E3-99C994505966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DF88884-63E4-4F02-92E3-99C994505966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DF88884-63E4-4F02-92E3-99C994505966}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40AA39C5-87FB-4AB8-98C9-6B595B905246}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40AA39C5-87FB-4AB8-98C9-6B595B905246}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40AA39C5-87FB-4AB8-98C9-6B595B905246}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40AA39C5-87FB-4AB8-98C9-6B595B905246}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {85D53192-EEC9-4D3D-9EA3-B0A7C6267269}
+	EndGlobalSection
+EndGlobal
