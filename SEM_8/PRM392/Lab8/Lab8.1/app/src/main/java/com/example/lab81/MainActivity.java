@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.Manifest;
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -29,15 +30,17 @@ public class MainActivity extends AppCompatActivity {
     private static final String CHANNEL_ID = "lab8_notification_channel";
     private static final String CHANNEL_NAME = "Lab8 Channel";
     private static final String CHANNEL_DESC = "Channel for Lab8 Notifications";
+    private static final int REQUEST_CODE_POST_NOTIFICATIONS = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Kiểm tra quyền thông báo (Android 13+)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
+            if (!checkNotificationPermission()) {
+                requestNotificationPermission();
             }
         }
 
@@ -45,12 +48,34 @@ public class MainActivity extends AppCompatActivity {
 
         // Ánh xạ nút gửi notification
         Button btnSendNotification = findViewById(R.id.btnSendNotification);
-        btnSendNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendNotification();
+        btnSendNotification.setOnClickListener(view -> sendNotification());
+    }
+
+    // Kiểm tra quyền thông báo (Android 13+)
+    private boolean checkNotificationPermission() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
+    // Yêu cầu quyền thông báo
+    private void requestNotificationPermission() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                REQUEST_CODE_POST_NOTIFICATIONS);
+    }
+
+    // Xử lý kết quả yêu cầu quyền
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_POST_NOTIFICATIONS) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Quyền được cấp
+            } else {
+                // Quyền bị từ chối
             }
-        });
+        }
     }
 
     // Hàm tạo Notification Channel
@@ -59,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID,
                     CHANNEL_NAME,
-                    NotificationManager.IMPORTANCE_HIGH // Mức độ ưu tiên
+                    NotificationManager.IMPORTANCE_HIGH
             );
             channel.setDescription(CHANNEL_DESC);
 
@@ -72,24 +97,26 @@ public class MainActivity extends AppCompatActivity {
 
     // Hàm gửi notification
     private void sendNotification() {
-        // Tạo icon lớn từ ảnh
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !checkNotificationPermission()) {
+            requestNotificationPermission();
+            return;
+        }
+
         Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
 
-        // Tạo notification
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification_bell) // Icon nhỏ
                 .setLargeIcon(largeIcon) // Icon lớn
                 .setContentTitle("Title push notification") // Tiêu đề
                 .setContentText("Message push notification") // Nội dung
-                .setPriority(NotificationCompat.PRIORITY_HIGH) // Mức ưu tiên cao
                 .setAutoCancel(true) // Tự động hủy khi click
                 .build();
 
-        // Hiển thị notification
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if(notificationManager != null){
-            notificationManager.notify(getNotificationId(), notification);
-        }
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(getNotificationId(), notification);
     }
-    private int getNotificationId(){return (int) new Date().getTime();}
+
+    private int getNotificationId() {
+        return (int) new Date().getTime();
+    }
 }
