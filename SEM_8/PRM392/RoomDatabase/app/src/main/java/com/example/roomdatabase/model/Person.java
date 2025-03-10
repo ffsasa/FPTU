@@ -9,7 +9,6 @@ import java.io.Serializable;
 public class Person implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
-
     private String firstName;
     private String lastName;
 

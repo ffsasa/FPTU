@@ -22,6 +22,9 @@ public interface PersonDao {
             "lastName LIKE :last LIMIT 1")
     Person findByName(String first, String last);
 
+    @Query("SELECT * FROM person WHERE id = :id LIMIT 1")
+    Person getById(int id);
+
     @Insert
     void insert(Person person);
 

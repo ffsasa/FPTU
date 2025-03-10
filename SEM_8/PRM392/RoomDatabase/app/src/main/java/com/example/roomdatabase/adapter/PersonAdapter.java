@@ -7,10 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.example.roomdatabase.AppExecutors;
 import com.example.roomdatabase.EditPersonActivity;
+import com.example.roomdatabase.PersonActivity;
 import com.example.roomdatabase.R;
 import com.example.roomdatabase.constants.Constants;
 import com.example.roomdatabase.db.AppDatabase;
@@ -25,17 +28,19 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.MyViewHold
 
     public PersonAdapter(Context context) {
         this.context = context;
-        this.mDb = AppDatabase.getDatabase(context); // Khởi tạo database khi tạo adapter
+        // Khởi tạo database đúng cách
+        mDb = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "app-database").build();
     }
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_person, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         if (personList != null && !personList.isEmpty()) {
             Person person = personList.get(position);
             holder.name.setText(person.getFirstName());
@@ -66,7 +71,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.MyViewHold
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                final List<Person> persons = mDb.personDao().getAll(); // Sử dụng personDao từ AppDatabase mới
+                final List<Person> persons = mDb.personDao().getAll();
                 AppExecutors.getInstance().mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
@@ -90,9 +95,13 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.MyViewHold
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION && personList != null && !personList.isEmpty()) {
+                        Person person = personList.get(position);
                         Intent intent = new Intent(context, EditPersonActivity.class);
-                        intent.putExtra(Constants.UPDATE_PERSON_ID, personList.get(position));
-                        context.startActivity(intent);
+                        intent.putExtra(Constants.UPDATE_PERSON_ID, person.getId()); // Truyền ID (int) thay vì object
+                        // Đảm bảo context là Activity và gọi startActivityForResult
+                        if (context instanceof PersonActivity) {
+                            ((PersonActivity) context).startActivityForResult(intent, 2); // REQUEST_CODE_EDIT = 2
+                        }
                     }
                 }
             });

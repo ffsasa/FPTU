@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.example.roomdatabase.adapter.PersonAdapter;
+import com.example.roomdatabase.constants.Constants;
 import com.example.roomdatabase.db.AppDatabase;
 import com.example.roomdatabase.model.Person;
 
@@ -20,6 +21,8 @@ public class PersonActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PersonAdapter adapter;
     private AppDatabase mDb;
+    private static final int REQUEST_CODE_ADD = 1;
+    private static final int REQUEST_CODE_EDIT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +51,12 @@ public class PersonActivity extends AppCompatActivity {
         mDb = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "app-database").build();
         loadData();
 
+        // Nút thêm mới
         findViewById(R.id.fabAdd).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PersonActivity.this, EditPersonActivity.class));
+                Intent intent = new Intent(PersonActivity.this, EditPersonActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_ADD); // Dùng startActivityForResult để thêm
             }
         });
     }
@@ -93,5 +98,14 @@ public class PersonActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // Đoạn code được thêm: Xử lý kết quả từ EditPersonActivity
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && (requestCode == REQUEST_CODE_ADD || requestCode == REQUEST_CODE_EDIT)) {
+            loadData();
+        }
     }
 }
