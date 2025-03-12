@@ -1,8 +1,11 @@
 ﻿@page "/Survey/SurveyList"
 @using Psychological.BlazorApp.Client.Models
 @inject HttpClient Http
+@inject IJSRuntime JsRuntime
 
-<h3>SurveyList</h3>
+<h3>Survey Home</h3>
+
+<button class="btn btn-success" @onclick="CreateNewSurvey">➕ Tạo mới</button>
 
 @if (surveys == null)
 {
@@ -14,9 +17,17 @@ else
         <thead>
             <tr>
                 <th>CreateAt</th>
-                <th>PointAverage</th>
-                <th>PointAverage</th>
+                <th>UpdateAt</th>
+                <th>CategoryId</th>
                 <th>Description</th>
+                <th>Number</th>
+                <th>PointAverage</th>
+                <th>VeryGood</th>
+                <th>Good</th>
+                <th>Medium</th>
+                <th>Bad</th>
+                <th>VeryBad</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -24,20 +35,143 @@ else
             {
                 <tr>
                     <td>@survey.CreateAt?.ToString("yyyy-MM-dd")</td>
-                    <td>@survey.PointAverage</td>
-                    <td>@(survey.PointAverage.HasValue ? survey.PointAverage.Value * 1.8 + 32 : (double?)null)</td>
+                    <td>@survey.UpdateAt?.ToString("yyyy-MM-dd")</td>
+                    <td>@survey.CategoryId</td>
                     <td>@survey.Description</td>
+                    <td>@survey.Number</td>
+                    <td>@survey.PointAverage</td>
+                    <td>@survey.Verygood</td>
+                    <td>@survey.Good</td>
+                    <td>@survey.Medium</td>
+                    <td>@survey.Bad</td>
+                    <td>@survey.VeryBad</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => EditSurvey(survey)">✏️</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteSurvey(survey.Id)">🗑️</button>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 }
 
+@if (selectedSurvey != null)
+{
+    <h4>Edit Survey</h4>
+    <div>
+        <label>CreateAt:</label>
+        <input type="date" @bind="selectedSurvey.CreateAt" class="form-control" />
+    </div>
+    <div>
+        <label>UpdateAt:</label>
+        <input type="date" @bind="selectedSurvey.UpdateAt" class="form-control" />
+    </div>
+    <div>
+        <label>CategoryId:</label>
+        <input type="number" @bind="selectedSurvey.CategoryId" class="form-control" />
+    </div>
+    <div>
+        <label>Description:</label>
+        <input type="text" @bind="selectedSurvey.Description" class="form-control" />
+    </div>
+    <div>
+        <label>Number:</label>
+        <input type="number" @bind="selectedSurvey.Number" class="form-control" />
+    </div>
+    <div>
+        <label>PointAverage:</label>
+        <input type="number" step="0.1" @bind="selectedSurvey.PointAverage" class="form-control" />
+    </div>
+    <div>
+        <label>VeryGood:</label>
+        <input type="number" @bind="selectedSurvey.Verygood" class="form-control" />
+    </div>
+    <div>
+        <label>Good:</label>
+        <input type="number" @bind="selectedSurvey.Good" class="form-control" />
+    </div>
+    <div>
+        <label>Medium:</label>
+        <input type="number" @bind="selectedSurvey.Medium" class="form-control" />
+    </div>
+    <div>
+        <label>Bad:</label>
+        <input type="number" @bind="selectedSurvey.Bad" class="form-control" />
+    </div>
+    <div>
+        <label>VeryBad:</label>
+        <input type="number" @bind="selectedSurvey.VeryBad" class="form-control" />
+    </div>
+    <button class="btn btn-success" @onclick="SaveSurvey">Lưu</button>
+}
+
 @code {
     private List<Survey>? surveys;
+    private Survey? selectedSurvey;
 
     protected override async Task OnInitializedAsync()
     {
         surveys = await Http.GetFromJsonAsync<List<Survey>>("https://localhost:7093/api/Survey");
     }
+
+    private void CreateNewSurvey()
+    {
+        selectedSurvey = new Survey
+            {
+                CreateAt = DateTime.Now,
+                UpdateAt = DateTime.Now
+            };
+        StateHasChanged();
+    }
+
+    private void EditSurvey(Survey survey)
+    {
+        selectedSurvey = new Survey
+            {
+                Id = survey.Id,
+                CreateAt = survey.CreateAt,
+                UpdateAt = survey.UpdateAt,
+                CategoryId = survey.CategoryId,
+                Description = survey.Description,
+                Number = survey.Number,
+                PointAverage = survey.PointAverage,
+                Verygood = survey.Verygood,
+                Good = survey.Good,
+                Medium = survey.Medium,
+                Bad = survey.Bad,
+                VeryBad = survey.VeryBad
+            };
+        StateHasChanged();
+    }
+
+    private async Task SaveSurvey()
+    {
+        if (selectedSurvey != null)
+        {
+            if (selectedSurvey.Id == 0)
+            {
+                await Http.PostAsJsonAsync("https://localhost:7093/api/Survey", selectedSurvey);
+            }
+            else
+            {
+                await Http.PutAsJsonAsync($"https://localhost:7093/api/Survey/{selectedSurvey.Id}", selectedSurvey);
+            }
+            surveys = await Http.GetFromJsonAsync<List<Survey>>("https://localhost:7093/api/Survey");
+            selectedSurvey = null;
+            StateHasChanged();
+        }
+    }
+
+    private async Task DeleteSurvey(int id)
+    {
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Bạn có chắc chắn muốn xóa khảo sát này?");
+        if (confirmed)
+        {
+            await Http.DeleteAsync($"https://localhost:7093/api/Survey/{id}");
+            surveys = await Http.GetFromJsonAsync<List<Survey>>("https://localhost:7093/api/Survey");
+            StateHasChanged();
+        }
+    }
 }
+
+

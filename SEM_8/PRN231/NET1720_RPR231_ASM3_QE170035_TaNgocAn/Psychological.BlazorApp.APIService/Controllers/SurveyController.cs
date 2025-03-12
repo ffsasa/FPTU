@@ -27,14 +27,12 @@ namespace Psychological.BlazorApp.APIService
 
         // GET api/<SurveyController>/5
         [HttpGet("{id}")]
-        [Authorize(Roles = "1,2")]
         public async Task<Survey> GetById(int id)
         {
             return await _surveyService.GetById(id);
         }
 
         [HttpGet("(Name)/(Number)/(Verygood)")]
-        [Authorize(Roles = "1,2")]
         public async Task<IEnumerable<Survey>> Search(string Name, int Number, int Verygood)
         {
             return await _surveyService.SearchAsync(Name, Number, Verygood);
@@ -42,23 +40,23 @@ namespace Psychological.BlazorApp.APIService
 
         // POST api/<SurveyController>
         [HttpPost]
-        [Authorize(Roles = "1, 2")]
         public async Task<int> Post(Survey survey)
         {
+            Random random = new Random();
+            survey.Id = random.Next(0, 100000);
             return await _surveyService.Create(survey);
         }
 
         // PUT api/<SurveyController>/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "1, 2")]
         public async Task<int> Put(int id, [FromBody] Survey survey)
         {
+            survey.UpdateAt = DateTime.Now;
             return await _surveyService.Update(survey);
         }
 
         // DELETE api/<SurveyController>/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "1, 2")]
         public async Task<bool> Delete(int id)
         {
             return await _surveyService.Delete(id);
