@@ -857,6 +857,10 @@ Bước 23: Thêm phần sau vào dưới <ul></ul> của _Layout.cshtml của S
     <a asp-controller="Account" asp-action="Logout">Logout</a>
 </div>
 
+Và thêm phần sau để có nút bấm vào danh sách đối tượng:
+<li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Surveys" asp-action="Index">Surveys</a>
+</li>
 
 
 Bước 25: Thêm phần sau vào program.cs của WebApp trước var app = builder.Build();

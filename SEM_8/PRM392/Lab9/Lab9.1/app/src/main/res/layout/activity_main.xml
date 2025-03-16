@@ -9,8 +9,8 @@
 
     <ListView
         android:id="@+id/listViewCongViec"
-        android:layout_width="322dp"
-        android:layout_height="523dp"
+        android:layout_width="wrap_content"
+        android:layout_height="522dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"

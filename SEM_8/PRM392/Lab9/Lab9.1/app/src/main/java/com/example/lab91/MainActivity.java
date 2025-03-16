@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         // Khởi tạo ListView
         lvCongViec = findViewById(R.id.listViewCongViec);
 
+        // Khởi tạo danh sách công việc
+        arrayCongViec = new ArrayList<>();
+
         // Khởi tạo database
         database = new Database(this, "Ghichu.sqlite", null, 1);
 
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
             arrayCongViec.add(new CongViec(id, ten));
         }
+        adapter = new CongViecAdapter(this, R.layout.dong_cong_viec, arrayCongViec);
+        lvCongViec.setAdapter(adapter);
 
         // Cập nhật adapter khi dữ liệu thay đổi
         adapter.notifyDataSetChanged();

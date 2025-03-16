@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +15,12 @@ public class CongViecAdapter extends BaseAdapter {
     private Context context;
     private int layout;
     private List<CongViec> congViecList;
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onEditClick(CongViec congViec);
+        void onDeleteClick(CongViec congViec);
+    }
 
     public CongViecAdapter(Context context, int layout, List<CongViec> congViecList) {
         this.context = context;
@@ -28,12 +35,12 @@ public class CongViecAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return null; // Placeholder, thường trả về congViecList.get(i) nếu cần
+        return congViecList.get(i); // Trả về công việc tại vị trí i
     }
 
     @Override
     public long getItemId(int i) {
-        return 0; // Placeholder, thường trả về i hoặc ID cụ thể
+        return congViecList.get(i).getIdCV(); // Trả về ID của công việc
     }
 
     private class ViewHolder {
@@ -59,6 +66,20 @@ public class CongViecAdapter extends BaseAdapter {
 
         CongViec congViec = congViecList.get(i);
         holder.txtTen.setText(congViec.getTenCV()); // Gán tên công việc
+
+        // Xử lý sự kiện click cho nút Edit
+        holder.imgEdit.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onEditClick(congViec);
+            }
+        });
+
+        // Xử lý sự kiện click cho nút Delete
+        holder.imgDelete.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onDeleteClick(congViec);
+            }
+        });
 
         return view;
     }

@@ -1,0 +1,77 @@
+Bước 1: Setup seri 6 video
+https://www.youtube.com/watch?v=Eg2aGWblQvk&list=PLjnZx7KD6m-ySasHtRKIX-04VuOYmGBmr
+Bước 2: Code trong Prm project gồm những class:
+AdminChatActivity
+AdminMessageActivity
+ChatActivity
+ChatHeadService
+ChatAdapter
+Message
+Bước 3: Code layout gồm:
+activity_admin_chat
+activity_admin_message
+activity_chat
+item_message_left
+item_message_right
+layout_chat_head
+Bước 4: Thực ra cần làm từ bước 2. thêm thư viên:
+- Trong build.gradle.kts (Project: ProjectTeam)
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    alias(libs.plugins.android.application) apply false
+    id("com.google.gms.google-services") version "4.4.2" apply false
+}
+
+- Trong build.gradle.kts (Module:app)
+plugins {
+    alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
+}
+
+dependencies {
+
+	....
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.auth)
+}
+
+apply(plugin = "com.google.gms.google-services")
+
+- Trong libs.versions.toml
+[versions]
+....
+firebase-bom = "33.1.0"
+
+[libraries]
+....
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+
+Bước 5: Đăng ký màn hình và đăng ký các quyền:
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
+
+<service
+            android:name=".Activities.ChatHeadService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback"/>
+        <activity
+            android:name=".Activities.AdminChatActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".Activities.AdminMessageActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".Activities.ChatActivity"
+            android:exported="true" />
