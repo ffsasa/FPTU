@@ -14,16 +14,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GoogleMap"
+        android:theme="@style/Theme.TestPE"
         tools:targetApi="31">
-        <activity
-            android:name=".MapActivity"
-            android:exported="false" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDNI_ZWPqvdS6r6gPVO50I4TlYkfkZdXh8" />
-
+        <meta-data
+            android:name="com.google.android.gms.auth.api.signin"
+            android:value="@string/default_web_client_id"/>
+        <activity
+            android:name=".StudentManagerActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".MapActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".MajorManagerActivity"
+            android:exported="true"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

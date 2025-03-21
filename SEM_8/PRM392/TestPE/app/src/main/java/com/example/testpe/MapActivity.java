@@ -1,9 +1,9 @@
-package com.example.googlemap;
+package com.example.testpe;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-
 import android.Manifest;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -77,21 +77,30 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void getUserLocation() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    if (location != null) {
-                        LatLng fixedLocation = new LatLng(10.844856, 106.838496);
-                        mMap.addMarker(new MarkerOptions().position(fixedLocation).title("Tòa S10.02 - Vinhomes Grand Park"));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(fixedLocation, 15));
-                    }
-                }
-            });
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("latitude") && intent.hasExtra("longitude")) {
+            double latitude = intent.getDoubleExtra("latitude", 0.0);
+            double longitude = intent.getDoubleExtra("longitude", 0.0);
+            LatLng receivedLocation = new LatLng(latitude, longitude);
+            mMap.addMarker(new MarkerOptions().position(receivedLocation).title("Vị trí được nhận"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(receivedLocation, 15));
         } else {
-            requestLocationPermission();
+            // Nếu không có dữ liệu, lấy vị trí hiện tại
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                            mMap.addMarker(new MarkerOptions().position(currentLocation).title("Vị trí hiện tại"));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
+                        }
+                    }
+                });
+            } else {
+                requestLocationPermission();
+            }
         }
     }
 }
-

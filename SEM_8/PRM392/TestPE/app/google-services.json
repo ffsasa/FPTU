@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "209387747296",
+    "project_id": "prmpe-ee4bc",
+    "storage_bucket": "prmpe-ee4bc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209387747296:android:976c28a05b1e758d5c1d85",
+        "android_client_info": {
+          "package_name": "com.example.testpe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209387747296-r8fc9f5petb78sr5jmn0gp3j2repo81v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfa6bOrsk5CX0ff4kqQz28Xqi6X__Q3u8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209387747296-r8fc9f5petb78sr5jmn0gp3j2repo81v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -615,7 +615,7 @@ namespace Psychological_APIServices.Controllers
 }
 
 
-Bước 20: Tạo project mới tên là (Dự án).MVCWebApp kiểu trong prject là Web App (Model-View-Controller) và NuGet thư viện Microsoft.AspNetCore.Authentication.JwtBearer 8.0.1
+Bước 20: Tạo project mới tên là (Dự án).MVCWebApp kiểu trong prject là Web App (Model-View-Controller) và NuGet thư viện Microsoft.AspNetCore.Authentication.JwtBearer 8.0.1 và thư viện System.IdentityModel.Tokens.Jwt 8.0.1
 
 Bước 21: Tạo controller AccountController trong controller của WebApp, giống tên với controller trong APIService và viết như sau (đây là bảng chính):
 public class AccountController : Controller
