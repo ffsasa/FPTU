@@ -239,6 +239,33 @@ public class SurveyRepository : GenericRepository<Survey>
             .ToListAsync();
     }
 }
+Odata search
+public class CosmeticInformationRepository : GenericRepository<CosmeticInformation>
+{
+    public CosmeticInformationRepository() { }
+
+    public async Task<List<CosmeticInformation>> SearchAsync(string? CategoryName, string? SkinType, string? CosmeticSize)
+    {
+		return await _context.CosmeticInformations.
+		   Include(c => c.Category)
+		   .Where(c => (string.IsNullOrEmpty(CategoryName) || c.CosmeticName.Contains(CategoryName)) &&
+			   (string.IsNullOrEmpty(SkinType) || c.SkinType.Contains(SkinType)) &&
+			   (string.IsNullOrEmpty(CosmeticSize) || c.CosmeticSize.Contains(CosmeticSize))).
+		   GroupBy(g => new { g.CosmeticName, g.SkinType, g.CosmeticSize })
+		   .Select(g => new CosmeticInformation
+		   {
+			   CosmeticId = g.FirstOrDefault().CosmeticId,
+			   ExpirationDate = g.FirstOrDefault().ExpirationDate,
+			   DollarPrice = g.FirstOrDefault().DollarPrice,
+			   CategoryId = g.FirstOrDefault().CategoryId,
+			   Category = g.FirstOrDefault().Category,
+			   CosmeticName = g.Key.CosmeticName,
+			   CosmeticSize = g.Key.CosmeticSize,
+			   SkinType = g.Key.SkinType,
+
+		   }).ToListAsync();
+	}
+}
 
 
 ======================
@@ -271,7 +298,7 @@ public class SurveyCategoryRepository : GenericRepository<ServeyCategory>
         Task<int> Create(Survey survey);
         Task<int> Update(Survey survey);
         Task<bool> Delete(int id);
-        Task<List<Survey>> SearchAsync(string Name, int Number, int Verygood);
+        Task<List<Survey>> SearchAsync(string? Name, int? Number, int? Verygood);
     }
 
     public class SurveyService : ISurveyService
@@ -307,7 +334,7 @@ public class SurveyCategoryRepository : GenericRepository<ServeyCategory>
             return await _surveyRepository.GetByIdAsync(id);
         }
 
-        public async Task<List<Survey>> SearchAsync(string Name, int Number, int Verygood)
+        public async Task<List<Survey>> SearchAsync(string? Name, int? Number, int? Verygood)
         {
             return await _surveyRepository.SearchAsync(Name, Number, Verygood);
         }
@@ -583,7 +610,7 @@ namespace Psychological_APIServices.Controllers
 
         [HttpGet("(Name)/(Number)/(Verygood)")]
         [Authorize(Roles = "1,2")]
-        public async Task<IEnumerable<Survey>> Search(string Name, int Number, int Verygood)
+        public async Task<IEnumerable<Survey>> Search(string? Name, int? Number, int? Verygood)
         {
             return await _surveyService.SearchAsync(Name, Number, Verygood);
         }
@@ -1257,6 +1284,52 @@ public async Task<IActionResult> Create(Survey survey)
     return View(survey);
 }
 
+Bước 39: Thêm giao diện search ngay bên dưới nút Create new trong trang index của đối tượng chính
+<form method="get" asp-action="Search">
+    <div class="row mb-3">
+        <div class="col">
+            <input type="text" name="CategoryName" class="form-control" placeholder="Nhập tên danh mục" />
+        </div>
+        <div class="col">
+            <input type="text" name="SkinType" class="form-control" placeholder="Nhập loại da" />
+        </div>
+        <div class="col">
+            <input type="text" name="CosmeticSize" class="form-control" placeholder="Nhập kích thước" />
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+        </div>
+    </di
+</form>
+
+Bước 40: Thêm phần sau vào controller của đối tượng chính của webapp
+public async Task<IActionResult> Search(string? CategoryName, string? SkinType, string? CosmeticSize)
+{
+    using (var httpClient = new HttpClient())
+    {
+        var tokenString = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key == "TokenString").Value;
+        httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
+
+        string searchUrl = $"{APIEndPoint}CosmeticInformation/search?";
+        if (!string.IsNullOrEmpty(CategoryName)) searchUrl += $"CategoryName={CategoryName}&";
+        if (!string.IsNullOrEmpty(SkinType)) searchUrl += $"SkinType={SkinType}&";
+        if (!string.IsNullOrEmpty(CosmeticSize)) searchUrl += $"CosmeticSize={CosmeticSize}&";
+
+        using (var response = await httpClient.GetAsync(searchUrl.TrimEnd('&')))
+        {
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<CosmeticInformation>>(content);
+                return View("Index", result);
+            }
+        }
+    }
+    return View("Index", new List<CosmeticInformation>());
+}
+
+
+
 ================================================================================================
 
 4 bước để làm odata:
@@ -1282,4 +1355,16 @@ builder.Services.AddControllers().AddOData(options =>
 Bước 3: Bước 3 thêm [Key] vào id của entity
 
 Bước 4: Thêm [EnableQuery] vào các endpoint
+
+-----------------------------------------------------------------------------------------------------------------
+
+VALIDATE
+Bước 1: Thêm [Required] và những trường được yêu cầu là bắt buộc trong đề
+Bước 2: Thêm [StringLength(80, MinimumLength = 2, ErrorMessage = "CosmeticName must be between 2 and 80 characters.")] và Những trường giới hạn độ dài
+Bước 3: Thêm [RegularExpression(@"^([A-Z][a-zA-Z0-9@#]*\s?)+$", ErrorMessage = "Each word in CosmeticName must start with a capital letter.")] giới hạn ký tự
+Bước 4: Thêm [Range(0.01, double.MaxValue, ErrorMessage = "DollarPrice must be greater than 0.")] thới hạn độ lớn của double. Nếu là int thì [Range(1, int.MaxValue, ErrorMessage = "DollarPrice must be at least 1.")]
+
+
+
+
 

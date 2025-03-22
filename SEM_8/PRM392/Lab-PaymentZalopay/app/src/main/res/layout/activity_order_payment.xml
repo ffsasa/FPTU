@@ -1,0 +1,65 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Thanh công cụ -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        android:title="Confirm Checkout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:layout_marginTop="35dp"
+        android:gravity="center">
+
+        <!-- Tiêu đề xác nhận đơn hàng -->
+        <TextView
+            android:id="@+id/textConfirmation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirm Your Order"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"
+            android:textAlignment="center" />
+
+        <!-- Danh sách món ăn & nước uống -->
+        <TextView
+            android:id="@+id/textProductList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Products:"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp"
+            android:textAlignment="center" />
+
+        <!-- Tổng tiền -->
+        <TextView
+            android:id="@+id/textTotalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total: "
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"
+            android:textAlignment="center" />
+
+        <!-- Nút thanh toán ZaloPay -->
+        <Button
+            android:id="@+id/buttonPayWithZaloPay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#0461FF"
+            android:text="Pay with ZaloPay"
+            android:textSize="16sp"
+            android:padding="10dp" />
+    </LinearLayout>
+</LinearLayout>
