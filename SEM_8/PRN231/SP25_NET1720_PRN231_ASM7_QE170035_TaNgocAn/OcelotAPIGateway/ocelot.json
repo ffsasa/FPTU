@@ -1,0 +1,40 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/Survey",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7053
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Survey",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Customer",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7230
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Customer",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/ServeyCategory",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7013
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/ServeyCategory",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+    }
+  ]
+}

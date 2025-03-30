@@ -12,6 +12,9 @@ namespace Psychological.Service
     {
         Task<List<ServeyCategory>> GetAll();
         Task<ServeyCategory> GetById(int id);
+        Task<int> Create(ServeyCategory serveyCategory);
+        Task<int> Update(ServeyCategory serveyCategory);
+        Task<bool> Delete(int id);
     }
 
     public class SurveyCategoryService : ISurveyCategoryService
@@ -23,6 +26,21 @@ namespace Psychological.Service
             _surveyCategoryRepository = new SurveyCategoryRepository();
         }
 
+        public async Task<int> Create(ServeyCategory serveyCategory)
+        {
+            return await _surveyCategoryRepository.CreateAsync(serveyCategory);
+        }
+
+        public async Task<bool> Delete(int id)
+        {
+            var item = await _surveyCategoryRepository.GetByIdAsync(id);
+            if (item != null)
+            {
+                return await _surveyCategoryRepository.RemoveAsync(item);
+            }
+            return false;
+        }
+
         public async Task<List<ServeyCategory>> GetAll()
         {
             return await _surveyCategoryRepository.GetAllAsync();
@@ -31,6 +49,11 @@ namespace Psychological.Service
         public async Task<ServeyCategory> GetById(int id)
         {
             return await _surveyCategoryRepository.GetByIdAsync(id);
+        }
+
+        public async Task<int> Update(ServeyCategory serveyCategory)
+        {
+            return await _surveyCategoryRepository.UpdateAsync(serveyCategory);
         }
     }
 }

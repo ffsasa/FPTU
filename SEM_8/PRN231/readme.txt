@@ -225,24 +225,19 @@ public class GenericRepository<T> where T : class
 }
 
 - Bước 9: Tạo Repository ở trong project Repository để PUBLIC và kế thừa thằng GenericRepository<*Tên entity*> và nếu có method nào cần thêm ngoài các method cơ bản thì viết thêm vào đây
-public class SurveyRepository : GenericRepository<Survey>
-{
-    public SurveyRepository() { }
-
-    public async Task<List<Survey>> SearchAsync(string Name, int Number, int Verygood)
-    {
-        return await _context.Surveys
-            .Include(u => u.Category)
-            .Where(u => u.Category.Name == Name &&
-                        u.Number >= Number && 
-                        u.Verygood >= Verygood)
-            .ToListAsync();
-    }
-}
-Odata search
 public class CosmeticInformationRepository : GenericRepository<CosmeticInformation>
 {
     public CosmeticInformationRepository() { }
+
+    //public async Task<List<CosmeticInformation>> SearchAsync(string CategoryName, string CosmeticSize, string SkinType)
+        //{
+        //    return await _context.CosmeticInformations
+        //        .Include(u => u.Category)
+        //        .Where(u => u.Category.CategoryName == CategoryName &&
+        //                    u.CosmeticSize == CosmeticSize &&
+        //                    u.SkinType == SkinType)
+        //        .ToListAsync();
+        //}
 
     public async Task<List<CosmeticInformation>> SearchAsync(string? CategoryName, string? SkinType, string? CosmeticSize)
     {
@@ -269,7 +264,7 @@ public class CosmeticInformationRepository : GenericRepository<CosmeticInformati
 
 
 ======================
-public class SurveyUserAccountRepository : GenericRepository<UserAccount>
+public class UserAccountRepository : GenericRepository<UserAccount>
 {
     public SurveyUserAccountRepository() { }
     public async Task<UserAccount> GetUserAccount(string userName, string password)
@@ -298,7 +293,7 @@ public class SurveyCategoryRepository : GenericRepository<ServeyCategory>
         Task<int> Create(Survey survey);
         Task<int> Update(Survey survey);
         Task<bool> Delete(int id);
-        Task<List<Survey>> SearchAsync(string? Name, int? Number, int? Verygood);
+        Task<List<CosmeticInformation>> SearchAsync(string? CategoryName, string? SkinType, string? CosmeticSize);
     }
 
     public class SurveyService : ISurveyService
@@ -334,9 +329,9 @@ public class SurveyCategoryRepository : GenericRepository<ServeyCategory>
             return await _surveyRepository.GetByIdAsync(id);
         }
 
-        public async Task<List<Survey>> SearchAsync(string? Name, int? Number, int? Verygood)
+        public async Task<List<CosmeticInformation>> SearchAsync(string? CategoryName, string? SkinType, string? CosmeticSize)
         {
-            return await _surveyRepository.SearchAsync(Name, Number, Verygood);
+            return await _cosmeticInformationRepository.SearchAsync(CategoryName, SkinType, CosmeticSize);
         }
 
         public async Task<int> Update(Survey survey)
@@ -374,9 +369,9 @@ public class SurveyCategoryService : ISurveyCategoryService
 }
 
 ===========================================
-public class SurveyUserAccountService
+public class UserAccountService
 {
-    private readonly SurveyUserAccountRepository _surveyUserAccountRepository;
+    private readonly UserAccountRepository _surveyUserAccountRepository;
 
     public SurveyUserAccountService()
     {
@@ -394,7 +389,7 @@ public class SurveyUserAccountService
 Bước 11: Tạo project mới kiểu ASP.NET Core Web API và Add vào Program như sau:
 builder.Services.AddScoped<ISurveyService, SurveyService>();
 builder.Services.AddScoped<ISurveyCategoryService, SurveyCategoryService>();
-builder.Services.AddScoped<SurveyUserAccountService>();
+builder.Services.AddScoped<UserAccountService>();
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
@@ -493,6 +488,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 Và
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 
 
@@ -503,7 +499,7 @@ Bước 17: Viết thêm vào UserAccountController của APIService phần sau:
  public class SurveyUserAccountsController : ControllerBase
  {
      private readonly IConfiguration _configuration;
-     private readonly SurveyUserAccountService _surveyUserAccountService;
+     private readonly UserAccountService _userAccountService;
 
      public SurveyUserAccountsController(SurveyUserAccountService surveyUserAccountService, IConfiguration configuration)
      {
@@ -608,11 +604,11 @@ namespace Psychological_APIServices.Controllers
             return await _surveyService.GetById(id);
         }
 
-        [HttpGet("(Name)/(Number)/(Verygood)")]
-        [Authorize(Roles = "1,2")]
-        public async Task<IEnumerable<Survey>> Search(string? Name, int? Number, int? Verygood)
+        [HttpGet("search")]
+        [Authorize(Roles = "1,3,4")]
+        public async Task<IEnumerable<CosmeticInformation>> Search(string? CategoryName, string? SkinType, string? CosmeticSize)
         {
-            return await _surveyService.SearchAsync(Name, Number, Verygood);
+            return await _cosmeticInformationService.SearchAsync(CategoryName, SkinType, CosmeticSize);
         }
 
         // POST api/<SurveyController>
@@ -643,6 +639,22 @@ namespace Psychological_APIServices.Controllers
 
 
 Bước 20: Tạo project mới tên là (Dự án).MVCWebApp kiểu trong prject là Web App (Model-View-Controller) và NuGet thư viện Microsoft.AspNetCore.Authentication.JwtBearer 8.0.1 và thư viện System.IdentityModel.Tokens.Jwt 8.0.1
+
+Bước 27: Viết loginrequest trong models của WebApp:
+public class LoginRequest
+{
+	public string UserName { get; set; }
+	public string Password { get; set; }
+}
+
+và 
+
+public class ErrorViewModel
+{
+	public string? RequestId { get; set; }
+
+	public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+}
 
 Bước 21: Tạo controller AccountController trong controller của WebApp, giống tên với controller trong APIService và viết như sau (đây là bảng chính):
 public class AccountController : Controller
@@ -895,7 +907,7 @@ builder.Services.AddAuthentication()
 	.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
 	{
 		options.LoginPath = new PathString("/Account/Login");
-		options.AccessDeniedPath = new PathString("/Account/Forbiden");
+		options.AccessDeniedPath = new PathString("/Account/Forbidden");
 		options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
 	});
@@ -905,22 +917,6 @@ builder.Services.AddAuthentication()
 
 Bước 26: Thêm phần sau trên tên class của home controller:
 [Authorize]
-
-Bước 27: Viết loginrequest trong models của WebApp:
-public class LoginRequest
-{
-	public string UserName { get; set; }
-	public string Password { get; set; }
-}
-
-và 
-
-public class ErrorViewModel
-{
-	public string? RequestId { get; set; }
-
-	public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-}
 
 
 Bước 28: Cho WebApp dependenci đến Project Repository để gencode cho nhanh.
@@ -1075,7 +1071,6 @@ public class ServeyCategoriesController : ControllerBase
 
     // GET api/<ServeyCategoriesController>/5
     [HttpGet("{id}")]
-    [Authorize(Roles = "1,2")]
     public async Task<ServeyCategory> GetById(int id)
     {
         return await _surveyCategoryService.GetById(id);

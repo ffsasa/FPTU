@@ -47,6 +47,11 @@ namespace Psychological.MVCWebApp.Controllers
             return View(new List<Survey>());
         }
 
+        public IActionResult Surveylist()
+        {
+            return View(); // Kiểm tra xem file Surveylist.cshtml có tồn tại không?
+        }
+
         public async Task<IActionResult> Details(int id)
         {
             using (var httpClient = new HttpClient()) {

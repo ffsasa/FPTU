@@ -26,7 +26,6 @@ namespace Psychological_APIServices.Controllers
 
         // GET api/<ServeyCategoriesController>/5
         [HttpGet("{id}")]
-        [Authorize(Roles = "1,2")]
         public async Task<ServeyCategory> GetById(int id)
         {
             return await _surveyCategoryService.GetById(id);
@@ -34,20 +33,23 @@ namespace Psychological_APIServices.Controllers
 
         // POST api/<ServeyCategoriesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<int> Post([FromBody] ServeyCategory value)
         {
+            return await _surveyCategoryService.Create(value);
         }
 
         // PUT api/<ServeyCategoriesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<int> Put(int id, [FromBody] ServeyCategory serveyCategory)
         {
+            return await _surveyCategoryService.Update(serveyCategory);
         }
 
         // DELETE api/<ServeyCategoriesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<bool> Delete(int id)
         {
+            return await _surveyCategoryService.Delete(id);
         }
     }
 }
