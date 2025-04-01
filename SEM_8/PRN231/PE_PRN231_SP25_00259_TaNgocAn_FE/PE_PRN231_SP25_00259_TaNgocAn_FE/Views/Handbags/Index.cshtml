@@ -1,0 +1,92 @@
+﻿@model IEnumerable<PE_PRN231_SP25_00259_QE170035_Repository.Models.Handbag>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form method="get" asp-action="Search">
+    <div class="row mb-3">
+        <div class="col">
+            <input type="text" name="CategoryName" class="form-control" placeholder="Nhập tên danh mục" />
+        </div>
+        <div class="col">
+            <input type="text" name="SkinType" class="form-control" placeholder="Nhập loại da" />
+        </div>
+        <div class="col">
+            <input type="text" name="CosmeticSize" class="form-control" placeholder="Nhập kích thước" />
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+        </div>
+        </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ModelName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Material)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModelName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Material)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand.BrandName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.HandbagId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.HandbagId">Details</a> |
+                    <form method="post" asp-action="DeleteQuicly" asp-route-id="@item.HandbagId" style="display:inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">
+                            <span class="fw-bold">X</span>
+                        </button>
+                    </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
