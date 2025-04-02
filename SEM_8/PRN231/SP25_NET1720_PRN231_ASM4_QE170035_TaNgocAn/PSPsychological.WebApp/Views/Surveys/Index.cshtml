@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PSPsychological.WebApp.DTO.SurveyDTO>
+
+@{
+    ViewData["Title"] = "Surveys";
+}
+
+<h1>Surveys</h1>
+
+<p>
+    <a asp-action="CreateSurvey">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Description)</th>
+            <th>@Html.DisplayNameFor(model => model.Number)</th>
+            <th>@Html.DisplayNameFor(model => model.PointAverage)</th>
+            <th>@Html.DisplayNameFor(model => model.Verygood)</th>
+            <th>@Html.DisplayNameFor(model => model.Good)</th>
+            <th>@Html.DisplayNameFor(model => model.Medium)</th>
+            <th>@Html.DisplayNameFor(model => model.Bad)</th>
+            <th>@Html.DisplayNameFor(model => model.VeryBad)</th>
+            <th>@Html.DisplayNameFor(model => model.CreateBy)</th>
+            <th>@Html.DisplayNameFor(model => model.CreateAt)</th>
+            <th>@Html.DisplayNameFor(model => model.UpdateAt)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                <td>@Html.DisplayFor(modelItem => item.Number)</td>
+                <td>@Html.DisplayFor(modelItem => item.PointAverage)</td>
+                <td>@Html.DisplayFor(modelItem => item.Verygood)</td>
+                <td>@Html.DisplayFor(modelItem => item.Good)</td>
+                <td>@Html.DisplayFor(modelItem => item.Medium)</td>
+                <td>@Html.DisplayFor(modelItem => item.Bad)</td>
+                <td>@Html.DisplayFor(modelItem => item.VeryBad)</td>
+                <td>@Html.DisplayFor(modelItem => item.CreateBy)</td>
+                <td>@Html.DisplayFor(modelItem => item.CreateAt)</td>
+                <td>@Html.DisplayFor(modelItem => item.UpdateAt)</td>
+                <td>
+                    <form method="post" action="@Url.Action("DeleteSurvey", new { id = item.Id })">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

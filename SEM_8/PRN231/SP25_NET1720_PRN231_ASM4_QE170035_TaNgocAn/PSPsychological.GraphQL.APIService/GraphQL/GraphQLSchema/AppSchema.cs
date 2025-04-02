@@ -9,6 +9,7 @@ namespace PSPsychological.GraphQL.APIService.GraphQL.GraphQLSchema
         : base(provider)
         {
             Query = provider.GetRequiredService<AppQuery>();
+            Mutation = provider.GetRequiredService<AppMutation>();
         }
     }
 }
