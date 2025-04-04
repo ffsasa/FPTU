@@ -1,6 +1,8 @@
-﻿using Grpc.Net.Client;
+﻿using Google.Protobuf.WellKnownTypes;
+using Grpc.Net.Client;
 using Psychological.GrpcService.Protos;
 using System;
+using Empty = Psychological.GrpcService.Protos.Empty;
 
 namespace Psychological.GrpcClient.ConsoleApp
 {
@@ -62,7 +64,7 @@ namespace Psychological.GrpcClient.ConsoleApp
             {
                 foreach (var survey in response.Surveys)
                 {
-                    Console.WriteLine($" {survey.Id} |  {survey.Description} |  Điểm TB: {survey.PointAverage}");
+                    Console.WriteLine($" {survey.Id} |  {survey.Description} |  Điểm TB: {survey.PointAverage} |  Create At: {survey.CreateAt} |  Update At: {survey.UpdateAt}");
                 }
             }
             else
@@ -78,7 +80,7 @@ namespace Psychological.GrpcClient.ConsoleApp
             if (int.TryParse(Console.ReadLine(), out int id))
             {
                 var response = client.GetById(new SurveyIdRequest { Id = id });
-                Console.WriteLine($" {response.Id} |  {response.Description} |  Điểm TB: {response.PointAverage}");
+                Console.WriteLine($" {response.Id} |  {response.Description} |  Điểm TB: {response.PointAverage} |  Create At: {response.CreateAt} |  Update At: {response.UpdateAt}");
             }
             else
             {
@@ -86,65 +88,129 @@ namespace Psychological.GrpcClient.ConsoleApp
             }
         }
 
-        // 🟡 Thêm survey mới
         static void AddSurvey(SurveyService.SurveyServiceClient client)
         {
-            Console.Write("\n Nhập ID Survey (Không tự tăng): ");
-            int id = int.Parse(Console.ReadLine());
-
-            Console.Write(" Nhập mô tả: ");
-            string description = Console.ReadLine();
-
-            Console.Write(" Nhập Category ID: ");
-            int categoryId = int.Parse(Console.ReadLine());
-
-            Console.Write(" Nhập PointAverage ID: ");
-            int pointAverage = int.Parse(Console.ReadLine());
-
-            var newSurvey = new Survey
+            try
             {
-                Id = id,
-                Description = description,
-                CategoryId = categoryId,
-                CreateAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                UpdateAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                CreateBy = 1,
-                PointAverage = pointAverage,
-                Number = 0,
-                VeryGood = 0,
-                Good = 0,
-                Medium = 0,
-                Bad = 0,
-                VeryBad = 0
-            };
+                Console.Write("\n Nhập ID Survey (Không tự tăng): ");
+                int id = int.Parse(Console.ReadLine());
 
-            var response = client.Add(newSurvey);
-            Console.WriteLine($" {response.Message}");
+                Console.Write(" Nhập mô tả: ");
+                string description = Console.ReadLine();
+
+                Console.Write(" Nhập Category ID: ");
+                int? categoryId = int.TryParse(Console.ReadLine(), out var tempCategoryId) ? tempCategoryId : (int?)null;
+
+                Console.Write(" Nhập PointAverage: ");
+                double? pointAverage = double.TryParse(Console.ReadLine(), out var tempPointAverage) ? tempPointAverage : (double?)null;
+
+                Console.Write(" Nhập Number: ");
+                int? number = int.TryParse(Console.ReadLine(), out var tempNumber) ? tempNumber : (int?)null;
+
+                Console.Write(" Nhập VeryGood: ");
+                int? veryGood = int.TryParse(Console.ReadLine(), out var tempVeryGood) ? tempVeryGood : (int?)null;
+
+                Console.Write(" Nhập Good: ");
+                int? good = int.TryParse(Console.ReadLine(), out var tempGood) ? tempGood : (int?)null;
+
+                Console.Write(" Nhập Medium: ");
+                int? medium = int.TryParse(Console.ReadLine(), out var tempMedium) ? tempMedium : (int?)null;
+
+                Console.Write(" Nhập Bad: ");
+                int? bad = int.TryParse(Console.ReadLine(), out var tempBad) ? tempBad : (int?)null;
+
+                Console.Write(" Nhập VeryBad: ");
+                int? veryBad = int.TryParse(Console.ReadLine(), out var tempVeryBad) ? tempVeryBad : (int?)null;
+
+                var newSurvey = new Survey
+                {
+                    Id = id,
+                    Description = description,
+                    CategoryId = categoryId ?? 0,
+                    CreateAt = Timestamp.FromDateTime(DateTime.UtcNow),  
+                    UpdateAt = Timestamp.FromDateTime(DateTime.UtcNow), 
+                    CreateBy = 1001,
+                    PointAverage = (float)(pointAverage ?? 0),
+                    Number = number ?? 0,
+                    VeryGood = veryGood ?? 0,
+                    Good = good ?? 0,
+                    Medium = medium ?? 0,
+                    Bad = bad ?? 0,
+                    VeryBad = veryBad ?? 0
+                };
+
+                var response = client.Add(newSurvey);
+                Console.WriteLine($" {response.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi: {ex.Message}");
+            }
         }
 
-        // 🟠 Cập nhật survey
+
         static void EditSurvey(SurveyService.SurveyServiceClient client)
         {
-            Console.Write("\n Nhập ID Survey cần cập nhật: ");
-            int id = int.Parse(Console.ReadLine());
-
-            Console.Write(" Nhập mô tả mới: ");
-            string description = Console.ReadLine();
-
-            Console.Write(" Nhập Category ID mới: ");
-            int categoryId = int.Parse(Console.ReadLine());
-
-            var updatedSurvey = new Survey
+            try
             {
-                Id = id,
-                Description = description,
-                CategoryId = categoryId,
-                UpdateAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-            };
+                Console.Write("\n Nhập ID Survey cần cập nhật: ");
+                int id = int.Parse(Console.ReadLine());
 
-            var response = client.Edit(updatedSurvey);
-            Console.WriteLine($" {response.Message}");
+                Console.Write(" Nhập mô tả mới: ");
+                string description = Console.ReadLine();
+
+                Console.Write(" Nhập Category ID mới: ");
+                int categoryId = int.Parse(Console.ReadLine());
+
+                // Cập nhật các giá trị nullable
+                Console.Write(" Nhập PointAverage mới (null nếu không cập nhật): ");
+                double? pointAverage = double.TryParse(Console.ReadLine(), out var tempPointAverage) ? tempPointAverage : (double?)null;
+
+                Console.Write(" Nhập Number mới (null nếu không cập nhật): ");
+                int? number = int.TryParse(Console.ReadLine(), out var tempNumber) ? tempNumber : (int?)null;
+
+                Console.Write(" Nhập VeryGood mới (null nếu không cập nhật): ");
+                int? veryGood = int.TryParse(Console.ReadLine(), out var tempVeryGood) ? tempVeryGood : (int?)null;
+
+                Console.Write(" Nhập Good mới (null nếu không cập nhật): ");
+                int? good = int.TryParse(Console.ReadLine(), out var tempGood) ? tempGood : (int?)null;
+
+                Console.Write(" Nhập Medium mới (null nếu không cập nhật): ");
+                int? medium = int.TryParse(Console.ReadLine(), out var tempMedium) ? tempMedium : (int?)null;
+
+                Console.Write(" Nhập Bad mới (null nếu không cập nhật): ");
+                int? bad = int.TryParse(Console.ReadLine(), out var tempBad) ? tempBad : (int?)null;
+
+                Console.Write(" Nhập VeryBad mới (null nếu không cập nhật): ");
+                int? veryBad = int.TryParse(Console.ReadLine(), out var tempVeryBad) ? tempVeryBad : (int?)null;
+
+                // Tạo đối tượng Survey mới cho việc cập nhật
+                var updatedSurvey = new Survey
+                {
+                    Id = id,
+                    Description = description,
+                    CategoryId = categoryId,
+                    CreateAt = Timestamp.FromDateTime(DateTime.UtcNow),
+                    UpdateAt = Timestamp.FromDateTime(DateTime.UtcNow),
+                    CreateBy = 1001,
+                    PointAverage = (float)(pointAverage ?? 0),
+                    Number = number ?? 0,
+                    VeryGood = veryGood ?? 0,
+                    Good = good ?? 0,
+                    Medium = medium ?? 0,
+                    Bad = bad ?? 0,
+                    VeryBad = veryBad ?? 0
+                };
+
+                var response = client.Edit(updatedSurvey);
+                Console.WriteLine($" {response.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi: {ex.Message}");
+            }
         }
+
 
         // 🔴 Xóa survey
         static void DeleteSurvey(SurveyService.SurveyServiceClient client)

@@ -1,4 +1,5 @@
 ﻿using Psychological.GrpcService.Services;
+using Psychological.Service;
 
 namespace Psychological.GrpcService
 {
@@ -10,7 +11,10 @@ namespace Psychological.GrpcService
 
             // Add services to the container.
             builder.Services.AddGrpc();
-            builder.Services.AddSingleton<SurveyServiceImpl>();
+            builder.Services.AddScoped<SurveyServiceImpl>();
+            builder.Services.AddScoped<ISurveyService, SurveyService>();
+            builder.Services.AddScoped<ISurveyCategoryService, SurveyCategoryService>();
+            builder.Services.AddScoped<SurveyUserAccountService>();
 
             var app = builder.Build();
 

@@ -9,13 +9,20 @@ namespace PSPsychological.GraphQL.APIService.GraphQL.GraphQLQueries
 {
     public class AppQuery : ObjectGraphType
     {
-        public AppQuery(ISurveyService repository)
+        public AppQuery(ISurveyService repository, ISurveyCategoryService categoryService)
         {
             AddField(new FieldType
             {
                 Name = "surveys",
                 Type = typeof(ListGraphType<SurveyType>),
                 Resolver = new AsyncFieldResolver<List<Survey>>(async context => await repository.GetAll())
+            });
+
+            AddField(new FieldType
+            {
+                Name = "categories",
+                Type = typeof(ListGraphType<ServeyCategoryType>),
+                Resolver = new AsyncFieldResolver<List<ServeyCategory>>(async context => await categoryService.GetAll())
             });
 
             AddField(new FieldType

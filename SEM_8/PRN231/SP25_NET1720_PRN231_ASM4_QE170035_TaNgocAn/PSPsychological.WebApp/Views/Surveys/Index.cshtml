@@ -43,6 +43,8 @@
                 <td>@Html.DisplayFor(modelItem => item.CreateAt)</td>
                 <td>@Html.DisplayFor(modelItem => item.UpdateAt)</td>
                 <td>
+                    <a asp-action="EditSurvey" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+
                     <form method="post" action="@Url.Action("DeleteSurvey", new { id = item.Id })">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>

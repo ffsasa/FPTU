@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BusinessObject.Shared.Models\BusinessObject.Shared.Models.csproj" />
+    <ProjectReference Include="..\Common.Shared\Common.Shared.csproj" />
   </ItemGroup>
 
 </Project>

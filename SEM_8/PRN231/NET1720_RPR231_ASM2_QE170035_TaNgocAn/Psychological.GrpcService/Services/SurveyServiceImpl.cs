@@ -1,240 +1,190 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-//using Psychological.GrpcService.Models;
 using Psychological.GrpcService.Protos;
 using Psychological.Service;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using Psychological.Repository.Models;
+using Psychological.Repository;
 
 namespace Psychological.GrpcService.Services
 {
     public class SurveyServiceImpl : Protos.SurveyService.SurveyServiceBase
     {
-        public readonly ISurveyService surveyService;
+        private readonly ISurveyService _surveyService;
         private readonly ILogger<SurveyServiceImpl> _logger;
-        private static List<Protos.Survey> _surveys = new List<Protos.Survey>
-        {
-            new Protos.Survey {
-            Id = 1,
-            CategoryId = 1,
-            Description = "Kiem tra 1",
-            Number = 1,
-            PointAverage = 1,
-            VeryGood = 1,
-            Good = 1,
-            Medium = 1,
-            Bad = 1,
-            VeryBad = 1,
-            CreateBy = 1,
-            CreateAt = DateTime.Now.ToString(),
-            UpdateAt = DateTime.Now.ToString()
-            },
-            new Protos.Survey() {
-            Id = 2,
-            CategoryId = 1,
-            Description = "Kiem tra 2",
-            Number = 1,
-            PointAverage = 1,
-            VeryGood = 1,
-            Good = 1,
-            Medium = 1,
-            Bad = 1,
-            VeryBad = 1,
-            CreateBy = 1,
-            CreateAt = DateTime.Now.ToString(),
-            UpdateAt = DateTime.Now.ToString()
-            }
-        };
 
-
-        public SurveyServiceImpl(ILogger<SurveyServiceImpl> logger)
+        public SurveyServiceImpl(ISurveyService surveyService, ILogger<SurveyServiceImpl> logger)
         {
+            _surveyService = surveyService;
             _logger = logger;
         }
 
+        private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
+        {
+            ReferenceHandler = ReferenceHandler.IgnoreCycles,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+        };
+
         public override async Task<SurveyList> GetAll(Protos.Empty request, ServerCallContext context)
         {
-            var response = new SurveyList();
-            response.Surveys.AddRange(_surveys);
+            // Đợi phương thức GetAll() trả về dữ liệu thực tế (List<Survey>)
+            var surveys = await _surveyService.GetAll();
 
-            return await Task.FromResult(response);
+            // Tạo danh sách Survey phù hợp
+            var surveyList = new SurveyList();
+
+            foreach (var survey in surveys)
+            {
+                surveyList.Surveys.Add(new Protos.Survey
+                {
+                    Id = survey.Id,
+                    CategoryId = survey.CategoryId ?? 0,
+                    Description = survey.Description,
+                    Number = survey.Number ?? 0,
+                    PointAverage = (float)(survey.PointAverage ?? 0),
+                    VeryGood = survey.Verygood ?? 0,
+                    Good = survey.Good ?? 0,
+                    Medium = survey.Medium ?? 0,
+                    Bad = survey.Bad ?? 0,
+                    VeryBad = survey.VeryBad ?? 0,
+                    CreateBy = survey.CreateBy ?? 1,
+                    CreateAt = Timestamp.FromDateTime((survey.CreateAt ?? DateTime.UtcNow).ToUniversalTime()),
+                    UpdateAt = Timestamp.FromDateTime((survey.UpdateAt ?? DateTime.UtcNow).ToUniversalTime())
+
+                });
+            }
+
+            return surveyList;
         }
 
-        public override Task<Protos.Survey> GetById(SurveyIdRequest request, ServerCallContext context)
+        public override async Task<Protos.Survey> GetById(SurveyIdRequest request, ServerCallContext context)
         {
-            var survey = _surveys.FirstOrDefault(s => s.Id == request.Id);
+            var survey = await _surveyService.GetById(request.Id);
             if (survey == null)
-            {
                 throw new RpcException(new Status(StatusCode.NotFound, "Survey not found"));
-            }
-            return Task.FromResult(survey);
-        }
 
-        public override Task<ActionResult> DeleteById(SurveyIdRequest request, ServerCallContext context)
-        {
-            var item = _surveys.FirstOrDefault(b => b.Id == request.Id);
-            if (item != null)
+            // Chuyển đổi từ model sang Protos.Survey
+            var protoSurvey = new Protos.Survey
             {
-                _surveys.Remove(item);
-                return Task.FromResult(new ActionResult() { Status = 1, Message = "Delete success", Data = new SurveyList() { Surveys = { _surveys } } });
-            }
+                Id = survey.Id,
+                CategoryId = survey.CategoryId ?? 0,
+                Description = survey.Description,
+                Number = survey.Number ?? 0,
+                PointAverage = (float)(survey.PointAverage ?? 0),
+                VeryGood = survey.Verygood ?? 0,
+                Good = survey.Good ?? 0,
+                Medium = survey.Medium ?? 0,
+                Bad = survey.Bad ?? 0,
+                VeryBad = survey.VeryBad ?? 0,
+                CreateBy = survey.CreateBy ?? 1,
+                CreateAt = Timestamp.FromDateTime((survey.CreateAt ?? DateTime.UtcNow).ToUniversalTime()),
+                UpdateAt = Timestamp.FromDateTime((survey.UpdateAt ?? DateTime.UtcNow).ToUniversalTime())
+            };
 
-            return Task.FromResult(new ActionResult() { Status = -1, Message = "Delete fail" });
+            return protoSurvey;
         }
 
-        public override Task<ActionResult> Add(Protos.Survey request, ServerCallContext context)
-        {
-            if (request != null)
-            {
-                _surveys.Add(request);
-                return Task.FromResult(new ActionResult() { Status = 1, Message = "Add success", Data = new SurveyList() { Surveys = { _surveys } } });
-            }
 
-            return Task.FromResult(new ActionResult() { Status = -1, Message = "Add fail" });
-        }
-
-        public override Task<ActionResult> Edit(Protos.Survey request, ServerCallContext context)
-        {
-            if (request != null)
-            {
-                var item = _surveys.FirstOrDefault(b => b.Id == request.Id);
-                if (item != null)
-                {
-                    _surveys.Remove(item);
-                    _surveys.Remove(request);
-
-                    return Task.FromResult(new ActionResult() { Status = 1, Message = "Edit success", Data = new SurveyList() { Surveys = { _surveys } } });
-                }
-            }
-
-            return Task.FromResult(new ActionResult() { Status = -1, Message = "Edit fail" });
-        }
-
-        public override async Task<ActionResult> AddAsync(Protos.Survey request, ServerCallContext context)
+        public override async Task<ActionResult> Add(Protos.Survey request, ServerCallContext context)
         {
             try
             {
-                if (request != null)
+                // Chuyển đổi từ Protos.Survey sang Repository.Models.Survey
+                var model = new Repository.Models.Survey
                 {
-                    var opt = new JsonSerializerOptions()
-                    {
-                        ReferenceHandler = ReferenceHandler.IgnoreCycles,
-                        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-                    };
-
-                    var surveyString = JsonSerializer.Serialize(request, opt);
-                    var item = JsonSerializer.Deserialize<Repository.Models.Survey>(surveyString, opt);
-
-                    var result = await surveyService.Create(item);
-
-                    if (result > 0)
-                    {
-                        return await Task.FromResult(new ActionResult() { Status = 1, Message = "Add Success" });
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                return await Task.FromResult(new ActionResult() { Status = -4, Message = string.Format("Add Fail. (0)", ex.ToString()) });
-
-            }
-            return await Task.FromResult(new ActionResult() { Status = -4, Message = "Add Fail" });
-        }
-
-        public override async Task<SurveyList> GetAllAsync(Protos.Empty request, ServerCallContext context)
-        {
-            try
-            {
-                var result = new SurveyList();
-                var surveyList = await surveyService.GetAll();
-
-                var opt = new JsonSerializerOptions() { ReferenceHandler =
-                    ReferenceHandler.IgnoreCycles, DefaultIgnoreCondition =
-                    JsonIgnoreCondition.WhenWritingNull};
-
-                var surveyString = JsonSerializer.Serialize(surveyList, opt);
-                var items = JsonSerializer.Deserialize<List<Protos.Survey>>(surveyString, opt);
-
-                result.Surveys.AddRange(items);
-
-                return await Task.FromResult(result);               
-            }
-            catch (Exception ex)
-            {
-                return new SurveyList();
-
-            }
-        }
-
-        public override async Task<Protos.Survey> GetByIdAsync(SurveyIdRequest request, ServerCallContext context)
-        {
-            try
-            {
-                var survey = await surveyService.GetById(request.Id);
-
-                var opt = new JsonSerializerOptions()
-                {
-                    ReferenceHandler =
-                    ReferenceHandler.IgnoreCycles,
-                    DefaultIgnoreCondition =
-                    JsonIgnoreCondition.WhenWritingNull
+                    Id = request.Id,
+                    CategoryId = request.CategoryId,
+                    Description = request.Description,
+                    Number = request.Number,
+                    PointAverage = request.PointAverage,
+                    Verygood = request.VeryGood,
+                    Good = request.Good,
+                    Medium = request.Medium,
+                    Bad = request.Bad,
+                    VeryBad = request.VeryBad,
+                    CreateBy = request.CreateBy,
+                    CreateAt = request.CreateAt.ToDateTime().ToUniversalTime(),
+                    UpdateAt = request.UpdateAt.ToDateTime().ToUniversalTime()
                 };
 
-                var surveyString = JsonSerializer.Serialize(survey, opt);
-                var items = JsonSerializer.Deserialize<Protos.Survey>(surveyString, opt);
+                var result = await _surveyService.Create(model);
 
-                return await Task.FromResult(items);
+                if (result > 0)
+                    return new ActionResult { Status = 1, Message = "Add Success" };
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                return new Protos.Survey();
-            }
-        }
-
-        public override async Task<ActionResult> EditAsync(Protos.Survey request, ServerCallContext context)
-        {
-            try
-            {
-                if (request != null)
+                Console.WriteLine($"Lỗi: {ex.Message}");
+                if (ex.InnerException != null)
                 {
-                    var opt = new JsonSerializerOptions()
-                    {
-                        ReferenceHandler = ReferenceHandler.IgnoreCycles,
-                        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-                    };
-
-                    var surveyString = JsonSerializer.Serialize(request, opt);
-                    var item = JsonSerializer.Deserialize<Repository.Models.Survey>(surveyString, opt);
-
-                    var result = await surveyService.Update(item);
-
-                    if (result > 0)
-                    {
-                        return await Task.FromResult(new ActionResult() { Status = 1, Message = "Update Success" });
-                    }
+                    Console.WriteLine($"Inner Exception: {ex.InnerException.Message}");
                 }
             }
-            catch (Exception ex)
-            {
-                return await Task.FromResult(new ActionResult() { Status = -4, Message = string.Format("Update Fail. (0)", ex.ToString()) });
 
-            }
-            return await Task.FromResult(new ActionResult() { Status = -4, Message = "Update Fail" });
+            return new ActionResult { Status = -1, Message = "Add Fail" };
         }
 
-        public override async Task<ActionResult> DeleteByIdAsync(SurveyIdRequest request, ServerCallContext context)
+
+        public override async Task<ActionResult> Edit(Protos.Survey request, ServerCallContext context)
         {
             try
             {
-                var survey = await surveyService.Delete(request.Id);
+                // Chuyển đổi từ Protos.Survey sang Repository.Models.Survey
+                var model = new Repository.Models.Survey
+                {
+                    Id = request.Id,
+                    CategoryId = request.CategoryId,
+                    Description = request.Description,
+                    Number = request.Number,
+                    PointAverage = request.PointAverage,
+                    Verygood = request.VeryGood,
+                    Good = request.Good,
+                    Medium = request.Medium,
+                    Bad = request.Bad,
+                    VeryBad = request.VeryBad,
+                    CreateBy = request.CreateBy,
+                    CreateAt = request.CreateAt.ToDateTime().ToUniversalTime(),
+                    UpdateAt = request.UpdateAt.ToDateTime().ToUniversalTime()
+                };
 
-                return await Task.FromResult(new ActionResult() { Status = 1, Message = "Delete success" });
+
+                //var json = JsonSerializer.Serialize(request, _jsonOptions);
+                //var model = JsonSerializer.Deserialize<Repository.Models.Survey>(json, _jsonOptions);
+
+                var result = await _surveyService.Update(model);
+                if (result > 0)
+                    return new ActionResult { Status = 1, Message = "Edit Success" };
             }
             catch (Exception ex)
             {
-                return await Task.FromResult(new ActionResult() { Status = -1, Message = string.Format("Delete Fail .(0)", ex.ToString()) });
+                return new ActionResult { Status = -1, Message = $"Edit Fail: {ex.Message}" };
             }
+
+            return new ActionResult { Status = -1, Message = "Edit Fail" };
         }
+
+        public override async Task<ActionResult> DeleteById(SurveyIdRequest request, ServerCallContext context)
+        {
+            try
+            {
+                var result = await _surveyService.Delete(request.Id);
+                if (result)
+                    return new ActionResult { Status = 1, Message = "Delete Success" };
+            }
+            catch (Exception ex)
+            {
+                return new ActionResult { Status = -1, Message = $"Delete Fail: {ex.Message}" };
+            }
+
+            return new ActionResult { Status = -1, Message = "Delete Fail" };
+        }
+
+        // Async methods can just call their sync counterparts (if logic is same)
+        public override Task<SurveyList> GetAllAsync(Protos.Empty request, ServerCallContext context) => GetAll(request, context);
+        public override Task<Protos.Survey> GetByIdAsync(SurveyIdRequest request, ServerCallContext context) => GetById(request, context);
+        public override Task<ActionResult> AddAsync(Protos.Survey request, ServerCallContext context) => Add(request, context);
+        public override Task<ActionResult> EditAsync(Protos.Survey request, ServerCallContext context) => Edit(request, context);
+        public override Task<ActionResult> DeleteByIdAsync(SurveyIdRequest request, ServerCallContext context) => DeleteById(request, context);
     }
 }

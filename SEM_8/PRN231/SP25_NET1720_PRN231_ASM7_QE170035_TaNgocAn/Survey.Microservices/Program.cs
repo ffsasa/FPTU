@@ -1,36 +1,51 @@
+using MassTransit;
 
-namespace Survey.Microservices
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+
+builder.Host.ConfigureLogging(logging =>
 {
-    public class Program
+    logging.ClearProviders();
+    logging.AddConsole();
+});
+
+////RabbitMQ-Publisher: Adds the MassTransit Service to the ASP.NET Core Service Container
+builder.Services.AddMassTransit(x =>
+{
+    //Creates a new Service Bus using RabbitMQ, pass paramteres like the host url, username and password.
+    x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
     {
-        public static void Main(string[] args)
+        //config.UseHealthCheck(provider);
+        //config.Host(new Uri("rabbitmq://localhost:XXXX"), h =>
+        config.Host(new Uri("rabbitmq://localhost"), h =>
         {
-            var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
+            h.Username("guest");
+            h.Password("guest");
+        });
+    }));
+});
 
 
-            app.MapControllers();
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
-            app.Run();
-        }
-    }
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();

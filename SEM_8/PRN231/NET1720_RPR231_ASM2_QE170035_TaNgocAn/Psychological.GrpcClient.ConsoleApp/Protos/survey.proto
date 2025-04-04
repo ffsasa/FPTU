@@ -1,5 +1,7 @@
 ﻿syntax = "proto3";
 
+import "google/protobuf/timestamp.proto";
+
 option csharp_namespace = "Psychological.GrpcService.Protos";
 
 package survey;
@@ -40,8 +42,8 @@ message Survey {
   int32 bad = 9;               
   int32 veryBad = 10;          
   int32 createBy = 11;          
-  string createAt = 12;         
-  string updateAt = 13;         
+  google.protobuf.Timestamp createAt = 12;         
+  google.protobuf.Timestamp updateAt = 13;         
 }
 
 message SurveyList {

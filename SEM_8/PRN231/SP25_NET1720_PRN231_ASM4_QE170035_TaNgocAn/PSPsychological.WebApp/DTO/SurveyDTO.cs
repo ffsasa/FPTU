@@ -21,11 +21,20 @@
     public class CategoryDTO
     {
         public int Id { get; set; }
+        public string Name { get; set; }
+        public DateTime? CreateAt { get; set; }
+        public DateTime? UpdateAt { get; set; }
+        public List<SurveyDTO> Surveys { get; set; }
     }
 
     public class SurveyDataWrapper
     {
         public List<SurveyDTO> Surveys { get; set; }
+    }
+
+    public class CategoryDataWrapper
+    {
+        public List<CategoryDTO> Categories { get; set; }
     }
 
 }

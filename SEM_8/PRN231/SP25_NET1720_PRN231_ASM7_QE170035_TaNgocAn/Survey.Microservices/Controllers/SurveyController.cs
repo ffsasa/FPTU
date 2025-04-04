@@ -1,4 +1,5 @@
 ﻿using BusinessObject.Shared.Models;
+using Common.Shared;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,7 @@ namespace Survey.Microservices.Controllers
     [ApiController]
     public class SurveyController : ControllerBase
     {
+        private readonly List<BusinessObject.Shared.Models.Survey> _surveys;
         private readonly ILogger _logger;
         private readonly IBus _bus;
 
@@ -17,17 +19,16 @@ namespace Survey.Microservices.Controllers
         {
             _bus = bus;
             _logger = logger;
-        }
-
-        private static List<BusinessObject.Shared.Models.Survey> _surveys = new List<BusinessObject.Shared.Models.Survey>
-        {
-            new BusinessObject.Shared.Models.Survey { Id = 1, CategoryId = 1, Description = "Khảo sát 1", Number = 10, PointAverage = 4.5, CreateBy = 1, CreateAt = DateTime.UtcNow },
+            _surveys = new List<BusinessObject.Shared.Models.Survey>
+            {
+                new BusinessObject.Shared.Models.Survey { Id = 1, CategoryId = 1, Description = "Khảo sát 1", Number = 10, PointAverage = 4.5, CreateBy = 1, CreateAt = DateTime.UtcNow },
             new BusinessObject.Shared.Models.Survey { Id = 2, CategoryId = 2, Description = "Khảo sát 2", Number = 15, PointAverage = 3.8, CreateBy = 2, CreateAt = DateTime.UtcNow }
-        };
+            };
+        }
 
         // GET: api/Survey
         [HttpGet]
-        public ActionResult<IEnumerable<BusinessObject.Shared.Models.Survey>> Get()
+        public ActionResult<IEnumerable<BusinessObject.Shared.Models.Survey>> GetAll()
         {
             return Ok(_surveys);
         }
@@ -43,13 +44,47 @@ namespace Survey.Microservices.Controllers
 
         // POST api/Survey
         [HttpPost]
-        public ActionResult Post([FromBody] BusinessObject.Shared.Models.Survey survey)
+        public async Task<ActionResult> Post([FromBody] BusinessObject.Shared.Models.Survey survey)
         {
-            survey.Id = _surveys.Count + 1;
-            survey.CreateAt = DateTime.UtcNow;
-            _surveys.Add(survey);
-            return CreatedAtAction(nameof(Get), new { id = survey.Id }, survey);
+            if (survey == null)
+            {
+                return BadRequest("Survey cannot be null");
+            }
+
+            try
+            {
+                // Tạo ID mới và thêm vào danh sách khảo sát
+                survey.Id = _surveys.Count + 1;
+                survey.CreateAt = DateTime.UtcNow;
+                _surveys.Add(survey);
+
+                // Gửi khảo sát đến RabbitMQ (bằng MassTransit)
+                _logger.LogInformation("Attempting to send message to RabbitMQ");
+
+                Uri uri = new Uri("queue:surveyQueue");  // Đảm bảo tên queue phù hợp
+                var sendEndpoint = await _bus.GetSendEndpoint(uri);
+                await sendEndpoint.Send(survey);
+
+                _logger.LogInformation("Message sent successfully");
+
+                // Lưu log thông tin gửi khảo sát
+                string messageLog = string.Format("[{0}] PUBLISH data to RabbitMQ.surveyQueue: {1}",
+                    DateTime.Now,
+                    JsonUtils.ConvertObjectToJSONString(survey));
+
+                JsonUtils.WriteLoggerFile(messageLog);
+                _logger.LogInformation(messageLog);
+
+                // Trả về response cho client
+                return CreatedAtAction(nameof(Get), new { id = survey.Id }, survey);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error sending message to RabbitMQ");
+                return StatusCode(500, "Error sending message to RabbitMQ");
+            }
         }
+
 
         // PUT api/Survey/5
         [HttpPut("{id}")]

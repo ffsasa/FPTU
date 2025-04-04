@@ -13,18 +13,6 @@
       "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
     },
     {
-      "DownstreamPathTemplate": "/api/Customer",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7230
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/Customer",
-      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
-    },
-    {
       "DownstreamPathTemplate": "/api/ServeyCategory",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
