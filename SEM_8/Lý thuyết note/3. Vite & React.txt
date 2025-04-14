@@ -1,0 +1,133 @@
+🚀 Quy trình hoạt động của Vite & React trong phát triển frontend
+Khi bạn phát triển ứng dụng với React + Vite, mọi thứ hoạt động qua các bước sau:
+
+-----------------------------------------------------------------------------------------------------------------
+
+🧱 1. Khởi động dự án với Vite
+Khi chạy npm run dev, Vite sẽ:
+
+🔥 Bật dev server
+
+📦 Chuẩn bị mã nguồn (HTML, JS, CSS)
+
+🧠 Sẵn sàng xử lý JSX, React, Tailwind, v.v.
+
+-----------------------------------------------------------------------------------------------------------------
+
+🔄 2. Biên dịch JSX bằng Babel
+✍️ Code React được viết bằng JSX (HTML-like trong JS).
+
+🚫 Trình duyệt không hiểu JSX, nên:
+
+🔧 Babel sẽ biên dịch JSX thành React.createElement() → JavaScript thuần.
+
+-----------------------------------------------------------------------------------------------------------------
+
+🌐 3. Trình duyệt yêu cầu mã nguồn
+🧾 Trình duyệt gửi yêu cầu đến Vite.
+
+📤 Vite phản hồi:
+
+index.html (thường chỉ có <div id="root"></div>)
+
+Mã JS đã được Babel xử lý
+
+CSS (nếu có)
+
+-----------------------------------------------------------------------------------------------------------------
+
+⚙️ 4. Vite phục vụ mã nguồn
+📬 Vite gửi các file đã xử lý tới trình duyệt.
+
+💡 Lúc này trình duyệt chưa có giao diện hoàn chỉnh.
+
+Chỉ có khung HTML và JS đã sẵn sàng để React render.
+
+-----------------------------------------------------------------------------------------------------------------
+
+⚛️ 5. React bắt đầu render
+⚡ Trình duyệt chạy JS, React khởi động.
+
+🏗️ React render giao diện vào #root.
+
+🧠 Sử dụng Virtual DOM để:
+
+So sánh sự khác biệt giữa DOM cũ và mới.
+
+🛠️ Chỉ cập nhật phần cần thiết → nhanh, mượt.
+
+-----------------------------------------------------------------------------------------------------------------
+
+🖼️ 6. Hiển thị giao diện hoàn chỉnh
+✅ React hoàn tất render.
+
+🖥️ Trình duyệt hiển thị UI hoàn chỉnh cho người dùng.
+
+🔁 Mỗi lần có thay đổi (state, props), React chỉ cập nhật phần thay đổi → không reload toàn trang.
+
+-----------------------------------------------------------------------------------------------------------------
+
+🔎 Tóm tắt nhanh
+Công cụ	Vai trò chính
+⚡ Vite	Dev Server + Bundler, phục vụ mã nguồn
+🔧 Babel	Biên dịch JSX thành JavaScript
+⚛️ React	Render UI bằng Virtual DOM
+🌐 Trình duyệt	Nhận HTML/JS, chạy React để hiển thị UI
+
+-----------------------------------------------------------------------------------------------------------------
+
+💡 Ví dụ hình dung
+Vite như người chuẩn bị giấy + màu.
+React là họa sĩ vẽ giao diện lên giấy đó.
+Browser là sân khấu mà khán giả (người dùng) nhìn thấy.
+JSX → Babel dịch ra JS → React render → Vite gửi lên trình duyệt.
+
+Nếu bạn là người làm backend, hãy hình dung Vite như Kestrel (http/https; IIS Express) của frontend, và React là middleware thông minh điều khiển giao diện thay vì gửi lại toàn bộ HTML như Razor hay MVC.
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+Thực chất, chúng ta hoàn toàn có thể dùng JavaScript thuần để tạo giao diện, không cần viết HTML/CSS kiểu truyền thống. Chẳng qua là:
+
+JSX + HTML/CSS → Dễ đọc, dễ viết, quen thuộc hơn với lập trình viên frontend.
+
+📦 Về bản chất:
+Khi bạn viết:
+
+<div className="text-red-500">Hello</div>
+Nó sẽ được dịch thành:
+
+React.createElement("div", { className: "text-red-500" }, "Hello");
+Hoặc nếu không dùng React, bạn cũng có thể làm giao diện thuần JavaScript như:
+
+const div = document.createElement('div');
+div.className = 'text-red-500';
+div.textContent = 'Hello';
+document.body.appendChild(div);
+
+=> Giao diện vẫn hiển thị như thường, chỉ là không dùng JSX thôi!
+
+🧠 Vậy tại sao ta vẫn dùng JSX + HTML/CSS?
+Lý do	Giải thích
+✅ Dễ viết, dễ nhìn	JSX giống HTML nên ai biết HTML là hiểu được ngay
+✅ Dễ quản lý UI phức tạp	React giúp bạn chia nhỏ component, tái sử dụng
+✅ Cộng đồng lớn	Tài liệu, thư viện hỗ trợ đầy đủ
+✅ Tailwind dễ dùng hơn	Gắn class trực tiếp trong JSX, tiện lợi
+🧪 Bonus: Nếu bạn "thuần JavaScript", bạn vẫn có thể tạo UI như thần:
+Ví dụ:
+
+function createButton(label) {
+  const btn = document.createElement('button');
+  btn.textContent = label;
+  btn.className = 'bg-blue-500 text-white px-4 py-2 rounded';
+  return btn;
+}
+document.body.appendChild(createButton('Click Me'));
+→ Không React, không JSX, không HTML, nhưng giao diện vẫn đẹp 😎
+
+✅ Tóm lại:
+Giao diện chỉ là DOM, bạn tạo được bằng JavaScript là đủ.
+
+React/JSX chỉ là cách dễ hơn, tối ưu hơn để xây dựng UI.
+
+HTML/CSS mà bạn thấy chỉ là bề ngoài dễ hiểu của JavaScript logic đằng sau.

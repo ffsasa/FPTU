@@ -1,0 +1,325 @@
+☕ Java là ngôn ngữ lập trình hướng đối tượng
+Một trong những lý do khiến Java trở nên phổ biến là vì nó hỗ trợ mạnh mẽ lập trình hướng đối tượng (OOP - Object-Oriented Programming). OOP giúp cho việc phát triển phần mềm trở nên:
+
+🔹 Dễ quản lý
+🔹 Dễ bảo trì và mở rộng
+🔹 Tái sử dụng được mã nguồn
+
+🌱 Bên cạnh đó, Java còn hỗ trợ rất tốt các framework mã nguồn mở như Spring, cho phép sử dụng kỹ thuật Dependency Injection (DI) – giúp quản lý tốt hơn các đối tượng phụ thuộc, tăng tính linh hoạt và dễ kiểm thử.
+
+1. Tại sao nên học Java?
+Java rất dễ tìm hiểu
+Java là một ngôn ngữ lập trình hướng đối tượng
+Tài nguyên Java Phong phú
+Công cụ phát triển mạnh mẽ
+Khả năng bảo mật của Java rất cao
+Java là ngôn ngữ lập trình miễn phí
+Hỗ trợ tài liệu xuất sắc => JavaDocs
+Java là nền tảng độc lập, có thể “viết một lần chạy mọi nơi”
+Sự hỗ trợ từ cộng đồng khổng lồ
+
+-----------------------------------------------------------------------------------------------------------------
+
+🧱 Java còn khuyến khích lập trình viên áp dụng nguyên tắc SOLID – gồm 5 nguyên tắc thiết kế quan trọng trong OOP:
+
+S – Single Responsibility: Mỗi lớp chỉ nên đảm nhận một nhiệm vụ duy nhất.
+
+O – Open/Closed Principle: Mở rộng được nhưng không sửa đổi mã gốc.
+
+L – Liskov Substitution Principle: Các lớp con có thể thay thế lớp cha mà không làm thay đổi tính đúng đắn của chương trình.
+
+I – Interface Segregation Principle: Giao diện nên nhỏ gọn, chuyên biệt.
+
+D – Dependency Inversion Principle: Phụ thuộc vào abstraction (trừu tượng), không phụ thuộc vào chi tiết cụ thể.
+
+
+1. ✅ Single Responsibility Principle (SRP)
+
+🧠 Định nghĩa:"A class should have only one reason to change."
+
+Lớp chỉ nên có một trách nhiệm duy nhất – nghĩa là nó chỉ nên xử lý một phần việc trong hệ thống.
+
+❌ Ví dụ sai:
+public class Employee {
+    public void calculateSalary() {
+        // logic tính lương
+    }
+
+    public void saveToDatabase() {
+        // logic lưu vào database
+    }
+}
+→ Lớp này vừa tính lương, vừa lưu vào DB → 2 trách nhiệm.
+
+✅ Cách đúng:
+public class SalaryCalculator {
+    public void calculateSalary(Employee emp) {
+        // tính lương
+    }
+}
+
+public class EmployeeRepository {
+    public void save(Employee emp) {
+        // lưu vào DB
+    }
+}
+
+=> Nếu bạn là tôi trong tương lại khi đọc lại phần này có thể sẽ quên và cảm thấy vô lý và rườm rà khi mỗi method hành động của Employee lại tách thành các class như thế này sẽ khiến hệ thống trở nên vô cùng phức tạp, suy ra SRP là 1 nguyên tắc rất ngu.
+- Tuy nhiên nguyên tắc này nằm ở 1 tầm nhìn rất lớn. Có thể hiển là việc tính KPI, Tính lương chỉ là 1 method nhỏ có thể được tính là các hành động làm việc với Employee để nhét toàn bộ vào 1 class. Nhưng với 1 góc nhìn rộng hơn vấn đề liên quan đến KPI rất lớn ví dụ: // Giả sử KPI tính theo lương, Set KPI score based on performance review, Adjust KPI score based on manager's feedback, Review KPI for yearly performance,... Lúc này KPI lớn tương được với 1 đối tượng và xếp ngành Employee -> Nó cần được tách riêng thành các class có method riêng. Tương tự với Lương hay lưu thông tin vào DB.
+
+🔚 Chính vì thế việc SRP có đúng hay không, có cần tách ra hay không cần nhìn vào góc nhìn, mục đính của người muốn tạo ra web. Nếu nó nhỏ thì coi như các method của 1 Entity, nhưng nếu nó đủ lớn thì sẽ trở thành 1 Entity riêng biệt với các method và bảng lưu trữ trong DB. Nên cần nhận định rõ "A class should have only one reason to change." "REASON" ở đây là gì, nếu nó đủ lớn thì tách riêng để đảm bảo SRP, còn không thì hãy gộp lại để tránh làm hệ thống bị rườm rà và còn khó để quản lý, bảo trì, kiểm thử, mở rộng,...
+
+-----------------------------------------------------------------------------------------------------------------
+
+2. ✅ Open/Closed Principle (OCP)
+🧠 Định nghĩa:
+"Software entities should be open for extension but closed for modification."
+
+Bạn nên mở rộng bằng cách thêm mã mới, thay vì sửa mã cũ.
+
+❌ Ví dụ sai:
+public class Payment {
+    public void pay(String type) {
+        if (type.equals("credit")) {
+            // xử lý thanh toán qua thẻ
+        } else if (type.equals("paypal")) {
+            // xử lý qua paypal
+        }
+    }
+}
+→ Mỗi khi thêm loại thanh toán mới, bạn phải sửa lớp này.
+
+✅ Cách đúng (sử dụng interface):
+public interface PaymentMethod {
+    void pay();
+}
+
+public class CreditCard implements PaymentMethod {
+    public void pay() {
+        System.out.println("Thanh toán bằng thẻ");
+    }
+}
+
+public class PayPal implements PaymentMethod {
+    public void pay() {
+        System.out.println("Thanh toán qua PayPal");
+    }
+}
+
+public class Payment {
+    public void pay(PaymentMethod method) {
+        method.pay();
+    }
+}
+=> Với mỗi yêu cầu mở rộng chỉ cần thêm code mới, mà k đụng vào code cũ đảm bảo việc mở rộng an toàn hiệu quả
+
+👇 Lý do chi tiết tại sao cần OCP:
+Dễ dàng bảo trì và cập nhật tính năng
+Giảm thiểu rủi ro
+Tăng tính linh hoạt
+Cải thiện khả năng tái sử dụng mã
+Hỗ trợ làm việc nhóm và phân công công việc hiệu quả
+
+🚀Nhược điểm
+- Tuy nhiên trong 1 class con chỉ được overide 1 method của class cha 1 lần, nên nếu muốn overide nhiều lần thì cần tạo nhiều class
+- OCP yêu cầu kinh nghiệm thực tế vì bạn phải có khả năng nhận định được rằng một phương thức hoặc một lớp sẽ cần mở rộng trong tương lai và thiết kế nó theo cách có thể dễ dàng mở rộng mà không thay đổi mã hiện tại.
+- Bạn có thể dễ dàng rơi vào tình trạng "modification" (thay đổi) thay vì "extension" (mở rộng).
+
+💡Vậy làm sao để giải quyết vấn đề này?
+- Không áp dụng OCP một cách cứng nhắc ngay từ đầu => Cứ cấu trúc dự án và code sẽ nhận ra những phần cần mở rộng lúc này hãy thiết kế sao cho chúng dễ dàng mở rộng trong tương lại thay vì modification
+- Sử dụng Interfaces chỉ khi thực sự cần thiết => Interface thực sự mạnh nhưng đừng hở cái vô sửa interface để overide lại mà hãy thử nghĩ về những gì bạn thực sự cần và liệu bạn có thể tái sử dụng mã hiện tại mà không cần thay đổi quá nhiều.
+- Khi bạn cần phải cung cấp nhiều cách triển khai cho một phương thức (như getUserInfoById và getUserInfoByToken), bạn có thể tạo các lớp con thay vì thêm phương thức mới vào trong interface.
+
+-----------------------------------------------------------------------------------------------------------------
+
+3. ✅ Liskov Substitution Principle (LSP)
+🧠 Định nghĩa:
+"Objects of a superclass should be replaceable with objects of its subclasses."
+
+Lớp con phải có thể thay thế lớp cha mà không làm sai logic chương trình.
+
+❌ Ví dụ sai:
+public class Bird {
+    public void fly() {
+        System.out.println("Bay lên trời");
+    }
+}
+
+public class Ostrich extends Bird {
+    @Override
+    public void fly() {
+        throw new UnsupportedOperationException("Đà điểu không bay được");
+    }
+}
+→ Khi thay Bird bằng Ostrich thì sẽ phát sinh lỗi → vi phạm LSP.
+
+✅ Cách đúng:
+public interface Bird {}
+
+public interface FlyingBird extends Bird {
+    void fly();
+}
+
+public class Sparrow implements FlyingBird {
+    public void fly() {
+        System.out.println("Chim sẻ bay");
+    }
+}
+
+public class Ostrich implements Bird {
+    // không bay, nên không cần implement fly
+}
+
+
+🔹 extends (kế thừa class):
+👉 "Kế thừa để dùng lại"
+
+Dùng khi bạn muốn sử dụng lại logic có sẵn từ class cha.
+
+🔹 implements (triển khai interface):
+👉 "Cam kết để triển khai"
+
+Dùng khi class cam kết phải thực hiện một số hành vi, nhưng interface không có sẵn logic.
+
+
+📌 Tóm gọn lời bạn nói bằng quy tắc:
+"Nếu một lớp con không thể thực hiện đầy đủ trách nhiệm của lớp cha hoặc interface, thì kiến trúc cần được refactor (thiết kế lại)."
+
+→ Đây là cách tuân thủ LSP và chuẩn bị tốt cho Interface Segregation Principle (ISP) nữa.
+
+-----------------------------------------------------------------------------------------------------------------
+
+4. ✅ Interface Segregation Principle (ISP)
+🧠 Định nghĩa:
+"Clients should not be forced to depend on interfaces they do not use."
+
+Giao diện nên được chia nhỏ, thay vì tạo một interface khổng lồ với nhiều chức năng.
+
+❌ Ví dụ sai:
+public interface Machine {
+    void print();
+    void scan();
+    void fax();
+}
+
+public class OldPrinter implements Machine {
+    public void print() { /* ok */ }
+    public void scan() { throw new UnsupportedOperationException(); }
+    public void fax() { throw new UnsupportedOperationException(); }
+}
+→ Máy in cũ chỉ in được, nhưng bị ép phải implement những thứ không cần.
+
+✅ Cách đúng:
+public interface Printer {
+    void print();
+}
+
+public interface Scanner {
+    void scan();
+}
+
+public class OldPrinter implements Printer {
+    public void print() { /* ok */ }
+}
+
+🚫 LSP (Liskov Substitution Principle) – Lỗi của lớp con (subclass)
+LSP là khi lớp con không thể thay thế lớp cha một cách đúng đắn.
+
+Lớp con nhận nhầm cha, nghĩa là lớp con không thể thực hiện chính xác hành vi của lớp cha và gây ra lỗi khi thay thế nó.
+
+Lỗi do lớp con không đủ khả năng để kế thừa đúng cách từ lớp cha.
+👉 Lỗi của con: "Con không làm được những gì cha đã làm".
+
+
+
+🚫 ISP (Interface Segregation Principle) – Lỗi của lớp cha (interface)
+ISP là khi interface yêu cầu lớp con phải thực hiện quá nhiều hành vi không cần thiết, điều này gây ra sự lãng phí trong việc triển khai.
+
+Lớp cha/interface có quá nhiều yêu cầu không cần thiết, khiến lớp con bị ép phải implement những phương thức mà chúng không cần dùng.
+
+Lỗi do interface không phù hợp với yêu cầu của từng lớp con.
+👉 Lỗi của cha: "Cha kỳ vọng quá nhiều ở con".
+-----------------------------------------------------------------------------------------------------------------
+
+5. ✅ Dependency Inversion Principle (DIP)
+🧠 Định nghĩa:
+"Depend on abstractions, not on concretions."
+
+→ Lớp cao cấp không nên phụ thuộc vào lớp cụ thể, mà nên phụ thuộc vào interface (abstraction).
+
+📌 Giải thích ngắn gọn:
+High-level module (mô-đun cấp cao) là những mô-đun xử lý các yêu cầu, các logic nghiệp vụ chính của hệ thống.
+
+Low-level module (mô-đun cấp thấp) là những mô-đun thực thi các chi tiết cụ thể, chẳng hạn như việc truy cập cơ sở dữ liệu, gửi email, ghi log...
+
+Abstraction là các interface hoặc abstract class mà mô-đun cấp cao và cấp thấp đều phải phụ thuộc vào.
+
+🎯 Mục tiêu chính của DIP:
+Giảm sự phụ thuộc giữa các mô-đun (sự kết nối chặt chẽ).
+
+Tạo ra hệ thống dễ dàng thay đổi, bảo trì mà không cần phải thay đổi logic của các mô-đun cấp cao.
+
+Dễ dàng thay thế các phần cứng, các thư viện, các dịch vụ mà không làm ảnh hưởng đến các phần khác của hệ thống.
+
+❌ Ví dụ vi phạm DIP:
+class EmailService {
+    void sendEmail(String emailAddress, String message) {
+        // code gửi email cụ thể
+    }
+}
+
+class UserNotification {
+    private EmailService emailService;
+
+    public UserNotification() {
+        emailService = new EmailService(); // High-level module phụ thuộc trực tiếp vào low-level module
+    }
+
+    void notifyUser(String emailAddress, String message) {
+        emailService.sendEmail(emailAddress, message);
+    }
+}
+→ Vấn đề: UserNotification là mô-đun cấp cao nhưng lại phụ thuộc trực tiếp vào EmailService (mô-đun cấp thấp). Điều này làm cho hệ thống không linh hoạt và khó thay thế EmailService bằng một dịch vụ khác (như SMTP, hoặc SendGrid) mà không thay đổi mã nguồn của UserNotification.
+
+
+✅ Cách sửa theo DIP:
+Tách biệt các mô-đun phụ thuộc vào abstraction (interface)
+interface MessageService {
+    void sendMessage(String emailAddress, String message);
+}
+
+class EmailService implements MessageService {
+    public void sendMessage(String emailAddress, String message) {
+        // code gửi email cụ thể
+    }
+}
+
+class UserNotification {
+    private MessageService messageService;
+
+    // Constructor injection (dependency injection)
+    public UserNotification(MessageService messageService) {
+        this.messageService = messageService;
+    }
+
+    void notifyUser(String emailAddress, String message) {
+        messageService.sendMessage(emailAddress, message);
+    }
+}
+→ Cải tiến:
+
+Giờ UserNotification không còn phụ thuộc trực tiếp vào EmailService. Thay vào đó, nó phụ thuộc vào một interface MessageService.
+
+Chúng ta có thể dễ dàng thay thế EmailService bằng bất kỳ dịch vụ nào khác (ví dụ: SMSService, PushNotificationService) mà không phải thay đổi UserNotification.
+
+📌 Lý do cần DIP:
+Tính linh hoạt: Mô-đun cấp cao không phụ thuộc vào chi tiết cụ thể, vì thế có thể thay thế chi tiết mà không ảnh hưởng đến hệ thống.
+
+Tính dễ dàng bảo trì: Bạn có thể thay đổi chi tiết cụ thể (như dịch vụ gửi email) mà không ảnh hưởng đến các mô-đun nghiệp vụ.
+
+Kiểm thử dễ dàng: Vì các mô-đun cấp cao không phụ thuộc trực tiếp vào các chi tiết, bạn có thể dễ dàng mock hoặc thay thế các chi tiết khi viết unit test.
+
+💡 Mẹo nhớ DIP:
+Mô-đun cấp cao không nên biết về chi tiết (low-level modules), chúng chỉ nên phụ thuộc vào interface hoặc abstract class.
+
+Chi tiết (low-level) phải phụ thuộc vào trừu tượng (abstraction), không phải ngược lại.
