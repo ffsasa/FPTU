@@ -1,0 +1,5 @@
+Modifier	Trong class	Trong cùng package	Subclass khác package	Khác package
+public		   ✅			✅			✅		    ✅
+protected	   ✅			✅			✅		    ❌
+(default)	   ✅			✅			❌		    ❌
+private		   ✅			❌			❌		    ❌

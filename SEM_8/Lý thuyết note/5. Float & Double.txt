@@ -1,0 +1,226 @@
+Hai cụm từ:
+
+"Số thực dấu phẩy động chính xác đơn" (single-precision floating point)
+
+"Số thực chính xác kép" (double-precision floating point)
+
+là thuật ngữ dùng để mô tả cách máy tính lưu trữ số thực (số có phần thập phân) theo chuẩn IEEE 754, và sự khác nhau chủ yếu nằm ở độ chính xác và dung lượng bộ nhớ sử dụng.
+
+✅ 1. Số thực dấu phẩy động chính xác đơn – float
+Gọi là single precision (đơn chính xác).
+
+Dùng 32 bit (4 byte) để lưu trữ:
+
+1 bit: dấu (+/-)
+
+8 bit: phần mũ (exponent)
+
+23 bit: phần trị (mantissa)
+
+➡️ Điều này giúp float có thể lưu trữ số thực tương đối nhỏ hoặc lớn, nhưng chỉ chính xác khoảng 6-7 chữ số thập phân.
+
+🧠 Ví dụ:
+
+float x = 3.1415926f;
+System.out.println(x); // In ra: 3.1415925 (bị tròn)
+✅ 2. Số thực chính xác kép – double
+Gọi là double precision (chính xác kép).
+
+Dùng 64 bit (8 byte):
+
+1 bit: dấu
+
+11 bit: phần mũ
+
+52 bit: phần trị
+
+➡️ double lưu được các số rất lớn hoặc rất nhỏ, và có độ chính xác cao hơn float rất nhiều (khoảng 15 chữ số thập phân).
+
+🧠 Ví dụ:
+
+double y = 3.141592653589793;
+System.out.println(y); // In ra: 3.141592653589793 (đầy đủ)
+📊 So sánh nhanh:
+Tính chất	float	double
+Kích thước	32 bit	64 bit
+Độ chính xác	~7 chữ số	~15 chữ số
+Dùng cho	Ứng dụng nhẹ, tiết kiệm bộ nhớ	Tính toán yêu cầu độ chính xác cao
+Hậu tố	f hoặc F (3.14f)	Không cần hậu tố (3.14)
+Sai số	Cao hơn	Ít hơn
+⚠️ Lưu ý quan trọng:
+Khi làm việc với tài chính, tiền tệ… tránh dùng float/double vì sai số nhị phân, nên dùng kiểu BigDecimal (Java) hoặc decimal (C#).
+
+Nếu không có lý do đặc biệt, nên dùng double thay vì float vì an toàn hơn.
+
+-----------------------------------------------------------------------------------------------------------------
+
+🔢 1. Dấu phẩy động là gì?
+"Dấu phẩy động" (floating point) là cách máy tính lưu trữ số thực bằng cách tách phần trị và phần mũ, tương tự như cách viết khoa học:
+
+Ví dụ:
+Số 12345.678 có thể viết lại dưới dạng:
+1.2345678 × 10⁴
+
+Trong máy tính, số này được lưu như:
+
+Phần trị: 1.2345678
+
+Phần mũ: 4
+
+➡️ "Dấu phẩy động" nghĩa là vị trí dấu phẩy thập phân không cố định, nó "di chuyển" (động) theo phần mũ.
+
+🧮 2. Phần trị (Mantissa) và phần mũ (Exponent)
+📌 Phần trị (mantissa / significand)
+Là phần chứa các chữ số chính xác của số.
+
+Ví dụ: Trong 6.022 × 10²³, thì 6.022 là phần trị.
+
+📌 Phần mũ (exponent)
+Chỉ định số lần dịch chuyển dấu phẩy (trái hoặc phải).
+
+Ví dụ: 10²³ → số phải được nhân với 10 mũ 23.
+
+🖥 Ví dụ minh họa float/double:
+Số thực 123.45 lưu theo dấu phẩy động có thể được mã hóa thành:
+
+bash
+Sao chép
+Chỉnh sửa
+= 1.2345 × 10²
+→ phần trị = 1.2345
+→ phần mũ = 2
+Khi lưu trong float (32 bit), bit sẽ chia ra:
+
+1 bit dấu
+
+8 bit phần mũ
+
+23 bit phần trị
+
+💰 3. BigDecimal trong Java – Số thực chính xác tuyệt đối
+✔️ Dùng khi nào?
+Khi bạn cần độ chính xác tuyệt đối, ví dụ:
+
+Tính tiền, lãi suất, thuế, tài chính
+
+So sánh giá trị thập phân chính xác (ví dụ: 0.1 + 0.2 == 0.3 không đúng với float)
+
+❌ Lý do không dùng float hoặc double trong tài chính:
+java
+Sao chép
+Chỉnh sửa
+System.out.println(0.1 + 0.2); // 0.30000000000000004 ❌
+✅ Cách dùng BigDecimal:
+java
+Sao chép
+Chỉnh sửa
+import java.math.BigDecimal;
+
+public class Main {
+    public static void main(String[] args) {
+        BigDecimal a = new BigDecimal("0.1");
+        BigDecimal b = new BigDecimal("0.2");
+        BigDecimal c = a.add(b);
+        System.out.println(c); // ✅ 0.3
+    }
+}
+🔑 Lưu ý: Luôn truyền vào String, không dùng new BigDecimal(0.1) vì nó sẽ dính sai số giống double.
+
+-----------------------------------------------------------------------------------------------------------------
+
+🧠 Trước hết: Lỗi của float và double đến từ đâu?
+Khi máy tính lưu số 0.1 bằng double, nó phải chuyển sang nhị phân (binary floating-point):
+
+Sao chép
+Chỉnh sửa
+0.1 (thập phân) = 0.000110011001100... (nhị phân vô hạn lặp)
+➡️ Máy tính không thể lưu vô hạn, nên nó cắt bớt → dẫn đến sai số.
+
+Khi cộng 0.1 + 0.2:
+
+java
+Sao chép
+Chỉnh sửa
+System.out.println(0.1 + 0.2); // ❌ 0.30000000000000004
+✅ Vậy BigDecimal thì làm sao?
+🔎 1. Lưu trữ chính xác từng chữ số
+Khi bạn viết:
+
+java
+Sao chép
+Chỉnh sửa
+BigDecimal a = new BigDecimal("0.1");
+Java không chuyển "0.1" thành nhị phân. Nó sẽ:
+
+Lưu 0.1 dưới dạng chuỗi ký tự
+
+Hoặc phân tích thành các phần: mantissa = 1, scale = 1, nghĩa là 1 × 10⁻¹
+
+➡️ Chính xác tuyệt đối: không làm tròn, không cắt bớt.
+
+🔧 2. Tính toán như... bạn tính tay
+Khi bạn cộng 0.1 và 0.2 bằng tay:
+
+markdown
+Sao chép
+Chỉnh sửa
+  0.1
++ 0.2
+-----
+  0.3
+BigDecimal cũng làm như vậy! Nó:
+
+Chuyển số thành chuỗi số nguyên + scale (phần thập phân)
+
+Dùng thuật toán tính toán chính xác bằng số nguyên
+
+Sau đó chia lại theo scale để ra đúng định dạng thập phân
+
+➡️ Không có chuyển đổi qua nhị phân → không bao giờ sai số
+
+🧪 3. Minh hoạ rõ ràng:
+java
+Sao chép
+Chỉnh sửa
+BigDecimal a = new BigDecimal("0.1"); // a = 1, scale = 1
+BigDecimal b = new BigDecimal("0.2"); // b = 2, scale = 1
+BigDecimal c = a.add(b);              // c = 3, scale = 1
+System.out.println(c);                // ✅ 0.3
+Mọi thứ được xử lý theo số nguyên và scale → như bạn đang làm toán trên giấy.
+
+📌 Thực tế: BigDecimal lưu cái gì?
+Bên trong BigDecimal là:
+
+java
+Sao chép
+Chỉnh sửa
+public class BigDecimal {
+    private BigInteger intVal;  // Số nguyên lớn: ví dụ "123"
+    private int scale;          // Số chữ số sau dấu phẩy: ví dụ "2" → thành "1.23"
+}
+Ví dụ:
+
+java
+Sao chép
+Chỉnh sửa
+BigDecimal x = new BigDecimal("1.23");
+→ intVal = 123
+→ scale  = 2
+→ Hiển thị: 1.23
+➡️ Đơn giản mà hiệu quả!
+
+⚠️ Lưu ý cực kỳ quan trọng:
+java
+Sao chép
+Chỉnh sửa
+// Sai cách
+BigDecimal a = new BigDecimal(0.1); // ❌ sẽ gây sai số
+Vì 0.1 ở đây là double, đã bị sai ngay từ đầu.
+
+✅ Cách đúng:
+
+java
+Sao chép
+Chỉnh sửa
+BigDecimal a = new BigDecimal("0.1"); // Dùng chuỗi
+

@@ -1,0 +1,198 @@
+I. Synchronized khác với Asyn của C#:
+🟨 1. synchronized là gì?
+**synchronized** là một từ khóa trong Java dùng để đồng bộ hóa nhiều luồng truy cập cùng một lúc đến một tài nguyên dùng chung.
+
+✅ Mục tiêu: Tránh race condition — khi hai hoặc nhiều thread cùng thay đổi dữ liệu tại cùng thời điểm, gây ra lỗi logic hoặc dữ liệu sai lệch.
+
+🔧 2. Cách hoạt động
+Khi một thread vào vùng synchronized, nó sẽ khóa (lock) đối tượng (object hoặc class) được đồng bộ hóa. Các thread khác muốn vào phải chờ đến khi thread hiện tại thoát ra và nhả lock.
+
+🧱 3. Các cách dùng synchronized
+📍 a. Synchronized Method (phương thức đồng bộ)
+public synchronized void increaseCounter() {
+    counter++;
+}
+Khóa (lock) là this (đối tượng hiện tại).
+
+Chỉ 1 thread được chạy phương thức này tại một thời điểm trên cùng một object.
+
+📍 b. Synchronized Block (khối đồng bộ hóa)
+public void increaseCounter() {
+    synchronized (this) {
+        counter++;
+    }
+}
+Khóa thủ công một đoạn code, giúp tối ưu hơn vì không phải khóa cả hàm.
+
+📍 c. Synchronized trên static method
+public static synchronized void logData() {
+    // Do something
+}
+Khóa là class object (class-level lock, không phải instance-level).
+
+🚦 4. Ví dụ minh hoạ đơn giản
+public class Counter {
+    private int count = 0;
+
+    public synchronized void increase() {
+        count++;
+    }
+
+    public int getCount() {
+        return count;
+    }
+}
+Và dùng nhiều thread:
+
+
+Counter counter = new Counter();
+
+Thread t1 = new Thread(() -> {
+    for (int i = 0; i < 1000; i++) counter.increase();
+});
+
+Thread t2 = new Thread(() -> {
+    for (int i = 0; i < 1000; i++) counter.increase();
+});
+
+t1.start();
+t2.start();
+t1.join();
+t2.join();
+
+System.out.println(counter.getCount()); => Chắc chắn in ra 2000
+
+Nếu không dùng synchronized thì kết quả là:
+Bạn đang hỏi:
+
+"Dù có synchronized hay không thì sau khi t1.join() và t2.join() xong mới in kết quả. Vậy sao lại cần synchronized? Chẳng phải khi in thì cả hai thread đã chạy xong hết rồi sao? In ra 2000 là đương nhiên chứ?"
+
+=> ❗ Sai lầm nằm ở chỗ tưởng rằng nếu t1 và t2 đã chạy xong thì chắc chắn biến counter đã tăng đúng 2000 lần. Nhưng thực tế không phải vậy, và đó là lý do cần synchronized. Cùng mình phân tích chi tiết nhé:
+
+💥 Vấn đề: Race Condition
+❓ Chuyện gì xảy ra khi KHÔNG dùng synchronized?
+Giả sử 2 thread cùng tăng counter:
+
+counter++;
+Thực chất dòng counter++ không phải là một lệnh duy nhất mà là 3 bước:
+
+Đọc giá trị counter từ RAM vào CPU register
+
+Tăng giá trị trong register
+
+Ghi giá trị tăng vào lại RAM
+
+→ Nếu 2 thread cùng thực hiện counter++ mà không đồng bộ, ta có thể bị như sau:
+
+
+Thread 1 đọc	Thread 2 đọc	Cả 2 tăng	Cả 2 ghi	Kết quả
+    0	   	    0		   1		   1		❌ Mất 1 lần tăng
+➡️ Dù 2 thread chạy 1000 lần mỗi bên = 2000 lần tăng, nhưng vì tranh chấp bộ nhớ, có thể mất một số lần tăng → kết quả nhỏ hơn 2000.
+
+✅ Dùng synchronized để tránh điều đó
+Với synchronized, chỉ một thread được phép chạy vào phần counter++ tại một thời điểm.
+
+→ Các thao tác đọc-tăng-ghi sẽ không bị "chen ngang", đảm bảo đúng số lượng tăng.
+
+🧪 Thử nghiệm thực tế
+Nếu bạn bỏ synchronized và chạy thử đoạn này nhiều lần:
+
+
+public class Counter {
+    private int count = 0;
+
+    public void increase() {
+        count++;
+    }
+
+    public int getCount() {
+        return count;
+    }
+}
+Kết quả in ra có thể là 1897, 1944, 1982..., không phải 2000. Tuỳ theo máy bạn, thread scheduler, CPU... Nó không sai cú pháp, nhưng sai logic (bug logic do đa luồng).
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+🟩 2. native trong Java là gì?
+native là một từ khóa trong Java dùng để kết nối đến code viết bằng ngôn ngữ khác (thường là C hoặc C++).
+
+📌 Khi bạn khai báo một phương thức là native, nghĩa là phần thân (implementation) không viết bằng Java, mà viết ở một nơi khác (thường là C/C++ thông qua JNI).
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+🔥3. throw – ném ra một ngoại lệ cụ thể
+Dùng để tạo và ném (gây ra) một ngoại lệ (exception).
+
+Thường dùng trong phần thân của method.
+
+🔹 Cú pháp:
+java
+Sao chép
+Chỉnh sửa
+throw new Exception("Lỗi rồi!");⚠️ throws – khai báo rằng method có thể ném ra ngoại lệ
+Dùng ở phần khai báo method để nói rằng method này có thể ném ra ngoại lệ, và người gọi nó phải xử lý.
+
+🔹 Cú pháp:
+java
+Sao chép
+Chỉnh sửa
+public void myMethod() throws IOException {
+    // code có thể ném IOException
+}
+✅ So sánh nhanh:
+
+Thuộc tính	throw	throws
+Vị trí dùng	Trong thân hàm	Trong khai báo hàm
+Mục đích	Ném ngoại lệ	Khai báo ngoại lệ có thể ném
+Tạo mới exception?	✅ Có	❌ Không
+Sử dụng với	new Exception(...)	Tên lớp ngoại lệ
+🧠 Ví dụ:
+java
+Sao chép
+Chỉnh sửa
+public void checkAge(int age) throws IllegalArgumentException {
+    if (age < 18) {
+        throw new IllegalArgumentException("Chưa đủ 18 tuổi");
+    }
+}
+throws → thông báo: hàm này có thể ném IllegalArgumentException
+
+throw → ném thật ngoại lệ đó nếu điều kiện xảy ra
+
+-----------------------------------------------------------------------------------------------------------------
+
+🔁4. continue – Bỏ qua lần lặp hiện tại, chạy tiếp vòng lặp mới
+👉 Dùng khi bạn muốn bỏ qua đoạn còn lại của vòng lặp và tiếp tục lặp lần tiếp theo.
+
+🧪 Ví dụ:
+
+for (int i = 1; i <= 5; i++) {
+    if (i == 3) continue;
+    System.out.println(i);
+}
+⏱ Kết quả:
+
+1
+2
+4
+5➡️ i == 3 thì bỏ qua luôn lệnh System.out.println(i), chuyển sang i == 4.
+
+⛔ break – Thoát khỏi vòng lặp luôn
+👉 Dùng khi bạn muốn dừng vòng lặp hoàn toàn, không lặp nữa.
+
+🧪 Ví dụ:
+
+for (int i = 1; i <= 5; i++) {
+    if (i == 3) break;
+    System.out.println(i);
+}
+⏱ Kết quả:
+
+1
+2
+➡️ Khi i == 3, gặp break, vòng lặp dừng ngay lập tức.
+

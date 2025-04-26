@@ -1,0 +1,183 @@
+🎭 1. abstract class – Lớp trừu tượng
+Là lớp không thể tạo đối tượng trực tiếp, dùng để kế thừa và cung cấp một phần cài đặt sẵn cho class con.
+
+📌 Đặc điểm:
+Có thể chứa:
+
+method trừu tượng (không có thân)
+
+method bình thường (có thân, code cụ thể)
+
+field (biến) như class thường
+
+Có constructor
+
+Dùng từ khóa abstract
+
+Class nào kế thừa bắt buộc phải override các method abstract
+
+📦 Ví dụ:
+
+public abstract class Animal {
+    public abstract void makeSound(); // bắt buộc class con phải cài
+
+    public void eat() { // có sẵn code
+        System.out.println("Animal is eating");
+    }
+}
+
+public class Dog extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Woof!");
+    }
+}
+
+
+❓ "Nếu abstract class không tạo được đối tượng, thì constructor dùng để làm gì?"
+👉 Trả lời: Constructor trong abstract class vẫn được gọi khi một class con kế thừa nó và tạo đối tượng.
+
+Nó không dùng để tạo đối tượng của chính abstract class, mà dùng để hỗ trợ khởi tạo các giá trị chung khi class con được tạo.
+
+🧠 Cách hoạt động
+Khi bạn tạo đối tượng từ class con, constructor của abstract class sẽ được gọi trước constructor của class con, giống như bình thường trong kế thừa.
+
+📦 Ví dụ đơn giản
+abstract class Animal {
+    String name;
+
+    public Animal(String name) {
+        this.name = name;
+        System.out.println("Animal constructor: " + name);
+    }
+
+    abstract void makeSound();
+}
+
+class Dog extends Animal {
+    public Dog(String name) {
+        super(name); // Gọi constructor của abstract class
+        System.out.println("Dog constructor");
+    }
+
+    @Override
+    void makeSound() {
+        System.out.println("Woof!");
+    }
+}
+
+📌 Khi chạy:
+public class Main {
+    public static void main(String[] args) {
+        Dog dog = new Dog("Buddy");
+    }
+}
+🖨️ Kết quả in ra:
+Animal constructor: Buddy
+Dog constructor
+
+
+✅ 1. Khi kế thừa method bình thường (có thân hàm)
+Class con được dùng lại như bình thường.
+
+Nếu không override thì class con sẽ xài y nguyên logic của class cha.
+
+Nếu cần, class con có thể override để đổi hành vi.
+
+📦 Ví dụ:
+abstract class Animal {
+    public void eat() {
+        System.out.println("Animal is eating...");
+    }
+}
+
+class Dog extends Animal {
+    // Không override eat() → dùng lại method của class cha
+}
+
+
+Dog d = new Dog();
+d.eat(); // 👉 In ra: "Animal is eating..."
+➡️ Mặc định class con kế thừa và dùng được ngay eat() như class cha đã viết.
+
+✅ 2. Khi kế thừa abstract method (chỉ khai báo, không có thân hàm)
+Class con bắt buộc phải override.
+
+Nếu không override, class con cũng phải khai báo là abstract.
+
+📦 Ví dụ:
+abstract class Animal {
+    public abstract void makeSound();
+}
+
+class Dog extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Dog says woof!");
+    }
+}
+
+Dog d = new Dog();
+d.makeSound(); // 👉 In ra: "Dog says woof!"
+➡️ makeSound() bắt buộc phải được định nghĩa trong class con, nếu không sẽ bị lỗi biên dịch.
+
+✅ Tổng hợp lại:
+Loại method		Có thân không?		Class con cần làm gì?		Có thể dùng trực tiếp?
+Method thường		✅ Có			Không cần override (tùy ý)	✅ Dùng được ngay
+Method trừu tượng	❌ Không		🔥 BẮT BUỘC override		❌ Không dùng được nếu chưa override
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+✅ I. Interface là gì?
+Là một tập hợp các method trừu tượng (mặc định là public abstract) dùng để mô tả hành vi (behavior) mà các class có thể cam kết thực hiện.
+
+🔥 Interface giống như "bản hợp đồng": nếu một class implements một interface, nó cam kết sẽ thực hiện tất cả các method trong đó.
+
+✅ II. Cú pháp khai báo interface
+java
+Sao chép
+Chỉnh sửa
+public interface Animal {
+    void eat();         // method trừu tượng
+    void sleep();       // method trừu tượng
+}
+✅ III. Cách sử dụng interface
+java
+Sao chép
+Chỉnh sửa
+public class Dog implements Animal {
+    @Override
+    public void eat() {
+        System.out.println("Dog eating");
+    }
+
+    @Override
+    public void sleep() {
+        System.out.println("Dog sleeping");
+    }
+}
+👉 Class Dog phải override tất cả method trong interface Animal.
+
+✅ IV. Các thành phần trong interface (Java 8+)
+Thành phần		Mặc định		Ghi chú
+Method			public abstract		Không có thân hàm (trừ default, static)
+Field			public static final	Hằng số
+default method		Có thân hàm		Có thể override hoặc dùng luôn
+static method		Có thân hàm		Gọi qua Interface, không override được
+private method		Có thân hàm (Java 9+)	Dùng nội bộ trong interface, có thân hàm chủ yếu để interface k bị lặp lại code trong static, default method
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+📊 So sánh nhanh abstract class vs interface
+So sánh				abstract class				interface
+Kế thừa				extends					implements
+Số lượng kế thừa		Chỉ kế thừa 1 class			Có thể implements nhiều interface
+Có method cụ thể		✅ Có thể				❌ Trước Java 8 thì không có
+Có constructor			✅ Có					❌ Không
+Có biến (field)			✅ Có					✅ (chỉ static final thôi)
+Dùng khi nào?			Khi muốn chia sẻ code dùng chung	Khi muốn định nghĩa hành vi/phương thức
+Tính mở rộng			Dễ mở rộng logic có sẵn			Rất linh hoạt cho đa hình
+
