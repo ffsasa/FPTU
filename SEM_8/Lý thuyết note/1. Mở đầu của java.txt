@@ -19,7 +19,7 @@ p = nullptr; // Đặt con trỏ về NULL để tránh con trỏ lơ lửng (da
 📌 Nếu quên delete ➝ Rò rỉ bộ nhớ
 📌 Nếu delete nhiều lần ➝ Hành vi không xác định (undefined behavior)
 
-Khi bạn cấp phát bộ nhớ động (new) mà không thu hồi (delete), vùng nhớ đó vẫn tồn tại trong RAM nhưng không có con trỏ nào trỏ đến nó nữa. Điều này có nghĩa là:
+Khi bạn cấp phát bộ nhớ động (new) mà không thu hồi (delete), vùng nhớ đó vẫn tồn tại trong RAM nhưng không có con trỏ nào trỏ đến nó nữa (memory leak). Điều này có nghĩa là:
 
 Vùng nhớ đó không thể được sử dụng lại vì lập trình viên đã mất quyền truy cập.
 Hệ điều hành không thể tự động giải phóng nó trong khi chương trình còn đang chạy.
@@ -121,7 +121,7 @@ class C implements A, B {
 }
 📌 Cú pháp A.super.show(); gọi trực tiếp show() của A, tránh xung đột.
 
-🎯 Nếu A có default methodvàCoverride lại, liệu có chạy code trongA` không?
+🎯 Nếu A có default method và C override lại, liệu có chạy code trong A không?
 👉 Không! Nếu lớp C override lại phương thức show(), thì chỉ chạy code trong C, không tự động chạy code trong A.
 
 🔥 Nhưng nếu muốn chạy cả code trong A và C, ta có thể gọi A.super.show(); bên trong phương thức override.

@@ -93,6 +93,8 @@ for (int num : arr) {
     freq.put(num, freq.getOrDefault(num, 0) + 1);
 }
 int mostFrequent = Collections.max(freq.entrySet(), Map.Entry.comparingByValue()).getKey();
+
+Entry là 1 phần tử của map
 🔵 C#:
 var freq = arr.GroupBy(x => x).OrderByDescending(g => g.Count()).First().Key;
 Trong Java, Collectors.groupingBy() trả về một Map<K, List<T>>. Trong C#, GroupBy() trả về một tập hợp IEnumerable<IGrouping<K, T>>
