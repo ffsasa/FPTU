@@ -67,6 +67,52 @@ Có thể có nhiều hơn một cặp thỏa mãn.
 HashSet giúp tìm phần tử trong O(1).
 Two pointers có thể được dùng nếu mảng đã sắp xếp.
 
+🔵Bài làm:
+List<List<Integer>> list = new ArrayList<>();
+int[] nums = {3, 2, 4, 1, 6};
+int k = 5;
+
+for (int i = 0; i < nums.length; i++){
+	for (int j = nums.length - 1; j > i ; j--){
+		if(nums[i] + nums[j] == 5) {
+			List<Integer> pair = new ArrayList<>();
+            		pair.add(nums[i]);
+            		pair.add(nums[j]);
+            		list.add(pair);
+		}
+	}
+}
+
+return list;
+
+❌ Nhược điểm:
+Không dùng được cho mảng lớn (ví dụ 10^5 phần tử).
+Có thể lặp lại cặp (a, b) nếu nums[i] và nums[j] giống nhau hoặc có thứ tự khác.
+
+🟢Bài giải:
+
+List<List<Integer>> list = new ArrayList<>();
+Set<Integer> seen = new HashSet<>();
+Set<String> added = new HashSet<>(); // Để tránh thêm cặp trùng thứ tự
+
+for (int num : nums) {
+    int complement = k - num;
+    if (seen.contains(complement)) {
+        // Sắp xếp cặp để tránh thêm (3,2) và (2,3) là hai cặp khác nhau
+        int a = Math.min(num, complement);
+        int b = Math.max(num, complement);
+        String key = a + ":" + b;
+        if (!added.contains(key)) {
+            list.add(Arrays.asList(a, b));
+            added.add(key);
+        }
+    }
+    seen.add(num);
+}
+return list;
+
+-----------------------------------------------------------------------------------------------------------------
+
 3️⃣ Sắp xếp mảng không dùng thư viện
 🔹 Bài toán:
 Viết một hàm sắp xếp mảng nums theo thứ tự tăng dần mà không dùng thư viện có sẵn.
@@ -82,6 +128,38 @@ Output: [1, 2, 5, 5, 6, 9]
 🔹 Gợi ý:
 QuickSort (O(n log n)) là lựa chọn tối ưu.
 BubbleSort (O(n²)) không tốt với n lớn.
+
+🔵Bài làm:
+private static int partition(int[] arr, int low, int high){
+    int pi = arr[high];
+    int i = low -1;
+
+    for (int j = low; j<high; j++){
+        if(arr[j]<pi){
+            i++;
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
+    arr[high] = arr[i+1];
+    arr[i+1] = pi;
+
+    return i+1;
+}
+
+private static void quickSort(int[] arr, int low, int high){
+    if(low<high){
+        int pi = partition(arr, low, high);
+
+        quickSort(arr, low, pi-1);
+        quickSort(arr, pi+1, high);
+    }
+}
+
+❌ Nhược điểm:
+Bài bên trên phần thay đổi vị trí của pivot là đúng, nhưng trong trường hợp nó không phải kiểu dữ liệu nguyên thủy mà là 1 object thì kết quả sẽ là tham chiếu chứ không phải copy. Nếu là copy thì biến arr[high] thị thay đổi thì pi không bị ảnh hưởng gì. Nhưng nếu là tham chiếu thì cả 2 cùng chỉ tới 1 ô nhớ nên 1 trong 2 bị thay đổi sẽ ảnh hưởng đến cái còn lại.
+-----------------------------------------------------------------------------------------------------------------
 
 4️⃣ Tìm mảng con có tổng lớn nhất (Kadane’s Algorithm)
 🔹 Bài toán:
@@ -99,6 +177,21 @@ Output: 6
 🔹 Gợi ý:
 Kadane’s Algorithm (O(n)) là cách tối ưu nhất.
 
+🔵Bài làm:
+public static int maxSubArray(int[] nums) {
+    int currentSum = nums[0];
+    int maxSum = nums[0];
+
+    for (int i = 1; i < nums.length; i++) {
+        currentSum = Math.max(nums[i], currentSum + nums[i]);
+        maxSum = Math.max(maxSum, currentSum);
+    }
+
+    return maxSum;
+
+
+-----------------------------------------------------------------------------------------------------------------
+
 5️⃣ Tìm phần tử bị thiếu trong dãy 1-N
 🔹 Bài toán:
 Cho một mảng nums chứa N-1 số nguyên từ 1 đến N. Hãy tìm số bị thiếu.
@@ -115,3 +208,30 @@ Các số trong nums là duy nhất và nằm trong phạm vi [1, N].
 🔹 Gợi ý:
 Công thức tổng S = N * (N+1) / 2 giúp tìm số bị thiếu trong O(1).
 XOR (^) có thể giúp giải bài này mà không cần cộng dồn.
+
+🔵Bài làm:
+int n = nums.length + 1;
+int sumF = n*(n+1)/2;
+int sum = 0;
+for (int num : nums)
+    sum += num;
+
+return sumF- sum;
+
+🟢Bài giải:
+public static int findMissing(int[] nums) {
+    int xor1 = 0, xor2 = 0;
+    int n = nums.length + 1;
+
+    for (int i = 1; i <= n; i++) {
+        xor1 ^= i;
+    }
+
+    for (int num : nums) {
+        xor2 ^= num;
+    }
+
+    return xor1 ^ xor2;
+}
+
+Cách 2 sẽ trông hay hơn :v
