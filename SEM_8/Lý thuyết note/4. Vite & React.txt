@@ -1,4 +1,17 @@
 🚀 Quy trình hoạt động của Vite & React trong phát triển frontend
+
+⚙️ Vite:
+- Là dev server
+- Dùng esbuild để biên dịch JSX → JS
+- Gửi JS cho trình duyệt chạy
+- Tự động reload khi sửa file
+
+🧠 React:
+- Là thư viện viết UI
+- Cho phép dùng JSX
+- Cập nhật giao diện khi state/props thay đổi
+
+
 Khi bạn phát triển ứng dụng với React + Vite, mọi thứ hoạt động qua các bước sau:
 
 -----------------------------------------------------------------------------------------------------------------
