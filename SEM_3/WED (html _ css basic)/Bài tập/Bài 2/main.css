@@ -1,0 +1,28 @@
+* {
+    /* Comment/uncomment để xem thay đổi trên tab TRÌNH DUYỆT */
+    margin: 0;
+}
+
+.box {
+    height: 50px;
+}
+
+.box1 {
+    width: 25%;
+    background-color: green;
+}
+
+.box2 {
+    width: 50%;
+    background-color: violet;
+}
+
+.box3 {
+    width: 75%;
+    background-color: brown;
+}
+
+.box4 {
+    width: 100%;
+    background-color: orange;
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!-- 
+    Các thẻ cơ bản trong html
+    1.  h1 - h6 - heading: Font chữ từ 1 - 6 sử dụng cho đề mục
+    2.  p - paragraph: Sử dụng cho đoạn văn
+    3.  img - image: Link ảnh và alt trong trường hợp lỗi ảnh
+    4.  a - anchor: Neo 1 cái liên kết, thêm attribute target = "_blank" để link được mở ở 1 tab mới
+    5.  ul, li: List - In ra màn hình 1 danh sách (1 ul có nhiều li)
+    6.  ol. li: List nhưng có số thứ tự hoặc có thể thay đổi bằng attribute type
+    7.  table: Tạo 1 bảng có thead(th), tbody(tr trong tr có td)
+    8.  input: Gồm: Text, number, submit, reset, password, date, Checkbox, Radio. Các Radio trùng tên sẽ chỉ chọn được 1
+    9.  button: Tạo ra 1 nút để bấm
+    10. div: Tạo ra 1 khối để bao quanh các thành phần, sử dụng ruler để thấy các khối
+    11. br: Thẻ xuống dòng trong p
+    12. hr: Thẻ kẻ ra 1 đường ngang
+    13. small, big: To, nhỏ chữ
+    14. sub: Tạo ra subscript, chữ nhỏ ở thấp hơn
+    15. ins: gạch chân
+    16. del: gạch ngang chữ
+    17. mark: highlight chữ 
+    18. audio: để thêm âm thanh có 4 attribute là controls, autoplay, muted, loop
+    19. video: để thêm video có 4 attribute là controls, autoplay, muted, loop
+    20. dl, dt, dd: Thẻ dl ôm 2 thẻ dt và dd, thẻ dd sẽ được lùi vào coi như phần mô tả cho dt
+    21. iframe: Nhúng 1 trang web khác vào và sử dụng giống như 2 web song song trên 1 trang.
+                Thẻ a cũng có thể nhúng 1 file html khác trong máy tính vào để bật lên.
+    22. Form input <form>
+                    <h1>Đăng nhập<h1>
+                    <div>
+                        <label for="fname">First name:</label>
+                        <input type="text" id="fname" name="fname"><br>
+                    </div>
+                   </form>
+    23. text-shadow, box-shadow: 2 thuộc tính css đổ bóng
+
+
+ -->
+<html>
+
+<head>
+    <title>F8 - Shop</title>
+    <meta charset="utf-8">
+    <style>
+        /* CSS để thay đổi màu sắc của đường kẻ trong bảng */
+        table {
+            border-collapse: collapse;
+            /* Để các đường kẻ nối liền và không cách */
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            /* Đổi màu của đường kẻ thành màu xanh */
+        }
+
+        th:nth-child(1) {
+            background-color: yellow;
+            /* Đặt màu nền cho các hàng chẵn */
+        }
+        td:nth-child(1) {
+            background-color: yellow;
+            /* Đặt màu nền cho các hàng chẵn */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>F8 - Shop</h1>
+
+    <!-- Input -->
+    <input name="Gender" type="radio">
+    <input name="Gender" type="radio">
+    <input name="Gender" type="radio">
+
+    <p>Khác biệt trong khóa học Pro: trang học giao diện mới, bài học siêu chi tiết, thực hành nhiều dự án, bài tập có
+        gợi ý, đáp án và video chữa bài, v.v.</p>
+
+    <img src="https://fullstack.edu.vn/static/media/f8-icon.18cd71cfcfa33566a22b.png" alt="Logo F8">
+
+    <iframe src="" frameborder="0"></iframe>
+
+    <a href="https://fullstack.edu.vn/">Học lập trình</a>
+    <!-- Bỏ gạch chân mặc định của thẻ a
+        text-decoration: none; -->
+
+    <ul>
+        <!-- gõ li*4 để ra nhanh 4 li -->
+        <li>HTML, CSS là gì?</li>
+        <li>Cài đặt môi trường</li>
+        <li>Làm quen với dev tools</li>
+        <li>Tạo trang html đầu tiên</li>
+    </ul>
+
+    <table>
+        <!-- Phần đầu của bảng -->
+        <thead>
+            <!-- th là table heading -->
+            <th>STT</th>
+            <th>Tên</th>
+            <th>Địa chỉ</th>
+        </thead>
+
+        <tbody>
+            <!-- tr là table row -->
+            <tr>
+                <td>1</td>
+                <td>Ngọc An</td>
+                <td>Gia Lai</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Mai Thuy</td>
+                <td>Bình Định</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Hương Giang</td>
+                <td>Quảng Ngãi</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button>Lưu</button>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F8 - Shop</title>
+
+    <style>
+        body{
+            margin: 0;
+        }
+
+        .box{
+            height: 120px;
+            width: 100%;
+            background-color: rgb(190, 124, 157);
+        }
+
+        .box::before {
+            content: "";
+            display: block;
+            height: 50px;
+            width: 50px;
+            background-color: #fff;
+        }
+
+        .box::after{
+            content: "Xin chào";
+            color: white;
+            height: 60px;
+            width: 60px;
+            display: block;
+            background-color: cadetblue;
+        }
+
+        h1.Text::first-letter {
+            font-size: 50px;
+            color: aqua;
+        }
+
+        h1.Text::first-line {
+            color: red;
+        }
+
+        h1::selection {
+            background-color: burlywood;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+
+    <h1>CSS pseudo-elements</h1>
+    <h1 class="Text">Tạ Ngọc An<br>Dòng thứ 2<br>Dòng thứ 3</h2>
+
+    <ul>
+        <!-- Nếu có các thẻ khác trong box thì before luôn đứng
+        trước các thẻ này, và after thì luôn đứng sau. -->
+        <li>::before</li>
+        <li>::after</li>
+        <li>::first-letter</li>
+        <li>::first-line</li>
+        <!-- Những dòng nào được bôi đen, tức là được chọn thì sẽ được css -->
+        <li>::selection</li>
+    </ul>
+</body>
+</html>

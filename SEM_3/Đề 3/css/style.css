@@ -1,0 +1,116 @@
+/* content-header */
+#header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#header .text-header {
+    text-align: center;
+    width: 40%;
+}
+
+#header .text-header p {
+    font-size: 30px;
+    color: rgb(63, 148, 63);
+}
+
+#header .img-header {
+    width: 11%; 
+    margin: 0 60px;
+}
+
+#header .img-header img {
+    width: 150px;
+    height: 160px;
+    border-radius: 50%;
+    border: 1px solid #000;
+}
+
+
+/* content-menu */
+#menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(63, 148, 63);
+}
+
+#menu ul {
+    margin: 10px;
+    padding: 0;
+}
+
+#menu ul li {
+    display: inline-block;
+    padding: 0 25px;
+}
+
+#menu .text-menu a{
+    text-decoration: none;
+    color: white;
+}
+
+
+/* content-banner */
+#banner {
+    display: flex;
+}
+
+#banner img{
+    width: 50%;
+}
+
+
+/* detail */
+.detail {
+    margin-top: 16px;
+}
+
+.detail.img {
+    float: left;
+}
+
+.detail.img img {
+    width: 500px;
+    height: 500px;
+}
+
+.detail.content {
+    margin-left: 520px;
+}
+
+.detail.content {
+    font-size: 21px;
+}
+
+.detail.content h2 {
+    color: rgb(232, 97, 227);
+}
+
+.detail.content li {
+    list-style-type: circle;
+    color: rgb(0, 220, 220);
+    font-style: italic;
+    padding: 5px 0;
+}
+
+.detail.content li::marker { /* Các nút đằng trước ul-li */
+    color: #000;
+}
+
+
+/* footer */
+#footer {
+    text-align: center;
+    background-color:  rgb(63, 148, 63) ;
+    padding: 5px 0;
+}
+
+/* order */
+
+
+
+
+
+

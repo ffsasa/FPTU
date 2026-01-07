@@ -1,0 +1,102 @@
+/* Common */
+h1 {
+    color: red;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .menu {
+    margin-right: 144px;
+}
+
+.header img {
+    width: 40%;
+}
+
+.header button {
+    background-color: black;
+    color: white;
+}
+
+.slider img{
+    width: 100%;
+}
+
+
+/* Best sellers */
+.seller h1{
+    text-align: center;
+}
+
+.seller img{
+    width: 43%;
+    float: left;
+    border: 1px solid black;
+    box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.4);
+    margin-left: 45px;
+}
+
+.seller .text {
+    width: 45%;
+    margin-left: 750px;
+    border: 1px solid black;
+    box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.4);
+    padding-left: 16px;
+    padding-bottom: 38px;
+}
+
+.seller .text h2 {
+    color: blue;
+}
+
+.seller .text p {
+    border-bottom: 1px solid black;
+}
+
+
+/* Accessories */
+.accessories {
+    text-align: center;
+}
+
+.accessories .group-item {
+    display: flex;
+    justify-content: center;
+}
+
+.accessories .group-item .item {
+    display: flex;
+    width: 45%;
+    border: 1px solid black;
+    margin: 0 10px;
+    box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.4);
+}
+
+.group-item .item .image {
+    width: 50%;
+}
+
+.item .image img {
+    width: 100%;
+}
+
+.group-item .item .text {
+    text-align: left;
+    width: 50%;
+    margin-left: 5px;
+}
+
+
+/* Footer */
+.footer {
+    background-color: rgb(58, 104, 195);
+    text-align: center;
+    color: white;
+    padding: 5px 0;
+    margin-top: 64px;
+}

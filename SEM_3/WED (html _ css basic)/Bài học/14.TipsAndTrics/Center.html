@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F8 - Shop</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            background-color: orange;
+            height: 100px;
+            display: flex;
+        }
+
+        h3 {
+            margin: auto;
+            position: relative;
+        }
+
+        h3::before {
+            /* before bám lấy h3 và top bằng 50% h3, cần trừ 50% chiều cao chính nó
+            để căn vào giữa */
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: -4px;
+            content: "";
+            border-left: 3px solid black;
+            height: 10px;
+        }
+        /* Cách 1: text-align: center; và cho line-height = height của box.
+            .box {
+                background-color: orange;
+                height: 100px;
+                text-align: center;
+                line-height: 100px;
+            }
+         */
+
+        /* Cách 2: Thêm vào css cha display: flex; và css con margin: auto;
+            .box {
+                background-color: orange;
+                height: 100px;
+                display: flex;
+            }
+
+            h3 {
+                margin: auto;
+            }
+        */
+
+        /* Cách 3: Thêm vào css cha display: flex; và sử dụng justify-content, align-items
+            .box {
+                background-color: orange;
+                height: 100px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        */
+
+
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h3>Center me</h3>
+    </div>
+</body>
+
+</html>

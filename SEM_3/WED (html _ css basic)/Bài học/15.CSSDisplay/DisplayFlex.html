@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F8 - Shop</title>
+
+    <style>
+        .box {
+            height: 100px;
+            flex-basis: 50px;
+        }
+
+        .box1 {
+            background-color: aqua;
+        }
+        .box2 {
+            background-color: red;
+        }
+        .box3 {
+            background-color: orange;
+        }
+
+        .container {
+            height: 200px;
+            width: 100%;
+            border: 5px solid gray;
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <!-- Khi display: flex thì thẻ sẽ được đặt là inline nên kích thước sẽ bằng nội dung text -->
+    <h1>Display: flex</h1>
+    <img src="https://images.viblo.asia/0c116fbb-972d-4162-8506-bac8605cd704.png" alt="">
+    <ul>
+        <!-- flex-direction là chiều của các item trong flex: row, column. Có thể thêm reverse để xếp ngược thứ tự -->
+        <li>flex-direction</li>
+        <!-- flex-wrap cho phép các item nối liền có xuống dòng hay không wrap và nowrap -->
+        <li>flex-wrap</li>
+        <!-- flex-flow là gộp của wrap và direction: flex-flow: row wrap -->
+        <li>flex-flow</li>
+        <!-- justify-content sử dụng để sắp xếp bố cục các item theo trục main -->
+        <li>justify-content</li>
+        <!-- align-items sử dụng để sắp xếp bố cục các item theo trục cross -->
+        <li>align-items</li>
+        <!-- flex-basis,grow,shrink để set kích thước cho các item dù không có
+        text. Basis là kích thước mặc định của width, grow  phụ thuộc vào basis theo chiều ngang. -->
+        <li>flex-basis</li>
+        <li>flex-grow</li>
+        <!-- Shrink sẽ có tác dụng nếu item bị chàn. flex-shrink: 1; -->
+        <li>flex-shrink</li>
+        <!-- Order thêm vào từng item để sắp xếp vị trí. order: 2; -->
+        <li>order</li>
+    </ul>
+
+    <div class="container">
+        <div class="box box1"></div>
+        <div class="box box2"></div>
+        <div class="box box3"></div>
+    </div>
+
+</body>
+</html>

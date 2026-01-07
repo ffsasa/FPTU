@@ -1,0 +1,80 @@
+Requirement(PA) 
+Design(PA + Dev phụ)
+Implement/Code
+Testing
+Deploy/Maintaince
+Nếu cái mô hình mà các bạn chọn: 
+1. I suggest choosing Waterfall/Agile methodology, because:
+- REQUIREMENTS CHARACTERISTICS:
+	+ Requirements are clear and precise.(Water)| Requirements are unclear and 	     	 	inaccurate.(Agile)
+	+ Requirements are difficult changed.(Water)| Requirements are easily changed.(Agile)
+	+ This is a small project.(Water)| This is a big project.(Agile)
+	+ Requirements can be determined from the beginning.(Water)| Requirements cannot be 	determined from the beginning.(Agile)
+	+ Lấy ra minh chứng từ đề bài. Ví dụ đề bài đã cho chức năng của khách hàng: For customer, 	online booking management, membership management,... tương tự với các yêu cầu của các đối 	tượng khác.
+- DEVELOPMENT TEAM:
+	+ Quy mô: This is a small team.(Water)| This is a big team.(Agile)
+	+ mức độ hiểu biết (kinh nghiệm): This is a experienced team.(Waterfall)| This is a 	inexperienced team.(Agile)
+- USER INVOLVEMENT IN THE PROJECT: Phần này có thể có hoặc không nếu đề có nói thì ghi thêm.
+	+ There is no or little user involvement in the project because ... (Waterfall) |There is 	user involvement in the project because... example, it helps you figure out some missing 	requirements in the early stages.(Agile)
+(- The benefit of Agile over Waterfall is the ability to change dynamically to the customer's wants and needs:
+	+ Customer not able to identify all requirement in the early stage of the project. We need 	to take it from feedback in the future.
+	+ Team size is small. So, the Agile method is suitble for small group.
+
+- Advantages of the Waterfall model compared to the Agile model:
+	+ Easy to manage and predict: Waterfall has a clear and sequential structure, making the 	project easier to manage.
+	+ Suitable for projects with stable requirements: When requirements are less changing and 	stable, the Waterfall model is often more suitable.)
+
+=> Conclusion: 
+	+ The software development methodology I suggest for this situation is WATERFALL. This is a 	new project with clear requirements. We are a software development professional in this 	bussiness. So I think waterfall methodology is suitable for this situation. (Water)
+
+	+ The software development methodology I suggest for this situation is AGILE. This is a new 	and big project, so it needs brain-storming, user surveys, changed many times; need to get 	feedback continuously after each time cycle to make adjustments. Also, to ensure the project 	is completed on time and within budget. The benefit of agile over waterfall is the ability 	to change dynamically to the customer's wants and needs. A focus on the features that are 	the highest value to the customer. So our new service could be stable, secure, and ease to 	use.(Agile)
+
+REQUIREMENTS CHARATERISTICS (đặc điểm yêu cầu):
+	+ Độ chính xác và rõ ràng của yêu cầu. Đề bài nêu rõ chức năng của từng đối tượng sử dụng web thì yêu cầu là rõ ràng. Ngược lại nếu chỉ nói ví dụ tôi cần 1 web bán hàng thì yêu cầu không rõ ràng.	
+	+ Có các loại yêu cầu nào: FUNCTIONAL, NON-FUNCTIONAL... (chia theo role người dùng)
+	+ Độ tin cậy của các loại yêu cầu này. Là yêu cầu có khả thi hay không khả thi.
+	+ Các yêu cầu này đã rõ ràng chưa, có dễ bị thay đổi không...
+	+ Các yêu cầu có thể được xác định từ ban đầu hay không
+DEVELOPMENT TEAM (đội ngũ phát triển):
+	+ Quy mô của nhóm phát triển: số lượng, vai trò...
+	+ Mức độ hiểu biết của nhóm phát triển, kinh nghiệm của nhóm...
+USER INVOLVEMENT IN THE PROJECT (sự tham gia của người dùng vào dự án) 
+	+ Xác định xem người dùng có tham gia vào dự án hay không
+	+ Đánh giá kich thước của dự án: nhỏ, trung bình, lớn... 
+	( nếu số lượng nhóm phát triển tương đương với số lượng yêu cầu 	-> trung bình,	5ng  - 5cv  => 1ng = 1cv
+	  nếu số lượng nhóm phát triển nhiều hơn số lượng yêu cầu 		-> nhỏ, 	10ng - 2cv  => 1ng = 0.2cv
+	  nếu số lượng nhóm phát triển ít hơn số lượng yêu cầu 			-> lớn ) 	5ng  - 20cv => 1ng = 4cv
+-> Chốt lại vấn đề, đưa ra đề xuất mô hình phù hợp với tình huống hiện tại...
+
+
+Chỉ chọn WATERFALL khi:
++ Yêu cầu bắt buộc phải rõ ràng rồi, ít thay đổi thôi
++ Có đội support để cùng làm rõ yêu cầu
++ Team phải là một team phát triển chuyên nghiệp, có kinh nghiệm
++ Quy mô dự án: nhỏ, trung bình
+
+Còn lại: Chọn AGILE
+
+2. 
+- 4 functional requirements for [role:employee]: Chức năng cần xem, sửa, xóa data, Cần truy cập data
++ 
++ 
++ 
++
+
+- 2 non-functional requirements of system: Những tiêu chí mà dự án cần đạt được
++ Ví dụ: hệ thống cần sử dụng được cho nhiều trình duyệt, giao diện thân thiện, có thể nhận 100 truy cập cùng lúc,...
++ Example: The system needs to be usable for multiple browsers. The system needs to have a friendly interface. The system needs to be able to receive 100 accesses at the same time,...
+
+3.
+2 user stories of employee role: Sử dụng funtion của role để viết user stories.
++ As a [role], I want to [action], so that [purpose]
+Ex: 
+	+ As a employee, I want to view my schedule of working, so that I can calculate my salary.
+	+ As a employee, I want to view my shift by month, by week, by day, so that I can adjust your work accordingly
+
+5.
+a) I do not clearly agree with this require, I will choose waterfall/agile method for this situation. Because ... sử dụng lại các ý ở câu 1 vì sao nên chọn (Tóm tắt lại câu 1 theo các viết khác, nếu không hiểu thì có thể copy phần kết luận.)
++ Because the requirements are very clearly and pre-defined. In addition, our team are a software development professional in this business. So I think waterfall methodology is suitable for this situation.(Waterfall)
++ Because customer requirements are not clear and have not been determined from the beginning. Additionally, our team is a large team without much experience. So I think Agile methodology is suitable for this situation.(Agile)
+b) I suggest black-box testing for this project. Because, in this project,(the requirement is clearly, pre-dfined, easy to understand,team size is small.). And [role] cares much about the functional requirements. A professional team helps testing process is easier.

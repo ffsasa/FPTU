@@ -1,0 +1,68 @@
+- Bước 1: Tìm thư viện javamail.
+- Bước 2: Chọn downloand và chọn file javax.mail.jar.
+- Bước 3: Thêm thư viện vào project, có thể dependence để thêm thư viện này vào dự án.
+- Bước 4: Tạo Email cho trang web, sử dụng email này để gửi email.
+- Bước 5: Vào phần bảo mật, tạo xác minh 2 bước, sau đó Click "Mật khẩu ứng dụng", chọn loại "Thư" và cho ứng dụng "khác", đặt tên ứng dụng là tên phần mềm bạn làm.
+- Bước 6: Sau khi xác nhận sẽ nhận được phần mật khẩu nó tự tạo.
+- Bước 7: Comment MK và Email vào class được code để gửi email.
+- Bước 8: Sử dụng chuẩn TLS để gửi email (phần này tự tìm hiểu TLS, SSL, không cần thực hiện bước này)
+- Bước 9: Code
+- Bước 10: Đoạn code dưới để chạy thử, cần biến nó thành 1 function có 2 tham số địa chi email gần gửi email, và nội dung. Hoặc tùy biến theo nhu cầu.
+(Phải search maven repository, tìm thư viện javax.activation và thêm nó vào nữa, có thể dùng dependence)
+
+package util;
+
+public class Email {
+//Email: ngocan2003krp@gmail.com |Ví dụ
+//Password: iqwjfknasldniaskd	 |
+
+public static void main(String[] args){
+		
+		final String from="ngocan2003krp@gmail.com";
+		final String password="iqwjfknasldniaskd";
+				
+		//Khai báo các thuộc tính: Properties
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtp.gmail.com"); //smtp host (tự tìm hiểu)
+		props.put("mail.smtp.post", "587");//Thêm port: TLS 587/ SSL 456
+		props.put("mail.smtp.auth", "true");//True có nghĩa khi sử dụng host được set bên trên vẫn phải đăng nhập gmail
+		props.put("mail.smtp.starttls.enable", "true");
+
+		//Create Authenticator
+		Authenticator auth = new Authenticator(){
+			//Vào source chọn overide, chọn getPasswordAuthentication(), sau đó overide lại return
+			return new PasswordAuthentication(from,password);
+		}
+		
+		//Tạo phiên làm việc
+		Session session = Session.getInstance()
+
+		//Gửi email
+		final String to ="levumaithuy@gmail.com";
+
+		MimeMessage msg = new MimeMessage(session);
+		try{
+			//Kiểu nội dung
+			msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+			//Người gửi
+			msg.setFrom(from);
+			//Ở đây sử dụng kiểu "TO" ngoài ra còn BCC, CC,... trước khi dùng lại thằng này hãy lên mạng tìm hiểu
+			//Người nhận
+			msg.setRecipient(Message.RecipientType.TO, InternetAddress.parse(to,false));
+			//Tiêu đề email
+			msg.setSubject("Email thử nghiệm");
+			//Quy định ngày gửi
+			msg.setSentDate(new Date());
+			//Quy định email sẽ nhận reply của khách hàng
+			//msg.setReplyTo(InternetAddress.parse(<Email>,false));
+			//Nội dung
+			msg.setText("Đây là phần nội dung", "UTF-8");//Tin nhắn bth
+			msg.setContent("<Cho đoạn code html, có thể chưa link>, "text/html; charset=UTF-8");//Gửi bằng dạng code
+			//Gửi email
+			Transport.send(msg);
+		} catch (Exception e){
+			e.prin....
+		}
+	}
+}
+

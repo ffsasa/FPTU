@@ -1,0 +1,18 @@
+/* Nếu sử dụng trong lớp giả root thì đây là biến global */
+:root {
+    --text-coler: violet;
+}
+
+h1 {
+    /* Tạo ở trong 1 selector cụ thể */
+    --my-color: black;
+    color: var(--my-color);
+}
+
+h2 {
+    color: var(--text-coler);
+}
+
+h3 {
+    color: var(--text-coler);
+}

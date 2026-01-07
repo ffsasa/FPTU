@@ -1,0 +1,124 @@
+.navbar-brand img {
+    width: 84px;
+    height: 56px;
+  }
+  
+  .navbar-nav>li {
+    padding-top: 12px;
+  }
+  
+  .navbar-nav>li>a{
+    color: #33b792;
+  }
+  
+  .navbar-right {
+    padding-top: 12px;
+  }
+
+
+  /* Common */
+
+  .row h1 {
+    color: #f57c00;
+  }
+
+  p {
+    font-size: 20px;
+    line-height: 1.5;
+    text-align: justify;
+  }
+
+
+  /* First content */
+
+  .first-content .left-content div {
+    text-align: center;
+  }
+
+  .first-content .right-content {
+    background-color: #cafdff;
+  }
+
+  .first-content .right-content>h3{
+    color: #cb7024;
+    border-bottom: 3px solid rgb(1, 179, 179);
+    font-size: 22px;
+  }
+
+  .right-content .item {
+    display: flex;
+    margin-top: 30px;
+  }
+
+  .right-content .item h3 {
+    font-size: 20px;
+  }
+
+  .right-content .item img{
+    width: 100px;
+    height: 108px;
+    border-radius: 55%;
+    margin-right: 16px;
+  }
+
+
+  /* Second content */
+
+  .second-content {
+    text-align: center;
+  }
+
+  .second-content .container .image {
+    padding: 0px;
+  }
+
+
+  /* Third content */
+
+  .third-content {
+    text-align: center;
+  }
+
+
+  /* Footer */
+
+  .footer {
+    background-color: #089f98;
+    margin: 10px 0;
+    padding: 2px 0;
+  }
+
+  .footer p,
+  .footer h5 {
+    text-align: center;
+    font-size: 15px;
+    margin: 10px 0;
+    color: white;
+  }
+
+
+  /* Responsive */
+  .navbar-toggle {
+    margin-top: 16px;
+    background-color: green;
+  }
+
+  .navbar-toggle .icon-bar{
+    display: block;
+    background-color: white;
+  }
+
+  .first-content .left-content img {
+    width: 75%;
+  }
+
+  /* 2 tấm hình col-lg-6 phải thêm col-xs-6 
+     1 tấm hình col-lg-12 phải thêm col-xs-12
+     
+     Vì 2 thằng này mình xét màn hình lg nên phải đặt thêm màn hình xs
+     Không giống những thằng hình khác set trực tiếp width và height
+  */
+
+
+
+

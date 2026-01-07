@@ -1,0 +1,129 @@
+/* common */
+h1 {
+    color:  rgb(14, 192, 195);
+    padding: 16px;
+}
+
+h3 {
+    color: orange;
+}
+
+img {
+    width: 100%;
+}
+
+p {
+    font-size: 18px;
+}
+
+/* header */
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px 20px;
+}
+
+#header .image-header img {
+    width: 110px;
+    height: 80px;
+}
+
+#header .search {
+    height: 50px;
+    margin-left: 120px;
+}
+
+#header .search input{
+    margin-top: 30px;
+    margin-right: 40px;
+    width: 160%;
+} 
+
+.form-control-feedback {
+    right: -153px;
+}
+
+#header .text h3 {
+    margin-bottom: 0;
+}
+
+/* menu */
+#menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(14, 192, 195);
+}
+
+#menu .navbar {
+    margin-bottom: 0;
+}
+
+/* description */
+#description {
+    text-align: center;
+}
+
+#description p {
+    text-align: justify;
+    margin: 0 2%;
+    margin-bottom: 2%;
+}
+
+/* container */
+
+/* best-seller */
+.best-seller {
+    text-align: center;
+}
+
+.best-seller img{
+    float: left;
+    width: 100%;
+}
+
+.best-seller .text {
+    text-align: justify;
+}
+
+/* accessories */
+.accessories {
+    text-align: center;
+}
+
+.accessories .text {
+    text-align: center;
+}
+
+.accessories .text .text-child {
+    text-align: justify;
+}
+
+.accessories .text-child h4 {
+    color: red;
+}
+
+.accessories img {
+    width: 80%;
+}
+
+/* footer */
+#footer {
+    text-align: center;
+    background-color:  rgb(14, 192, 195);
+    color: white;
+    padding: 8px 0;
+    margin-top: 8px;
+}
+
+#footer p,
+#footer h5 {
+    font-size: 16px;
+}
+
+
+
+
+
+

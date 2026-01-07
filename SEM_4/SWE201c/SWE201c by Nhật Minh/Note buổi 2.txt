@@ -1,0 +1,11 @@
+Note buổi 2:
+
+Câu 5:
+
+a, Đầu tiên phải xác nhận là mình có đồng ý với method mà người ta đề nghị không
+Phải khẳng định lại method mà mình chọn
+Chú ý: Câu 1 chọn gì thì phải bảo vệ luận điểm của mình.
+
+b, Bạn sẽ chọn kiểu kiểm thử nào cho project này?
+- Black box (functional testing): kiểm tra chức năng, kiểm tra tương tác người dùng, không cần quan tâm đến code và logic
+- White box (non-functional testing): Kiểm tra cả thiết kế project, code, thuật toán, cách thực hiện

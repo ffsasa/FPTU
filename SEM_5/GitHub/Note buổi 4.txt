@@ -1,7 +1,0 @@
-1.Cấu hình GITIGNORE để bỏ qua các file không cần giám sát
-- Để bỏ qua 1 số file khi add và commit ta cần add tên các file đó vào file gitignor.
-- Bước 1: Tạo file .gitignor -> touch .gitignore
-- Bước 2: Để bỏ qua file nào ta dùng lệnh echo ghi vào .gitignore. Với thư mục echo "ThuMuc/" >> .gitignore, với tập tin echo "Test.txt" >> .gitignore, với 1 loại file echo "*.txt" >> .gitignore. Phải dùng ">>" để ghi nối tiếp sau những dòng trước, tránh xóa đi những file đã được ghi vào trước.
-- Bước 3: Sau khi add và commit, tất cả những loại tập tin/thư mục được thêm vào .gitignore sẽ bị git coi như không tồn tại. Những thư mục rỗng bị bỏ qua, nếu trong thư mục chỉ chứa những loại tập tin đã bị bỏ qua thì coi như thư mục đó cũng rỗng. 
-
-*Chú ý: Nếu bạn tạo .gitignore ở thư mục cha, thì các thư mục con cũng sẽ bị dò xét và bỏ qua các loại file, tên file, tên thư mục đã được add vào .gitignore

@@ -1,0 +1,25 @@
+form {
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+label {
+    width: 100px;
+}
+
+div {
+    padding: 5px;
+}
+
+input {
+    line-height: 30px;
+    width: 300px;
+}
+
+button {
+    margin: auto;
+}
+
+.button {
+    margin-left: 180px;
+}
